@@ -1,0 +1,21 @@
+.navbar{
+    font-size: 1.2rem;
+
+}
+
+.navbar-logo{
+    font-size: 2rem;
+    margin-left: 20px;
+    margin-right: 50px;
+}
+
+.navbar-btn{
+    background-color: #f95757;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    margin: 5px;
+    min-width: 100px;
+    height: 40px;
+}
+
