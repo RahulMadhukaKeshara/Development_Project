@@ -1,6 +1,17 @@
 import React from 'react';
 import '../../App.css';
+import FeaturedProducts from '../FeaturedProducts';
+import HeroSection from '../HeroSection';
+import NewArrivals from '../NewArrivals';
 
 export default function HomePage() {
-  return <h1 className='/'>Home Page</h1>;
+  return (
+
+    <>
+      <HeroSection/>
+      <FeaturedProducts/>
+      <NewArrivals/>
+    </>
+
+  );
 }

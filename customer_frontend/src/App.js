@@ -20,6 +20,7 @@ function App() {
                     <Route path='/login' exact component={LoginPage}/>
 
                </Switch>
+               
            </Router>
         </>
     )
