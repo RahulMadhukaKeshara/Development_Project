@@ -7,33 +7,33 @@ function NewArrivals() {
   return (
     <>
 
-        <Container >
+        <Container className='container-md'>
             <h1 className='feature_title'>New Arrivals</h1>
-            <Row>
-                <Col xs={6} md={3}>
+            <Row className="justify-content-md-center">
+                <Col lg={3} md={6} className="col">
                     <NewArriveCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="col">
                 <NewArriveCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="col">
                 <NewArriveCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="col">
                 <NewArriveCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />

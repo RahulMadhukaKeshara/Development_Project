@@ -15,7 +15,7 @@ function NavigationBar() {
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     <Button variant="outline-info">Search</Button>
                 </Form>
-                <Nav className="mr-auto">
+                <Nav className="navbar-links mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/products">All Items</Nav.Link>
                     <NavDropdown title="Categories" id="collasible-nav-dropdown">
@@ -25,7 +25,7 @@ function NavigationBar() {
                     </NavDropdown>
                 </Nav>
                 
-                <Nav>
+                <Nav className="">
                     <Button className="navbar-btn" href="/sign-up">Sign Up</Button>
                     <Button className="navbar-btn" href="/login">Login</Button>
                 </Nav>

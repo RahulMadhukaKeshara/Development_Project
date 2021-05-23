@@ -1,8 +1,15 @@
+.col {
+    text-align: center;
+    text-align: -webkit-center;
+    height: 400px;
+}
 
 
 .new_arrival_card{
-    height: 250px;
     margin-bottom:150px;
+    border: 3px solid #f95757;
+    min-width: 200px;
+    max-width: 225px;
 
 }
 
@@ -12,7 +19,7 @@
 }
 
 .new_arrival_card_img{
-    height: 100%;
+    height: 220px;
 }
 
 .new_arrival_card_body{
@@ -27,7 +34,7 @@
 }
 
 .new_arrival_card_price{
-    color: brown;
+    color: #f95757;
     font-size: 1.15rem;
     display: flex;
     float: left;
@@ -40,6 +47,8 @@
    width: 80px;
    border-radius: 40px;
    height: 40px;
+   background-color: #f95757;
+   border: none;
 }
 
 .new_arrival_title{

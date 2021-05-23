@@ -1,0 +1,43 @@
+.category_col {
+    text-align: center;
+    text-align: -webkit-center;
+    height: 300px;
+}
+
+
+
+.category_card{
+    margin-bottom: 150px;
+    border-radius: 20px;
+    min-width: 200px;
+    max-width: 250px;
+    height: 225px;
+}
+
+.category_card:hover{
+    transform: scale(1.05);
+    transition: 75ms;
+    
+}
+
+.category_card_img{
+    height: 225px;
+    border-radius: 20px;
+    border: 2px solid #f95757;
+}
+
+.category_card_body{
+
+
+}
+
+.h5, h5 {
+
+    font-size: 1.15rem;
+    align-items: center;
+  
+}
+
+.category_title{
+    margin-bottom: 75px;
+}

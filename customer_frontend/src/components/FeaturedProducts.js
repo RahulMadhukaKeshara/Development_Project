@@ -7,33 +7,33 @@ function FeaturedProducts() {
   return (
     <>
 
-        <Container >
+        <Container className='container-md'>
             <h1 className='feature_title'>Featured Products</h1>
-            <Row>
-                <Col xs={6} md={3}>
+            <Row  className="justify-content-md-center">
+                <Col lg={3} md={6} className="featured_col">
                     <FeaturedCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                    src='./images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                    src='https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/1.jpg'
+                     src='./images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />

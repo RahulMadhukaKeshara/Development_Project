@@ -9,6 +9,9 @@
     margin-right: 50px;
 }
 
+.navbar-links{
+    margin: 0 auto;
+}
 .navbar-btn{
     background-color: #f95757;
     border: none;
