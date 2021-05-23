@@ -3,6 +3,7 @@
     color: #fff;
     justify-content:center ;
     
+    
 }
 
 .footer_title{
@@ -25,7 +26,7 @@
     color: #fff;
 }
 
-a:hover{
+.footer_lists:hover{
     color: #f95757;
     text-decoration: none;
 }

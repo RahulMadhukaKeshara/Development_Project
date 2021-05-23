@@ -1,6 +1,16 @@
 import React from 'react';
 import '../../App.css';
+import Footer from '../Footer';
+import LoginForm from '../LoginForm';
 
 export default function LoginPage() {
-  return <h1 className='login'>Login Page</h1>;
+  return (
+        <>
+            <LoginForm/>
+            <Footer/>
+        </>
+
+
+  );
+
 }

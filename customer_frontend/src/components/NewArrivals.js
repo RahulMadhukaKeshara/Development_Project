@@ -10,28 +10,28 @@ function NewArrivals() {
         <Container className='container-md'>
             <h1 className='feature_title'>New Arrivals</h1>
             <Row className="justify-content-md-center">
-                <Col lg={3} md={6} className="col">
+                <Col lg={3} md={6} className="new_arrive_col">
                     <NewArriveCardItems
                     src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col lg={3} md={6} className="col">
+                <Col lg={3} md={6} className="new_arrive_col">
                 <NewArriveCardItems
                     src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col lg={3} md={6} className="col">
+                <Col lg={3} md={6} className="new_arrive_col">
                 <NewArriveCardItems
                     src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
-                <Col lg={3} md={6} className="col">
+                <Col lg={3} md={6} className="new_arrive_col">
                 <NewArriveCardItems
                     src='./images/Cat02.jpg'
                     title='Butterfly Embroidered Tee'

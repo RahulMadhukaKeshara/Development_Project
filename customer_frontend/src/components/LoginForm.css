@@ -1,0 +1,140 @@
+.login_form_container{
+    width: 50%;
+    margin: 174px auto 100px auto;
+    background-color: transparent;
+    border: 3px solid #f95757;
+    border-radius: 0px 70px 0px 70px;
+    padding: 50px 0px;
+}
+
+.login_form{
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.login_form_input{
+   width:80%;
+   margin: 30px auto;
+   
+}
+
+
+
+.login_form_btns{
+    display: flex;
+    justify-content: center;
+}
+
+.login_form_btn1{
+    background-color: #fff;
+    color: #f95757;
+    border: 2px solid #f95757;
+    outline: none;
+    margin: 0px 10px;
+    min-width: 150px;
+    border-radius: 40px;
+    height: 40px;
+}
+
+.login_form_btn2{
+    
+    background-color: #f95757;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 0px 10px;
+    min-width: 150px;
+    border-radius: 40px;
+    height: 40px;
+}
+
+.login_form_text{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.login_form_text > p {
+    color: #f95757;
+}
+
+.login_form_textlink {
+    color: #f95757;
+    text-decoration: underline;
+}
+
+
+@media only screen and (max-width:768px) {
+
+
+    .login_form_container{
+
+        width: 70%;
+
+    }
+
+     .login_form_btns{
+       display: contents;
+       text-align: center;
+
+    }
+    
+    .login_form_btn1{
+
+        width: 80%;
+        margin: 0px;
+        margin-top: 10px;
+
+    }
+    
+    .login_form_btn2{
+        
+        width: 80%;
+        margin: 0px;       
+        margin-top: 10px;
+
+
+    }
+
+
+}
+
+@media only screen and (max-width:576px) {
+
+    .login_form_container{
+
+        width: 90%;
+        font-size: 0.90rem;
+
+    }
+    
+     
+     .login_form_btns{
+       display: contents;
+       text-align: center;
+
+    }
+    
+    .login_form_btn1{
+
+        width: 80%;
+        margin: 0px;
+        margin-top: 10px;
+
+    }
+    
+    .login_form_btn2{
+        
+        width: 80%;
+        margin: 0px;       
+        margin-top: 10px;
+
+
+    }
+
+}
+
+
+
+
