@@ -1,17 +1,16 @@
 import React from 'react';
 import '../../App.css';
-
-import ViewProducts from '../ViewProducts';
+import ViewSuppliers from '../ViewSuppliers';
 import Footer from '../Footer';
 
 
-export default function ProductsPage() {
+export default function SuppliersPage() {
   return (
   
       <>
-        <ViewProducts/>
+  
+        <ViewSuppliers/>
         <Footer/>
-
   
       </>
   

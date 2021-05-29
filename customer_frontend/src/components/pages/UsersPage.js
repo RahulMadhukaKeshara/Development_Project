@@ -1,17 +1,16 @@
 import React from 'react';
 import '../../App.css';
-
-import ViewProducts from '../ViewProducts';
+import ViewUsers from '../ViewUsers';
 import Footer from '../Footer';
 
 
-export default function ProductsPage() {
+export default function UsersPage() {
   return (
   
       <>
-        <ViewProducts/>
+  
+        <ViewUsers/>
         <Footer/>
-
   
       </>
   

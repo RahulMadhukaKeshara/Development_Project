@@ -17,7 +17,7 @@
 .category_card:hover{
     transform: scale(1.05);
     transition: 75ms;
-    
+   
 }
 
 .category_card_img{

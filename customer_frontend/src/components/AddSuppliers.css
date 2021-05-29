@@ -1,31 +1,25 @@
-.signup_form_container{
-    
+.add_product_category_form_container{
     width: 70%;
-    margin: 125px auto 50px auto !important;
+    margin: 25px auto 50px auto;
     background-color: transparent;
     border: 3px solid #f95757;
     border-radius: 0px 70px 0px 70px;
     padding: 50px 0px;
 }
 
-.signup_form{
+.add_product_category_form{
     width: 90%;
     margin: 0 auto;
     color: #f95757;
 }
 
 
-.signup_form_title{
-
-    text-align: center;
-    
-}
-.signup_form_btns{
+.add_product_category_form_btns{
     display: flex;
     justify-content: center;
 }
 
-.signup_form_btn1{
+.add_product_category_form_btn1{
     
     background-color: #f95757;
     color: #fff;
@@ -36,34 +30,23 @@
     border-radius: 40px;
     height: 40px;
 }
-.signup_form_sub_text{
-    margin-bottom: 25px;
-}
-.signup_form_text{
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-}
 
-.signup_form_text > p {
-    color: #f95757;
-}
+.add_product_category_title{
 
-.signup_form_textlink {
-    color: #f95757;
-    text-decoration: underline;
+    text-align: center;
+    margin-top: 100px;
 }
 
 @media only screen and (max-width:576px) {
 
-    .signup_form_container{
+    .add_product_category_form_container{
 
         width: 90%;
         font-size: 0.90rem;
 
     }
     
-    .signup_form_input{
+    .add_product_category_form_input{
         font-size: 0.90rem;
     }
 

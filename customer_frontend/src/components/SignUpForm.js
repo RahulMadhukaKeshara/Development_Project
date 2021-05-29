@@ -9,49 +9,58 @@ function SignUpForm() {
 
                 <Form className='signup_form'>
 
+                    <h6 className="signup_form_sub_text">Fill all the details below...</h6>
                     <Form.Row>
-
-                        <Form.Group as={Col} controlId="formGridFname">
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpFname">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control className='signup_form_input' type="text" placeholder="First Name" />
+                            <Form.Control  type="text" placeholder="First Name"  />
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="formGridLname">
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpLname">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control className='signup_form_input' type="text" placeholder="Last Name" />
+                            <Form.Control  type="text" placeholder="Last Name" />
                         </Form.Group>
-                        
+                        </Col>
                     </Form.Row>
+
                     <Form.Row>
-
-                        <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control className='signup_form_input' type="email" placeholder="Enter Email" />
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpEmail">
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control  type="Email" placeholder="Email Address"  />
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="formGridMobileNum">
-                            <Form.Label>Mobile</Form.Label>
-                            <Form.Control className='signup_form_input' type="text" placeholder="Mobile Number" />
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpMobile">
+                            <Form.Label>Mobile Number</Form.Label>
+                            <Form.Control  type="text" placeholder="Mobile Number" />
                         </Form.Group>
-
-
-
+                        </Col>
                     </Form.Row>
-                    
-                    <Form.Row>
 
-                        <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpPass">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control className='signup_form_input' type="password" placeholder="Password" />
+                            <Form.Control  type="password" placeholder="Password"  />
                         </Form.Group>
 
-                        <Form.Group  as={Col} controlId="formGridConfirmPassword">
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="signUpConfirmPass">
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control className='signup_form_input' type="password" placeholder="Confirm Password" />
+                            <Form.Control  type="password" placeholder="Confirm Password" />
                         </Form.Group>
-
-
+                        </Col>
                     </Form.Row>
+
 
                     <div className='signup_form_btns'>             
                         <Button className='signup_form_btn1' type="submit">Sign Up</Button>
@@ -62,7 +71,10 @@ function SignUpForm() {
                     </div>
 
                 </Form>
-            </div>
+        </div>
+
+
+
             
         </>
     )
