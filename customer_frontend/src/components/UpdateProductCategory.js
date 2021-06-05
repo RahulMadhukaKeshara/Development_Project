@@ -16,15 +16,7 @@ function UpdateProductCategory() {
 
                     <Form.Row>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="updateProductCatID">
-                            <Form.Label>Product Category ID</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" defaultValue='PCID1'  />
-                        </Form.Group>
-
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
+                        <Col sm={12} >
                         <Form.Group  controlId="updateProductCatName">
                             <Form.Label>Product Category Name</Form.Label>
                             <Form.Control className='add_product_category_form_input' type="text" defaultValue='Men' />
@@ -34,7 +26,7 @@ function UpdateProductCategory() {
                     </Form.Row>
 
                     <div className='add_product_category_form_btns'>             
-                        <Button className='add_product_category_form_btn1' type="submit">Add Product Category</Button>
+                        <Button className='add_product_category_form_btn1' type="submit">Update</Button>
                     </div>
 
                 </Form>

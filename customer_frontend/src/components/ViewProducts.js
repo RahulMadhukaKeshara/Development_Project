@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -24,21 +24,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
+import axios from 'axios';
 
-function createData(product_id, product_name, product_category, product_qty, product_col ,product_size, product_img , prodct_price,prodct_discount, product_re_level, product_re_qty, product_published, product_new,product_featured) {
-  return { product_id, product_name, product_category, product_qty, product_col ,product_size, product_img , prodct_price,prodct_discount, product_re_level, product_re_qty, product_published, product_new,product_featured };
-}
-
-const rows = [
-  createData('PID1', 'Butterfly Neck', 'Women', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID2', 'Butterfly Neck', 'Women', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID3', 'Butterfly Neck', 'Women', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID4', 'Butterfly Neck', 'Women', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID5', 'Butterfly Neck', 'Men', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID6', 'Butterfly Neck', 'Men', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID7', 'Butterfly Neck', 'Men', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-  createData('PID8', 'Butterfly Neck', 'Men', '15', '-', 'S , M','-', '900.00', '30', '05', '15', 'yes', 'new', 'yes'),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,20 +54,21 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'product_id', numeric: true, disablePadding: true, label: 'Product ID' },
-  { id: 'product_name', numeric: false, disablePadding: false, label: 'Product Name' },
-  { id: 'product_category', numeric: false, disablePadding: false, label: 'Product Category' },
-  { id: 'product_qty', numeric: false, disablePadding: false, label: 'Quantity' },
-  { id: 'product_col', numeric: false, disablePadding: false, label: 'Colors' },
-  { id: 'product_size', numeric: false, disablePadding: false, label: 'Sizes' },
-  { id: 'product_img', numeric: false, disablePadding: false, label: 'Images' },
-  { id: 'prodct_price', numeric: false, disablePadding: false, label: 'Price(LKR.)' },
-  { id: 'prodct_discount', numeric: false, disablePadding: false, label: 'Discount(%)' },
-  { id: 'product_re_level', numeric: false, disablePadding: false, label: 'Reorder Level' },
-  { id: 'product_re_qty', numeric: false, disablePadding: false, label: 'Reorder Quantity' },
-  { id: 'product_published', numeric: false, disablePadding: false, label: 'Published' },
-  { id: 'product_new', numeric: false, disablePadding: false, label: 'New' },
-  { id: 'product_featured', numeric: false, disablePadding: false, label: 'Featured' },
+  { id: '_id', numeric: true, disablePadding: true, label: 'Product ID' },
+  { id: 'product_Name', numeric: false, disablePadding: false, label: 'Product Name' },
+  { id: 'product_Category', numeric: false, disablePadding: false, label: 'Product Category' },
+  { id: 'product_Description', numeric: false, disablePadding: false, label: 'Product Description' },
+  { id: 'product_Quantity', numeric: false, disablePadding: false, label: 'Quantity' },
+  { id: 'product_Colors', numeric: false, disablePadding: false, label: 'Colors' },
+  { id: 'product_Sizes', numeric: false, disablePadding: false, label: 'Sizes' },
+  { id: 'product_Img', numeric: false, disablePadding: false, label: 'Images' },
+  { id: 'product_Price', numeric: false, disablePadding: false, label: 'Price(LKR.)' },
+  { id: 'product_Discount', numeric: false, disablePadding: false, label: 'Discount(%)' },
+  { id: 'product_Re_Level', numeric: false, disablePadding: false, label: 'Reorder Level' },
+  { id: 'product_Re_Quantity', numeric: false, disablePadding: false, label: 'Reorder Quantity' },
+  { id: 'product_Published', numeric: false, disablePadding: false, label: 'Published' },
+  { id: 'product_New', numeric: false, disablePadding: false, label: 'New' },
+  { id: 'product_Featured', numeric: false, disablePadding: false, label: 'Featured' },
 ];
 
 function EnhancedTableHead(props) {
@@ -261,9 +249,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewProducts() {
+
+ const [products , setProducts] = useState([]);
+
+ const getProductData = async () => {
+  try {
+    const data = await axios.get(
+      "http://localhost:5000/products/"
+    );
+    console.log(data.data);
+    setProducts(data.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+useEffect(() => {
+  getProductData();
+}, []);
+
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('product_id');
+  const [orderBy, setOrderBy] = React.useState('_id');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -277,19 +285,19 @@ export default function ViewProducts() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.product_id);
+      const newSelecteds = products.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, product_id) => {
-    const selectedIndex = selected.indexOf(product_id);
+  const handleClick = (event, _id) => {
+    const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, product_id);
+      newSelected = newSelected.concat(selected, _id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -315,9 +323,9 @@ export default function ViewProducts() {
 
 
 
-  const isSelected = (product_id) => selected.indexOf(product_id) !== -1;
+  const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, products.length - page * rowsPerPage);
 
   return (
 
@@ -350,23 +358,23 @@ export default function ViewProducts() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={products.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(products, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.product_id);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.product_id)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.product_id}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -376,21 +384,22 @@ export default function ViewProducts() {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.product_id}
+                        {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.product_name}</TableCell>
-                      <TableCell align="center">{row.product_category}</TableCell>
-                      <TableCell align="center">{row.product_qty}</TableCell>
-                      <TableCell align="center">{row.product_col}</TableCell>
-                      <TableCell align="center">{row.product_size}</TableCell>
-                      <TableCell align="center">{row.product_img}</TableCell>
-                      <TableCell align="center">{row.prodct_price}</TableCell>
-                      <TableCell align="center">{row.prodct_discount}</TableCell>
-                      <TableCell align="center">{row.product_re_level}</TableCell>
-                      <TableCell align="center">{row.product_re_qty}</TableCell>
-                      <TableCell align="center">{row.product_published}</TableCell>
-                      <TableCell align="center">{row.product_new}</TableCell>
-                      <TableCell align="center">{row.prodct_discount}</TableCell>
+                      <TableCell align="center">{row.product_Name}</TableCell>
+                      <TableCell align="center">{row.product_Category}</TableCell>
+                      <TableCell align="center">{row.product_Quantity}</TableCell>
+                      <TableCell align="center">{row.product_Description}</TableCell>
+                      <TableCell align="center">{row.product_Colors}</TableCell>
+                      <TableCell align="center">{row.product_Sizes}</TableCell>
+                      <TableCell align="center">{row.product_Img}</TableCell>
+                      <TableCell align="center">{row.product_Price}</TableCell>
+                      <TableCell align="center">{row.product_Discount}</TableCell>
+                      <TableCell align="center">{row.product_Re_Level}</TableCell>
+                      <TableCell align="center">{row.product_Re_Quantity}</TableCell>
+                      <TableCell align="center">{row.product_Published}</TableCell>
+                      <TableCell align="center">{row.product_New}</TableCell>
+                      <TableCell align="center">{row.product_Discount}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -405,7 +414,7 @@ export default function ViewProducts() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={products.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

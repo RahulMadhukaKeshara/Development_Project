@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -24,18 +24,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
+import Axios from 'axios';
 
-function createData(supplier_id, supplier_name , supplier_description, supplier_contact, supplier_email, supplier_address) {
-  return { supplier_id, supplier_name , supplier_description, supplier_contact, supplier_email, supplier_address };
-}
-
-const rows = [
-  createData('SID1', 'Rahul', '-', '0717947126', 'rahulkeshara@gmail.com', '318/A,Kossinna,Ganemulla'),
-  createData('SID2', 'Madhuka', '-', '0717947126', 'rahulkeshara@gmail.com', '318/A,Kossinna,Ganemulla'),
-  createData('SID3', 'Keshara', '-', '0717947126', 'rahulkeshara@gmail.com', '318/A,Kossinna,Ganemulla'),
-  createData('SID4', 'Dhanuka', '-', '0717947126', 'rahulkeshara@gmail.com', '318/A,Kossinna,Ganemulla'),
-  createData('SID5', 'Thathsarana', '-', '0717947126', 'rahulkeshara@gmail.com', '318/A,Kossinna,Ganemulla'),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -64,12 +54,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'supplier_id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'supplier_name', numeric: false, disablePadding: false, label: 'Name' },
-  { id: 'supplier_descripton', numeric: false, disablePadding: false, label: 'Description' },
-  { id: 'supplier_contact', numeric: false, disablePadding: false, label: 'Contact Number' },
-  { id: 'supplier_email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'supplier_address', numeric: false, disablePadding: false, label: 'Adderss' },
+  { id: '_id', numeric: true, disablePadding: true, label: 'ID' },
+  { id: 'supplier_Name', numeric: false, disablePadding: false, label: 'Name' },
+  { id: 'supplier_Description', numeric: false, disablePadding: false, label: 'Description' },
+  { id: 'supplier_Contact', numeric: false, disablePadding: false, label: 'Contact Number' },
+  { id: 'supplier_Email', numeric: false, disablePadding: false, label: 'Email' },
+  { id: 'supplier_Address', numeric: false, disablePadding: false, label: 'Adderss' },
 ];
 
 function EnhancedTableHead(props) {
@@ -250,9 +240,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewSuppliers() {
+
+  const [suppliers, setSuppliers] = useState([]);
+ // const [search, setSearch] = useState("");
+
+  const getProductData = async () => {
+    try {
+      const data = await Axios.get(
+        "http://localhost:5000/suppliers/"
+      );
+      console.log(data.data);
+      setSuppliers(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('supplier_id');
+  const [orderBy, setOrderBy] = React.useState('_id');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -266,19 +276,19 @@ export default function ViewSuppliers() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.supplier_id);
+      const newSelecteds = suppliers.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, supplier_id) => {
-    const selectedIndex = selected.indexOf(supplier_id);
+  const handleClick = (event, _id) => {
+    const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, supplier_id);
+      newSelected = newSelected.concat(selected, _id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -304,9 +314,9 @@ export default function ViewSuppliers() {
 
 
 
-  const isSelected = (supplier_id) => selected.indexOf(supplier_id) !== -1;
+  const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, suppliers.length - page * rowsPerPage);
 
   return (
 
@@ -339,23 +349,23 @@ export default function ViewSuppliers() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={suppliers.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(suppliers, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.supplier_id);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.supplier_id)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.supplier_id}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -365,13 +375,13 @@ export default function ViewSuppliers() {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.supplier_id}
+                        {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.supplier_name}</TableCell>
-                      <TableCell align="center">{row.supplier_description}</TableCell>
-                      <TableCell align="center">{row.supplier_contact}</TableCell>
-                      <TableCell align="center">{row.supplier_email}</TableCell>
-                      <TableCell align="center">{row.supplier_address}</TableCell>
+                      <TableCell align="center">{row.supplier_Name}</TableCell>
+                      <TableCell align="center">{row.supplier_Description}</TableCell>
+                      <TableCell align="center">{row.supplier_Contact}</TableCell>
+                      <TableCell align="center">{row.supplier_Email}</TableCell>
+                      <TableCell align="center">{row.supplier_Address}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -386,7 +396,7 @@ export default function ViewSuppliers() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={suppliers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

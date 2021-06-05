@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -24,24 +24,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
+import Axios from 'axios';
 
-function createData(user_id, user_type , user_status , user_fname , user_lname , user_contact , user_email , user_address , user_city ,user_postal_code) {
-  return { user_id, user_type , user_status , user_fname , user_lname , user_contact , user_email , user_address , user_city ,user_postal_code };
-}
-
-const rows = [
-  createData('UID1', 'Customer', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID2', 'Customer', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID3', 'Customer', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID4', 'Customer', 'verified', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID5', 'Customer', 'verified', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID6', 'Customer', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID7', 'Delivery Staff', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID8', 'Delivery Staff', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID9', 'Delivery Staff', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  createData('UID10', 'Owner', 'New', 'Rahul', 'Madhuka', '0717947126','rahul@gmail.com', '318/A,Kossinna,Ganemulla', 'Gampaha', '11721'),
-  
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -70,16 +54,18 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'user_id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'user_type', numeric: false, disablePadding: false, label: 'Type' },
-  { id: 'user_status', numeric: false, disablePadding: false, label: 'Status' },
-  { id: 'user_fname', numeric: false, disablePadding: false, label: 'First Name'},
-  { id: 'user_lname', numeric: false, disablePadding: false, label: 'Last Name' },
-  { id: 'user_contact', numeric: false, disablePadding: false, label: 'Contact Number' },
-  { id: 'user_email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'user_address', numeric: false, disablePadding: false, label: 'Address' },
-  { id: 'user_city', numeric: false, disablePadding: false, label: 'City' },
-  { id: 'user_postal_code', numeric: false, disablePadding: false, label: 'Postal Code' },
+  { id: '_id', numeric: true, disablePadding: true, label: 'ID' },
+  { id: 'user_Type', numeric: false, disablePadding: false, label: 'Type' },
+  { id: 'user_Status', numeric: false, disablePadding: false, label: 'Status' },
+  { id: 'user_Fname', numeric: false, disablePadding: false, label: 'First Name'},
+  { id: 'user_Lname', numeric: false, disablePadding: false, label: 'Last Name' },
+  { id: 'user_Gender', numeric: false, disablePadding: false, label: 'Gender' },
+  { id: 'user_Contact', numeric: false, disablePadding: false, label: 'Contact Number' },
+  { id: 'user_Email', numeric: false, disablePadding: false, label: 'Email' },
+  { id: 'user_Address', numeric: false, disablePadding: false, label: 'Address' },
+  { id: 'user_City', numeric: false, disablePadding: false, label: 'City' },
+  { id: 'user_Postal', numeric: false, disablePadding: false, label: 'Postal Code' },
+  { id: 'user_Password', numeric: false, disablePadding: false, label: 'Password' },
 
 
 ];
@@ -262,9 +248,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewUsers() {
+
+  const [users, setUsers] = useState([]);
+  // const [search, setSearch] = useState("");
+ 
+   const getProductData = async () => {
+     try {
+       const data = await Axios.get(
+         "http://localhost:5000/users/"
+       );
+       console.log(data.data);
+       setUsers(data.data);
+     } catch (e) {
+       console.log(e);
+     }
+   };
+ 
+   useEffect(() => {
+     getProductData();
+   }, []);
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('user_id');
+  const [orderBy, setOrderBy] = React.useState('_id');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -278,19 +284,19 @@ export default function ViewUsers() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.user_id);
+      const newSelecteds = users.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, user_id) => {
-    const selectedIndex = selected.indexOf(user_id);
+  const handleClick = (event, _id) => {
+    const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, user_id);
+      newSelected = newSelected.concat(selected, _id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -316,9 +322,9 @@ export default function ViewUsers() {
 
 
 
-  const isSelected = (user_id) => selected.indexOf(user_id) !== -1;
+  const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
 
   return (
 
@@ -351,23 +357,23 @@ export default function ViewUsers() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={users.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(users, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.user_id);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.user_id)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.user_id}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -377,17 +383,19 @@ export default function ViewUsers() {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.user_id}
+                        {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.user_type}</TableCell>
-                      <TableCell align="center">{row.user_status}</TableCell>
-                      <TableCell align="center">{row.user_fname}</TableCell>
-                      <TableCell align="center">{row.user_lname}</TableCell>
-                      <TableCell align="center">{row.user_contact}</TableCell>
-                      <TableCell align="center">{row.user_email}</TableCell>
-                      <TableCell align="center">{row.user_address}</TableCell>
-                      <TableCell align="center">{row.user_city}</TableCell>
-                      <TableCell align="center">{row.user_postal_code}</TableCell>
+                      <TableCell align="center">{row.user_Type}</TableCell>
+                      <TableCell align="center">{row.user_Status}</TableCell>
+                      <TableCell align="center">{row.user_Fname}</TableCell>
+                      <TableCell align="center">{row.user_Lname}</TableCell>
+                      <TableCell align="center">{row.user_Gender}</TableCell>
+                      <TableCell align="center">{row.user_Contact}</TableCell>
+                      <TableCell align="center">{row.user_Email}</TableCell>
+                      <TableCell align="center">{row.user_Address}</TableCell>
+                      <TableCell align="center">{row.user_City}</TableCell>
+                      <TableCell align="center">{row.user_Postal}</TableCell>
+                      <TableCell align="center">{row.user_Password}</TableCell>
 
                     </TableRow>
                   );
@@ -403,7 +411,7 @@ export default function ViewUsers() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={users.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

@@ -25,15 +25,8 @@ function UpdateProduct() {
                     </Form.Row>
 
                     <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="updateProductID">
-                            <Form.Label>Product ID</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Product ID"  />
-                        </Form.Group>
 
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
+                        <Col sm={12}>
                         <Form.Group  controlId="updateProductName">
                             <Form.Label>Product Name</Form.Label>
                             <Form.Control className='add_product_category_form_input' type="text" placeholder="Product Name" />
@@ -91,13 +84,7 @@ function UpdateProduct() {
                         <Col sm={12} lg={6} md={6}>
                             <Form.Group  controlId="updateProductColours">
                             <Form.Label>Available Colours</Form.Label>
-                            <div key={`inline-checkbox`} className="mb-3 add_product_category_checkbox" style={{marginTop:'5px'} } >
-                                <Form.Check inline label="Black" name="group1" type='checkbox' className="add_product_category_checkboxname" id={`inline-checkbox-1`} />
-                                <Form.Check inline label="Red" name="group1" type='checkbox' className="add_product_category_checkboxname"  id={`inline-checkbox-2`} />
-                                <Form.Check inline label="Green" name="group1" type='checkbox' className="add_product_category_checkboxname"  id={`inline-checkbox-3`} />
-                                <Form.Check inline label="White" name="group1" type='checkbox' className="add_product_category_checkboxname"  id={`inline-checkbox-4`} />
-                                <Form.Check inline label="Yellow" name="group1" type='checkbox' className="add_product_category_checkboxname"  id={`inline-checkbox-5`} />
-                            </div>
+                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Product Colors"  />
                             </Form.Group>
                         </Col>
 

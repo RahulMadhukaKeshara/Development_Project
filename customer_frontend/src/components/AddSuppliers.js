@@ -1,10 +1,45 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddSuppliers.css';
+import Axios from 'axios';
 
 
 
 function AddSuppliers() {
+
+    const url = 'http://localhost:5000/suppliers/add';
+    const [data , setData] = useState({
+
+        supplier_Name : "",
+        supplier_Description : "",
+        supplier_Contact : "",
+        supplier_Email : "",
+        supplier_Address : ""
+
+    })
+
+    function handleChange(e) {
+        const newData = {...data};
+        newData[e.target.id] = e.target.value;
+        setData(newData);
+        console.log(newData)
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        Axios.post(url,{
+            
+            supplier_Name : data.supplier_Name,
+            supplier_Description : data.supplier_Description,
+            supplier_Contact : data.supplier_Contact,
+            supplier_Email : data.supplier_Email,
+            supplier_Address : data.supplier_Address
+
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+    }
     return (
         <>
 
@@ -12,52 +47,46 @@ function AddSuppliers() {
             <h1 className="add_product_category_title">Add Supplier</h1>
             <div className='add_product_category_form_container'>
 
-                <Form className='add_product_category_form'>
+                <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type='submit'>
 
                     <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierID">
-                            <Form.Label>Supplier ID</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Supplier ID"  />
-                        </Form.Group>
 
-                        </Col>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierName">
+                        <Col sm={12}>
+                        <Form.Group  controlId="supplier_Name">
                             <Form.Label>Supplier Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Supplier Name" />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Name} type="text" placeholder="Supplier Name" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
 
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierEmail">
+                        <Form.Group  controlId="supplier_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Email Address"  />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Email} type="text" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierContact">
+                        <Form.Group  controlId="supplier_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Contact Number" />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Contact} type="text" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
 
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierAddress">
+                        <Form.Group  controlId="supplier_Address">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' type="text" placeholder="Address..."  />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Address} type="text" placeholder="Address..."  />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addSupplierDescription">
+                        <Form.Group  controlId="supplier_Description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' type="text" placeholder="Description..." />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Description} type="text" placeholder="Description..." />
                         </Form.Group>
                         </Col>
                     </Form.Row>

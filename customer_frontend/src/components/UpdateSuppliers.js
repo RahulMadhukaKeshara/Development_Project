@@ -15,14 +15,7 @@ function UpdateSuppliers() {
                 <Form className='add_product_category_form'>
 
                     <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="updateSupplierID">
-                            <Form.Label>Supplier ID</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Supplier ID"  />
-                        </Form.Group>
-
-                        </Col>
-                        <Col sm={12} lg={6} md={6}>
+                        <Col sm={12} >
                         <Form.Group  controlId="updateSupplierName">
                             <Form.Label>Supplier Name</Form.Label>
                             <Form.Control className='add_product_category_form_input' type="text" placeholder="Supplier Name" />

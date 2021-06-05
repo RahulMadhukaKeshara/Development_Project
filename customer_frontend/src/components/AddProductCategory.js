@@ -1,33 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddProductCategory.css';
+import Axios from 'axios';
 
 
 
 function AddProductCategory() {
+
+    const url = 'http://localhost:5000/productCategories/add';
+    const [data , setData] = useState({
+
+        product_category_Name : ""
+
+    })
+
+    function handleChange(e) {
+        const newData = {...data};
+        newData[e.target.id] = e.target.value;
+        setData(newData);
+        console.log(newData)
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        Axios.post(url,{
+            product_category_Name : data.product_category_Name
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+
+  
+    }
+
     return (
         <>
-
-
             <h1 className="add_product_category_title">Add Product Category</h1>
             <div className='add_product_category_form_container'>
 
-                <Form className='add_product_category_form'>
+                <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type='submit'>
 
                     <Form.Row>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addProductCatID">
-                            <Form.Label>Product Category ID</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Product Category ID"  />
-                        </Form.Group>
-
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addProductCatName">
+                        <Col sm={12}>
+                        <Form.Group  controlId="product_category_Name">
                             <Form.Label>Product Category Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Product Category Name" />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_category_Name} type="text" placeholder="Product Category Name" />
                         </Form.Group>
                         </Col>
 
@@ -36,7 +54,7 @@ function AddProductCategory() {
 
 
                     <div className='add_product_category_form_btns'>             
-                        <Button className='add_product_category_form_btn1' type="submit">Add Product Category</Button>
+                        <Button className='add_product_category_form_btn1' type="submit" >Add</Button>
                     </div>
 
                 </Form>

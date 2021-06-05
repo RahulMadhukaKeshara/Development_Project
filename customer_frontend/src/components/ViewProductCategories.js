@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -24,8 +24,11 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
+import axios from 'axios';
 
-function createData(product_category_id, product_category_name) {
+
+/*function createData(product_category_id, product_category_name) {
+
   return { product_category_id, product_category_name};
 }
 
@@ -33,7 +36,8 @@ const rows = [
   createData('PC1', 'Men'),
   createData('PC2', 'Women'),
   createData('PC3', 'Couple'),
-];
+  createData('PC4', 'Kids')
+];*/
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -62,8 +66,8 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'product_category_id', numeric: true, disablePadding: true, label: 'Product Category ID' },
-  { id: 'product_category_name', numeric: false, disablePadding: false, label: 'Product Category Name' },
+  { id: '_id', numeric: true, disablePadding: true, label: 'Product Category ID' },
+  { id: 'product_category_Name', numeric: false, disablePadding: false, label: 'Product Category Name' },
 ];
 
 function EnhancedTableHead(props) {
@@ -248,9 +252,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewProductCategories() {
+
   const classes = useStyles();
+  const [product, setProduct] = useState([]);
+
+  const getProductData = async () => {
+    try {
+      const data = await axios.get(
+        "http://localhost:5000/productCategories/"
+      );
+      console.log(data.data);
+      setProduct(data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
+
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('product_category_name');
+  const [orderBy, setOrderBy] = React.useState('product_category_Name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -264,19 +287,19 @@ export default function ViewProductCategories() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.product_category_id);
+      const newSelecteds = product.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, product_category_id) => {
-    const selectedIndex = selected.indexOf(product_category_id);
+  const handleClick = (event, _id) => {
+    const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, product_category_id);
+      newSelected = newSelected.concat(selected, _id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -302,9 +325,9 @@ export default function ViewProductCategories() {
 
 
 
-  const isSelected = (product_category_id) => selected.indexOf(product_category_id) !== -1;
+  const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, product.length - page * rowsPerPage);
 
   return (
 
@@ -337,23 +360,23 @@ export default function ViewProductCategories() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={product.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(product, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.product_category_id);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.product_category_id)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.product_category_id}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -363,9 +386,9 @@ export default function ViewProductCategories() {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.product_category_id}
+                        {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.product_category_name}</TableCell>
+                      <TableCell align="center">{row.product_category_Name}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -380,7 +403,7 @@ export default function ViewProductCategories() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={product.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

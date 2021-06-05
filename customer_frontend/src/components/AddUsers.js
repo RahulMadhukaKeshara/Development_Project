@@ -1,8 +1,57 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddUsers.css';
+import Axios from 'axios';
 
 function AddUsers() {
+
+    const url = 'http://localhost:5000/users/add';
+    const [data , setData] = useState({
+
+        user_Type : "",
+        user_Status : "",
+        user_Fname : "",
+        user_Lname : "",
+        user_Gender : "",
+        user_Contact : "", 
+        user_Email : "",
+        user_Address : "",
+        user_City : "",
+        user_Postal : "",
+        user_Password : ""
+
+    })
+
+    function handleChange(e) {
+        const newData = {...data};
+        newData[e.target.id] = e.target.value;
+        setData(newData);
+        console.log(newData)
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        Axios.post(url,{
+            
+            user_Type : data.user_Type,
+            user_Status : data.user_Status,
+            user_Fname : data.user_Fname,
+            user_Lname : data.user_Lname,
+            user_Gender : data.user_Gender,
+            user_Contact : data.user_Contact, 
+            user_Email : data.user_Email,
+            user_Address : data.user_Address,
+            user_City : data.user_City,
+            user_Postal : data.user_Postal,
+            user_Password : data.user_Password
+
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+    }
+
+
     return (
         <>
 
@@ -12,24 +61,24 @@ function AddUsers() {
 
                 
 
-                <Form className='add_product_category_form'>
+                <Form className='add_product_category_form'  onSubmit={(e) => handleSubmit(e)} type='submit'>
 
 
                     <h4 className="add_product_category_sub_title">Personal Details</h4>
                     <Form.Row>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserFname">
+                        <Form.Group  controlId="user_Fname">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="First Name"  />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Fname} type="text" placeholder="First Name"  />
                         </Form.Group>
 
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserLname">
+                        <Form.Group  controlId="user_Lname">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Last Name" />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Lname} type="text" placeholder="Last Name" />
                         </Form.Group>
                         </Col>
 
@@ -41,27 +90,27 @@ function AddUsers() {
                     <Form.Row>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserEmail">
+                        <Form.Group  controlId="user_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Email Address"  />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Email} type="text" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserContact">
+                        <Form.Group  controlId="user_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" placeholder="Contact Number" />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Contact} type="text" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
 
                     </Form.Row>
 
                     <Form.Row>
-    
-                    <div key={`inline-radio`} className="mb-3 add_product_category_radio">
-                    <Form.Check inline label="Male" name="group1" type='radio' className="add_product_category_radioname" id={`inline-radio-1`} />
-                    <Form.Check inline label="Female" name="group1" type='radio' className="add_product_category_radioname"  id={`inline-radio-2`} />
+
+                    <div key={`inline-radio`} className="mb-3 add_product_category_radio" >
+                    <Form.Check inline label="Male" onChange={(e) => handleChange(e)}  value={data.user_Gender} name="group1" type='radio' className="add_product_category_radioname" id={`inline-radio-1`} />
+                    <Form.Check inline label="Female" onChange={(e) => handleChange(e)}  value={data.user_Gender} name="group1" type='radio' className="add_product_category_radioname"  id={`inline-radio-2`} />
                     </div>
 
                     </Form.Row>
@@ -72,9 +121,10 @@ function AddUsers() {
                     <Form.Row>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserType">
+                        <Form.Group  controlId="user_Type">
                             <Form.Label>User Type</Form.Label>
-                            <Form.Control as="select" defaultValue="Delivery Staff">
+                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Type} >
+                                    <option>Select...</option>
                                     <option>Customer</option>
                                     <option>Delivery Staff</option>
                                     <option>Admin</option>
@@ -84,9 +134,10 @@ function AddUsers() {
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserType">
+                        <Form.Group  controlId="user_Status">
                             <Form.Label>User Status</Form.Label>
-                            <Form.Control as="select" defaultValue="New">
+                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Status} >
+                                    <option>Select...</option>
                                     <option>New</option>
                                     <option>Verified</option>
                             </Form.Control>
@@ -100,17 +151,17 @@ function AddUsers() {
                     <Form.Row>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserPass">
+                        <Form.Group  controlId="user_Password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control  type="password" placeholder="Password" />
+                            <Form.Control  type="password" onChange={(e) => handleChange(e)}  value={data.user_Password} placeholder="Password" />
                         </Form.Group>
 
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="addUserConfirmPass">
+                        <Form.Group  controlId="user_ConfirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control  type="password" placeholder="Confirm Password" />
+                            <Form.Control  type="password"  placeholder="Confirm Password" />
                         </Form.Group>
                         </Col>
 
