@@ -1,6 +1,9 @@
 import React from 'react';
 import {Card , Button} from 'react-bootstrap';
 import '../components/FeaturedCardItems.css';
+//import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
+
 
 function FeaturedCardItems(props) {
   return (
@@ -13,7 +16,11 @@ function FeaturedCardItems(props) {
 
           <Card.Title className='featured_card_title'>{props.title}</Card.Title>
           <Card.Text className='featured_card_price'>LKR : {props.price}</Card.Text>
-          <Button className='featured_card_btn' variant="primary">VIEW</Button>
+
+          <Link to={props.id}>
+            <Button className='featured_card_btn' variant="primary">VIEW</Button>
+          </Link>
+          
 
         </Card.Body>
 

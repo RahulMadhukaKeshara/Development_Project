@@ -1,0 +1,13 @@
+.featured_col {
+    text-align: center;
+    text-align: -webkit-center;
+    height: 400px;
+}
+.feature_title{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 75px;
+}
+.display_pagination{
+    margin-left: 10px;
+}

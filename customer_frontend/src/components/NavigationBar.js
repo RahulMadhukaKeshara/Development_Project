@@ -17,7 +17,7 @@ function NavigationBar() {
                 </Form>
                 <Nav className="navbar-links mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/add-product-categories">All Items</Nav.Link>
+                    <Nav.Link href="/display-items">All Items</Nav.Link>
                     <NavDropdown title="Categories" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="/owner-main-page">Men</NavDropdown.Item>
                         <NavDropdown.Item href="/products">Women</NavDropdown.Item>

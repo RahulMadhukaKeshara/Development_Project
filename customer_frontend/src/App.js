@@ -18,6 +18,8 @@ import AddSuppliersPage from './components/pages/AddSuppliersPage';
 import UpdateSuppliersPage from './components/pages/UpdateSuppliersPage';
 import AddProductsPage from './components/pages/AddProductsPage';
 import UpdateProductsPage from './components/pages/UpdateProductsPage';
+import DisplayItemsPage from './components/pages/DisplayItemsPage';
+import ProductDetailsPage from './components/pages/ProductDetailsPage';
 
 
 
@@ -45,6 +47,8 @@ function App() {
                     <Route path='/update-suppliers' exact component={UpdateSuppliersPage}/>
                     <Route path='/add-products' exact component={AddProductsPage}/>
                     <Route path='/update-products' exact component={UpdateProductsPage}/>
+                    <Route path='/display-items' exact component={DisplayItemsPage}/>
+                    <Route path='/product-details/:id' exact component={ProductDetailsPage}/>
 
 
 
