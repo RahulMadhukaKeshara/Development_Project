@@ -1,5 +1,21 @@
 const router = require('express').Router();
 let Product = require('../models/products.model');
+const multer = require("multer");
+
+/*const upload = multer({
+    limits: {
+      fileSize: 1000000, // max file size 1MB = 1000000 bytes
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(jpeg|jpg)$/)) {
+        cb(new Error("only upload files with jpg or jpeg format."));
+      }
+      cb(undefined, true); // continue with upload
+    },
+  });*/
+
+
+
 
 router.route('/').get((req,res) => {
     Product.find()
@@ -7,8 +23,9 @@ router.route('/').get((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
-router.route('/add').post((req,res) => {
 
+router.route('/add').post((req,res) => {
+    
     const product_Img = req.body.product_Img;
     const product_Name = req.body.product_Name;
     const product_Category = req.body.product_Category;
@@ -43,6 +60,7 @@ router.route('/add').post((req,res) => {
         product_New,
 
     });
+
 
     newProduct.save()
     .then(() => res.json('Product Added!'))

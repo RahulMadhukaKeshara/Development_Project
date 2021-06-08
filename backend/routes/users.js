@@ -13,7 +13,6 @@ router.route('/add').post((req,res) => {
     const user_Status = req.body.user_Status;
     const user_Fname = req.body.user_Fname;
     const user_Lname = req.body.user_Lname;
-    const user_Gender = req.body.user_Gender;
     const user_Contact = req.body.user_Contact; 
     const user_Email = req.body.user_Email;
     const user_Address = req.body.user_Address; 
@@ -27,7 +26,6 @@ router.route('/add').post((req,res) => {
         user_Status, 
         user_Fname, 
         user_Lname,
-        user_Gender, 
         user_Contact, 
         user_Email, 
         user_Address, 
@@ -62,7 +60,6 @@ router.route('/update/:id').post((req,res) => {
         users.user_Status = req.body.user_Status;
         users.user_Fname = req.body.user_Fname;
         users.user_Lname = req.body.user_Lname;
-        users.user_Gender = req.body.user_Gender;
         users.user_Contact = req.body.user_Contact; 
         users.user_Email = req.body.user_Email;
         users.user_Address = req.body.user_Address; 

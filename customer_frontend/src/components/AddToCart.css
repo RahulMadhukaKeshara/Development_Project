@@ -1,0 +1,37 @@
+
+.addToCart_container{
+    text-align: center;
+}
+
+.addToCart_col1{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+
+.addToCart_col2{
+    padding: 10px;
+}
+
+.img1{
+    width: 150px;
+    height: 150px;
+}
+
+.addToCart_oldprice{
+    text-decoration: line-through;
+}
+
+@media only screen and (max-width:576px) {
+
+    .addToCart_container{
+        text-align: center;
+    }
+    
+    .addToCart_col1{
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+    }
+}

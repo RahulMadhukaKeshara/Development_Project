@@ -2,11 +2,15 @@ import React,{useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddSuppliers.css';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
+
 
 
 
 function AddSuppliers() {
 
+    const history = useHistory();
     const url = 'http://localhost:5000/suppliers/add';
     const [data , setData] = useState({
 
@@ -38,8 +42,25 @@ function AddSuppliers() {
         })
         .then(res => {
             console.log(res.data)
+            if (res.data === "Supplier Added!") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Supplier Added!',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                  })
+                  history.push('/suppliers');
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="">Why do I have this issue?</a>'
+                  })
+            }
         })
     }
+
     return (
         <>
 
@@ -63,7 +84,7 @@ function AddSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Email} type="text" placeholder="Email Address"  />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Email} type="email" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>

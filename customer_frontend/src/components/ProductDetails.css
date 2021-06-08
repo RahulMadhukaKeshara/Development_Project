@@ -1,13 +1,16 @@
 .pro_detail_container{
     margin-top: 100px;
-    border: 2px solid black;
-    width: 85%;  
+    border: 2px solid #f95757;
+    width: 60%;  
+    border-radius: 20px;
+
 }
 
 .pro_detail_container2{
     margin-top: 25px;
-    border: 2px solid black;
-    width: 85%;  
+    border: 2px solid #f95757;
+    width: 60%;  
+    border-radius: 20px;
 }
 
 .detail_col{
@@ -25,10 +28,10 @@
     padding: 5px;
 }
 
-.imgset2{
+.imgset{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+
 }
 
 .product_det_oldprice{

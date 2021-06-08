@@ -30,7 +30,7 @@ function DisplayItems(props) {
         <>
     
             <Container className='container-md'>
-                <h1 className='feature_title'>All Products</h1>
+                <h1 className='feature_title'>All Items</h1>
                 <Row  className="justify-content-md-center">
                 { 
                 

@@ -9,7 +9,7 @@ const productsSchema = new Schema({
     product_Category: {type:String , required: true},
     product_Quantity: {type:Number , required: true},
     product_Description: {type:String , required: true},
-    product_Sizes: {type:String , required: true},
+    product_Sizes: {type:String ,required: true},
     product_Colors: {type:String , required: true},
     product_Price: {type:Number , required: true},
     product_Discount: {type:Number},

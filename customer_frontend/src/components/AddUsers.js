@@ -12,7 +12,6 @@ function AddUsers() {
         user_Status : "",
         user_Fname : "",
         user_Lname : "",
-        user_Gender : "",
         user_Contact : "", 
         user_Email : "",
         user_Address : "",
@@ -37,7 +36,6 @@ function AddUsers() {
             user_Status : data.user_Status,
             user_Fname : data.user_Fname,
             user_Lname : data.user_Lname,
-            user_Gender : data.user_Gender,
             user_Contact : data.user_Contact, 
             user_Email : data.user_Email,
             user_Address : data.user_Address,
@@ -103,15 +101,6 @@ function AddUsers() {
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Contact} type="text" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
-
-                    </Form.Row>
-
-                    <Form.Row>
-
-                    <div key={`inline-radio`} className="mb-3 add_product_category_radio" >
-                    <Form.Check inline label="Male" onChange={(e) => handleChange(e)}  value={data.user_Gender} name="group1" type='radio' className="add_product_category_radioname" id={`inline-radio-1`} />
-                    <Form.Check inline label="Female" onChange={(e) => handleChange(e)}  value={data.user_Gender} name="group1" type='radio' className="add_product_category_radioname"  id={`inline-radio-2`} />
-                    </div>
 
                     </Form.Row>
 

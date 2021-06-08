@@ -1,8 +1,30 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
-import '../components/NavigationBar.css'
+import '../components/NavigationBar.css';
+import Axios from 'axios';
 
 function NavigationBar() {
+
+
+    const [productCategories, setProductCategories] = useState([]);
+   
+     const getProductData = async () => {
+       try {
+         const data = await Axios.get(
+           "http://localhost:5000/productCategories/"
+         );
+         console.log(data.data);
+         setProductCategories(data.data);
+
+       } catch (e) {
+         console.log(e);
+       }
+     };
+   
+     useEffect(() => {
+       getProductData();
+     }, []);
+
     return (
         <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
 
@@ -19,9 +41,14 @@ function NavigationBar() {
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/display-items">All Items</Nav.Link>
                     <NavDropdown title="Categories" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="/owner-main-page">Men</NavDropdown.Item>
-                        <NavDropdown.Item href="/products">Women</NavDropdown.Item>
-                        <NavDropdown.Item href="/products">Couple</NavDropdown.Item>
+                        {
+                            productCategories.map(productCategories =>
+                                
+                                <NavDropdown.Item key={productCategories.product_category_Name} href="/display-items">{productCategories.product_category_Name}</NavDropdown.Item>
+                            
+                            )
+                        }
+                        
                     </NavDropdown>
                 </Nav>
                 
