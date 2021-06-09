@@ -7,7 +7,7 @@ import Axios from 'axios';
 function DisplayItems(props) {
 
     const [products, setProducts] = useState([]);
-   
+
      const getProductData = async () => {
        try {
          const data = await Axios.get(

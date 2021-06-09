@@ -2,9 +2,12 @@ import React,{useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddUsers.css';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 function AddUsers() {
 
+    const history = useHistory();
     const url = 'http://localhost:5000/users/add';
     const [data , setData] = useState({
 
@@ -45,8 +48,24 @@ function AddUsers() {
 
         })
         .then(res => {
+
             console.log(res.data)
-        })
+            if(res.data === "User Added!"){
+              Swal.fire({
+                icon: 'success',
+                title: 'User Added!',
+              })
+              history.push('/users');
+      
+      
+            }else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                })
+          }
+          })
     }
 
 
@@ -145,13 +164,6 @@ function AddUsers() {
                             <Form.Control  type="password" onChange={(e) => handleChange(e)}  value={data.user_Password} placeholder="Password" />
                         </Form.Group>
 
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_ConfirmPassword">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control  type="password"  placeholder="Confirm Password" />
-                        </Form.Group>
                         </Col>
 
                     </Form.Row>

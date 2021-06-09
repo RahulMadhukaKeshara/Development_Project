@@ -26,6 +26,8 @@ import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
 import {Button} from 'react-bootstrap'
+import Swal from 'sweetalert2';
+
 
 function createPDF() {
   // get elements of report data
@@ -176,7 +178,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected , onClickDelete} = props;
 
   return (
     <Toolbar
@@ -207,7 +209,7 @@ const EnhancedTableToolbar = (props) => {
       )}      
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={onClickDelete}>
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>
@@ -236,6 +238,7 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onClickDelete: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -279,6 +282,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ViewUsers() {
+
 
   const [users, setUsers] = useState([]);
   // const [search, setSearch] = useState("");
@@ -351,7 +355,33 @@ export default function ViewUsers() {
     setPage(0);
   };
 
+  const handleDelete = (_id) => {
 
+  
+    console.log(selected.toString(_id))
+    Axios.delete(
+      `http://localhost:5000/users/` + selected.toString(_id)
+    )
+    .then(res => {
+
+      console.log(res.data)
+      if(res.data === "User Deleted!"){
+        Swal.fire({
+          icon: 'success',
+          title: 'User Deleted!',
+        })
+
+
+      }else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+    }
+    })
+
+  }
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
@@ -373,7 +403,7 @@ export default function ViewUsers() {
     <h1>Users</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}/>
         <TableContainer id="cv">
           <Table
             className={classes.table}

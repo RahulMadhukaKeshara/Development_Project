@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../components/AddProductCategory.css';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 
 
 function AddProductCategory() {
 
+    const history = useHistory();
     const url = 'http://localhost:5000/productCategories/add';
     const [data , setData] = useState({
 
@@ -28,6 +31,21 @@ function AddProductCategory() {
         })
         .then(res => {
             console.log(res.data)
+            if (res.data === "ProductCategory Added!") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'ProductCategory Added!',
+                  })
+                  history.push('/product-categories');
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+
+                  })
+            }
         })
 
   

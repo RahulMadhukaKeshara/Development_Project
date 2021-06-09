@@ -25,6 +25,7 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 /*function createData(product_category_id, product_category_name) {
@@ -145,7 +146,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected , onClickDelete } = props;
 
   return (
     <Toolbar
@@ -176,7 +177,7 @@ const EnhancedTableToolbar = (props) => {
       )}      
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={onClickDelete}>
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>
@@ -209,6 +210,7 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onClickDelete: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -323,6 +325,34 @@ export default function ViewProductCategories() {
     setPage(0);
   };
 
+  const handleDelete = (_id) => {
+
+  
+    console.log(selected.toString(_id))
+    axios.delete(
+      `http://localhost:5000/productCategories/` + selected.toString(_id)
+    )
+    .then(res => {
+
+      console.log(res.data)
+              
+      if(res.data === "ProductCategory Deleted!"){
+        Swal.fire({
+          icon: 'success',
+          title: 'ProductCategory Deleted!',
+        })
+
+
+      }else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+    }
+    })
+  
+  }
 
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
@@ -345,7 +375,7 @@ export default function ViewProductCategories() {
     <h1>Product Categories</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} />
         <TableContainer>
           <Table
             className={classes.table}

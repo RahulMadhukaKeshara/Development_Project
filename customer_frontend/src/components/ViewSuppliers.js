@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useParams} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -25,6 +25,8 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 
 function descendingComparator(a, b, orderBy) {
@@ -63,7 +65,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -137,8 +139,10 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected , onClickDelete } = props;
 
+
+ 
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -168,7 +172,7 @@ const EnhancedTableToolbar = (props) => {
       )}      
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={onClickDelete}>
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>
@@ -197,6 +201,7 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onClickDelete:PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -241,6 +246,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewSuppliers() {
 
+
   const [suppliers, setSuppliers] = useState([]);
  // const [search, setSearch] = useState("");
 
@@ -259,6 +265,7 @@ export default function ViewSuppliers() {
   useEffect(() => {
     getProductData();
   }, []);
+  
 
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -312,6 +319,35 @@ export default function ViewSuppliers() {
     setPage(0);
   };
 
+  const handleDelete = (_id) => {
+
+  
+    console.log(selected.toString(_id))
+    Axios.delete(
+      `http://localhost:5000/suppliers/` + selected.toString(_id)
+    )
+    .then(res => {
+
+      console.log(res.data)
+              
+      if(res.data === "Supplier Deleted!"){
+        Swal.fire({
+          icon: 'success',
+          title: 'Supplier Deleted!',
+        })
+
+
+      }else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+    }
+    })
+  
+  }
+
 
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
@@ -334,7 +370,7 @@ export default function ViewSuppliers() {
     <h1>Suppliers</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} />
         <TableContainer>
           <Table
             className={classes.table}

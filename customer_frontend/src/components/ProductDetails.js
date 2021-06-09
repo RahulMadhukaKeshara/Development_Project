@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {Row,Col ,Container,Button,Media, Form} from 'react-bootstrap'
+import {Row,Col ,Container,Button,Media} from 'react-bootstrap'
 import '../components/ProductDetails.css';
 
 import Axios from 'axios';
