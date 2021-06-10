@@ -27,6 +27,7 @@ import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
 import {Button} from 'react-bootstrap'
 import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 
 function createPDF() {
@@ -178,7 +179,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected , onClickDelete} = props;
+  const { numSelected , onClickDelete , onClickUpdate} = props;
 
   return (
     <Toolbar
@@ -197,13 +198,13 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
-        <Link href='/update-users'>
-        <Tooltip title="Update">
+
+        <Tooltip title="Update" onClick={onClickUpdate}>
           <IconButton aria-label="update">
             <UpdateIcon/>
           </IconButton>
         </Tooltip>
-        </Link>
+
       ) : (
         <Typography/>
       )}      
@@ -238,7 +239,8 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onClickDelete: PropTypes.func.isRequired
+  onClickDelete: PropTypes.func.isRequired,
+  onClickUpdate: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -284,6 +286,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ViewUsers() {
 
 
+  const history = useHistory();
   const [users, setUsers] = useState([]);
   // const [search, setSearch] = useState("");
  
@@ -383,6 +386,10 @@ export default function ViewUsers() {
 
   }
 
+  const handleUpdate = (_id) => {
+    history.push(`/update-users/` + selected.toString(_id))
+  }
+
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, users.length - page * rowsPerPage);
@@ -403,7 +410,7 @@ export default function ViewUsers() {
     <h1>Users</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}/>
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}   onClickUpdate={handleUpdate}/>
         <TableContainer id="cv">
           <Table
             className={classes.table}

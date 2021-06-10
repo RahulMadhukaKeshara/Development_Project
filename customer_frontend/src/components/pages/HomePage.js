@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import Categories from '../Categories';
+
 import FeaturedProducts from '../FeaturedProducts';
 import Footer from '../Footer';
 import HeroSection from '../HeroSection';
@@ -11,7 +11,6 @@ export default function HomePage() {
 
     <>
       <HeroSection/>
-      <Categories/>
       <FeaturedProducts/>
       <NewArrivals/>
       <Footer/>

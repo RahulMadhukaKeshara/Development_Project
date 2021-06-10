@@ -26,6 +26,7 @@ import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useHistory } from 'react-router';
 
 
 /*function createData(product_category_id, product_category_name) {
@@ -146,7 +147,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected , onClickDelete } = props;
+  const { numSelected , onClickDelete , onClickUpdate } = props;
 
   return (
     <Toolbar
@@ -165,13 +166,12 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
-        <Link href='/update-product-categories'>
-        <Tooltip title="Update">
+        
+        <Tooltip title="Update"  onClick={onClickUpdate}>
           <IconButton aria-label="update">
             <UpdateIcon/>
           </IconButton>
         </Tooltip>
-        </Link>
       ) : (
         <Typography/>
       )}      
@@ -210,7 +210,8 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onClickDelete: PropTypes.func.isRequired
+  onClickDelete: PropTypes.func.isRequired,
+  onClickUpdate: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -255,6 +256,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewProductCategories() {
 
+  const history = useHistory();
   const classes = useStyles();
   const [product, setProduct] = useState([]);
 
@@ -354,6 +356,12 @@ export default function ViewProductCategories() {
   
   }
 
+  const handleUpdate = (_id) => {
+
+    history.push(`/update-product-categories/` + selected.toString(_id));
+
+  }
+
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
@@ -375,7 +383,7 @@ export default function ViewProductCategories() {
     <h1>Product Categories</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} />
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}  onClickUpdate={handleUpdate} />
         <TableContainer>
           <Table
             className={classes.table}

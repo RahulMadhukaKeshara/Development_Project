@@ -47,8 +47,6 @@ function AddProductCategory() {
                   })
             }
         })
-
-  
     }
 
     return (

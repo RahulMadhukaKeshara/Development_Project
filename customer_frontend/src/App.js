@@ -40,11 +40,11 @@ function App() {
                     <Route path='/product-categories' exact component={ProductCategoriesPage}/>
                     <Route path='/users' exact component={UsersPage}/>
                     <Route path='/add-product-categories' exact component={AddProductCategoriesPage}/>
-                    <Route path='/update-product-categories' exact component={UpdateProductCategoriesPage}/>
+                    <Route path='/update-product-categories/:id' exact component={UpdateProductCategoriesPage}/>
                     <Route path='/add-users' exact component={AddUsersPage}/>
-                    <Route path='/update-users' exact component={UpdateUsersPage}/>
+                    <Route path='/update-users/:id' exact component={UpdateUsersPage}/>
                     <Route path='/add-suppliers' exact component={AddSuppliersPage}/>
-                    <Route path='/update-suppliers' exact component={UpdateSuppliersPage}/>
+                    <Route path='/update-suppliers/:id' exact component={UpdateSuppliersPage}/>
                     <Route path='/add-products' exact component={AddProductsPage}/>
                     <Route path='/update-products' exact component={UpdateProductsPage}/>
                     <Route path='/display-items' exact component={DisplayItemsPage}/>
