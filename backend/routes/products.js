@@ -1,20 +1,5 @@
 const router = require('express').Router();
 let Product = require('../models/products.model');
-const multer = require("multer");
-
-/*const upload = multer({
-    limits: {
-      fileSize: 1000000, // max file size 1MB = 1000000 bytes
-    },
-    fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpeg|jpg)$/)) {
-        cb(new Error("only upload files with jpg or jpeg format."));
-      }
-      cb(undefined, true); // continue with upload
-    },
-  });*/
-
-
 
 
 router.route('/').get((req,res) => {

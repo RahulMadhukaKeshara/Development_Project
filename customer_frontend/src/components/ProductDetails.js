@@ -22,6 +22,7 @@ function ProductDetails(props) {
         console.log(data.data);
         setProducts(data.data);
 
+
       } catch (e) {
         console.log(e);
       }
@@ -62,7 +63,7 @@ function ProductDetails(props) {
                         <h5 className="product_det_category">{products.product_Category}</h5>
                         <h3 className="product_det_name">{products.product_Name}</h3>
                         <h5 className="product_det_colors">Available Colors <br/>{colors}</h5> 
-                        <h5 className="product_det_size">Available Sizes <br/> {products.product_Sizes}</h5>
+                        <h5 className="product_det_size">Available Sizes <br/>{colors} </h5>
                         {
                           products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{products.product_Price}</h5>) : 
                           ("")

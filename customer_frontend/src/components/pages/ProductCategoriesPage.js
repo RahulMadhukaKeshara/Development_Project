@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import ViewProductCategories from '../ViewProductCategories';
-import Footer from '../Footer';
+import ViewProductCategories from '../handleProductCategories/ViewProductCategories';
+import Footer from '../footer/Footer';
 
 export default function ProductCategoriesPage() {
   return (

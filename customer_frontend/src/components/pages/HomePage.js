@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 
 import FeaturedProducts from '../FeaturedProducts';
-import Footer from '../Footer';
+import Footer from '../footer/Footer';
 import HeroSection from '../HeroSection';
 import NewArrivals from '../NewArrivals';
 

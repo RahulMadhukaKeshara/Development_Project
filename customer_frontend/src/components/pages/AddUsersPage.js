@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../App.css';
 
-import AddUsers from '../AddUsers';
-import Footer from '../Footer';
+import AddUsers from '../handleUsers/AddUsers';
+import Footer from '../footer/Footer';
 
 
 export default function AddUsersPage() {

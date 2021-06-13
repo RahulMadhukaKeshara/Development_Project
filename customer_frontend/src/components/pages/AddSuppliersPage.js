@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../App.css';
 
-import AddSuppliers from '../AddSuppliers';
-import Footer from '../Footer';
+import AddSuppliers from '../handleSuppliers/AddSuppliers';
+import Footer from '../footer/Footer';
 
 
 export default function AddSuppliersPage() {

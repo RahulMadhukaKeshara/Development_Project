@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../App.css';
 
-import Footer from '../Footer';
-import UpdateProduct from '../UpdateProduct';
+import Footer from '../footer/Footer';
+import UpdateProduct from '../handleProducts/UpdateProduct';
 
 export default function UpdateProductsPage() {
   return (

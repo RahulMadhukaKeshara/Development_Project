@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../App.css';
 
-import AddProductCategory from '../AddProductCategory';
-import Footer from '../Footer';
+import AddProductCategory from '../handleProductCategories/AddProductCategory';
+import Footer from '../footer/Footer';
 
 
 export default function AddProductCategoriesPage() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import ViewUsers from '../ViewUsers';
-import Footer from '../Footer';
+import ViewUsers from '../handleUsers/ViewUsers';
+import Footer from '../footer/Footer';
 
 
 export default function UsersPage() {
