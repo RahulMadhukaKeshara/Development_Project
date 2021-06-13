@@ -10,12 +10,12 @@ function AddProduct() {
     const url = 'http://localhost:5000/products/add';
     const [data , setData] = useState({
 
-        product_Img : "",
+        product_Img : null,
         product_Name : "",
         product_Category : "",
         product_Quantity : "",
         product_Description : "",
-//        product_Sizes : "",
+        product_Sizes : "",
         product_Colors : "",
         product_Price : "",
         product_Discount : "",
@@ -72,29 +72,49 @@ function AddProduct() {
           
     }
 
-    function handleSubmit(e){
-        e.preventDefault();
-        Axios.post(url,{
-            
-            product_Img : data.product_Img,
-            product_Name : data.product_Name,
-            product_Category : data.product_Category,
-            product_Quantity : data.product_Quantity,
-            product_Description : data.product_Description,
-            product_Sizes : data.product_Sizes,
-            product_Colors : data.product_Colors,
-            product_Price : data.product_Price,
-            product_Discount : data.product_Discount,
-            product_Re_Quantity : data.product_Re_Quantity,
-            product_Re_Level : data.product_Re_Level,
-            product_Published : data.product_Published,
-            product_Featured : data.product_Featured,
-            product_New : data.product_New
+   function handleUpload(e) {
 
-        })
-        .then(res => {
-            console.log(res.data)
-        })
+        setData({product_Img : e.target.files[0]})
+
+      }
+
+    function handleSubmit(e){
+        e.preventDefault(); 
+    
+        const formData = new FormData();
+        formData.append("product_Name", data.product_Name);
+        formData.append("product_Category", data.product_Category);
+        formData.append("product_Quantity", data.product_Quantity);
+        formData.append("product_Description", data.product_Description);
+        formData.append("product_Sizes", data.product_Sizes);
+        formData.append("product_Colors", data.product_Colors);
+        formData.append("product_Price", data.product_Price);
+        formData.append("product_Discount", data.product_Discount);
+        formData.append("product_Re_Quantity", data.product_Re_Quantity);
+        formData.append("product_Re_Level", data.product_Re_Level);
+        formData.append("product_Published", data.product_Published);
+        formData.append("product_Featured", data.product_Featured);
+        formData.append("product_New", data.product_New);
+
+
+        formData.append("product_Img", data.product_Img);
+        
+        try {
+          Axios.post(
+            url,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          ).then((res) => {
+              console.log(res.data)
+            }
+          );
+        } catch (err) {
+          console.log(err.response.data.msg)
+        }
 
 
     }
@@ -112,7 +132,7 @@ function AddProduct() {
                         <Col sm={12} lg={3} md={6}>
                         <Form.Group  controlId="product_Img">
                             <Form.Label>Product Image</Form.Label>
-                            <Form.File className='add_product_category_form_input'  onChange={(e) => handleChange(e)} value={data.product_Img} type="text" name="product_Img"  />
+                            <Form.File className='add_product_category_form_input'  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
                         </Form.Group>
 
                         </Col>

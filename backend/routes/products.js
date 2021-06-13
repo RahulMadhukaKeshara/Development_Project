@@ -1,5 +1,18 @@
 const router = require('express').Router();
+const multer = require("multer");
 let Product = require('../models/products.model');
+
+const upload = multer({
+    limits: {
+      fileSize: 1000000, // max file size 1MB = 1000000 bytes
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(jpeg|jpg)$/)) {
+        cb(new Error("only upload files with jpg or jpeg format."));
+      }
+      cb(undefined, true); // continue with upload
+    },
+  });
 
 
 router.route('/').get((req,res) => {
@@ -9,9 +22,9 @@ router.route('/').get((req,res) => {
 });
 
 
-router.route('/add').post((req,res) => {
+router.route('/add').post(upload.single("product_Img"),(req,res) => {
     
-    const product_Img = req.body.product_Img;
+  //  const product_Img = req.body.product_Img;
     const product_Name = req.body.product_Name;
     const product_Category = req.body.product_Category;
     const product_Quantity = Number(req.body.product_Quantity);
@@ -29,7 +42,7 @@ router.route('/add').post((req,res) => {
 
     const newProduct = new Product({
 
-        product_Img,
+      //  product_Img,
         product_Name,
         product_Category,
         product_Quantity,
@@ -46,11 +59,24 @@ router.route('/add').post((req,res) => {
 
     });
 
+    const file = req.file.buffer;
+    newProduct.product_Img = file;
+
 
     newProduct.save()
     .then(() => res.json('Product Added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 
+});
+
+router.get("/photo/:id", async (req, res) => {
+  try {
+    const result = await Product.findOne({ _id: req.params.id });
+    res.set("Content-Type", "image/jpeg");
+    res.send(result.product_Img);
+  } catch (error) {
+    res.status(400).send({ get_error: "Error while getting photo." });
+  }
 });
 
 router.route('/:id').get((req,res) => {

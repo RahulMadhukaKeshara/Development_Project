@@ -373,6 +373,8 @@ export default function ViewUsers() {
           icon: 'success',
           title: 'User Deleted!',
         })
+        getProductData();
+        setSelected([]);
 
 
       }else {

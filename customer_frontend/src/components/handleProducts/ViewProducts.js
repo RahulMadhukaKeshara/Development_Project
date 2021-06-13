@@ -25,6 +25,7 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import axios from 'axios';
+import qq from '../../images/Cat01.jpg';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -392,7 +393,7 @@ useEffect(() => {
                       <TableCell align="center">{row.product_Quantity}</TableCell>
                       <TableCell align="center">{row.product_Colors}</TableCell>
                       <TableCell align="center">{row.product_Sizes}</TableCell>
-                      <TableCell align="center">{row.product_Img}</TableCell>
+                      <TableCell align="center"><img alt="" src={"http://localhost:5000/products/photo/" + row._id} style={{width:"50px" , height:"50px"}}/></TableCell>
                       <TableCell align="center">{row.product_Price}</TableCell>
                       <TableCell align="center">{row.product_Discount}</TableCell>
                       <TableCell align="center">{row.product_Re_Level}</TableCell>

@@ -38,7 +38,7 @@ function DisplayItems(props) {
                     
                     <Col lg={3} md={6} className="featured_col">
                         <FeaturedCardItems
-                        src={products.product_Img}
+                        src= {"http://localhost:5000/products/photo/" + products._id }
                         title={products.product_Name}
                         price={products.product_Price}
                         id= {'/product-details/' + products._id}
