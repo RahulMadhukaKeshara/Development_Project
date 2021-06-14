@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import Footer from '../footer/Footer';
-import OwnerCategories from '../OwnerCategories';
+import OwnerCategories from '../ownerCategories/OwnerCategories';
 
 
 function OwnerMainPage() {

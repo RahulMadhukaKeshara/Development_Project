@@ -20,6 +20,7 @@ import AddProductsPage from './components/pages/AddProductsPage';
 import UpdateProductsPage from './components/pages/UpdateProductsPage';
 import DisplayItemsPage from './components/pages/DisplayItemsPage';
 import ProductDetailsPage from './components/pages/ProductDetailsPage';
+import CartPage from './components/pages/CartPage';
 
 
 
@@ -49,6 +50,7 @@ function App() {
                     <Route path='/update-products' exact component={UpdateProductsPage}/>
                     <Route path='/display-items' exact component={DisplayItemsPage}/>
                     <Route path='/product-details/:id' exact component={ProductDetailsPage}/>
+                    <Route path='/cart' exact component={CartPage}/>
 
 
 

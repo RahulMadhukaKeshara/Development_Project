@@ -1,7 +1,7 @@
 import React,{useState , useEffect} from 'react'
 import { Col , Row , Container} from 'react-bootstrap';
-import CategoryCardItems from './CategoryCardItems';
-import '../components/CategoryCardItems.css';
+import CategoryCardItems from '../categoryCards/CategoryCardItems';
+import '../categoryCards/CategoryCardItems.css';
 import Axios from 'axios';
 
 function Categories() {

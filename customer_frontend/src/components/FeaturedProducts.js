@@ -3,6 +3,7 @@ import { Col , Row , Container} from 'react-bootstrap';
 import FeaturedCardItems from './FeaturedCardItems';
 import '../components/FeaturedCardItems.css';
 
+
 function FeaturedProducts() {
   return (
     <>
@@ -12,28 +13,28 @@ function FeaturedProducts() {
             <Row  className="justify-content-md-center">
                 <Col lg={3} md={6} className="featured_col">
                     <FeaturedCardItems
-                    src='./images/Cat01.jpg'
+                    src='../images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
                 <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                    src='./images/Cat01.jpg'
+                    src='../images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
                 <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                    src='./images/Cat01.jpg'
+                    src='../images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />
                 </Col>
                 <Col lg={3} md={6} className="featured_col">
                 <FeaturedCardItems
-                     src='./images/Cat01.jpg'
+                     src='../images/Cat01.jpg'
                     title='Butterfly Embroidered Tee'
                     price='960'
                     />

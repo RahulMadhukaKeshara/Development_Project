@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import '../components/CategoryCardItems.css';
+import '../categoryCards/CategoryCardItems.css';
 
 function CategoryCardItems(props) {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col , Row , Container} from 'react-bootstrap';
 import OwnerCategoryItems from './OwnerCategoryItems';
-import '../components/OwnerCategoryItems.css';
+import './OwnerCategoryItems.css';
 
 function OwnerCategories() {
     return (

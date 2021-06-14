@@ -1,6 +1,6 @@
 import React from 'react'
 import {Jumbotron , Button} from 'react-bootstrap';
-import '../components/HeroSection.css'
+import '../heroSection/HeroSection.css'
 
 function HeroSection() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col , Row , Container} from 'react-bootstrap';
-import '../components/NewArriveCardItems.css';
-import NewArriveCardItems from './NewArriveCardItems';
+import './NewArriveCardItems.css';
+import NewArriveCardItems from '../components/NewArriveCardItems';
 
 function NewArrivals() {
   return (

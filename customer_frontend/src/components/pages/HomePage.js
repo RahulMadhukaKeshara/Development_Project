@@ -3,7 +3,7 @@ import '../../App.css';
 
 import FeaturedProducts from '../FeaturedProducts';
 import Footer from '../footer/Footer';
-import HeroSection from '../HeroSection';
+import HeroSection from '../heroSection/HeroSection';
 import NewArrivals from '../NewArrivals';
 
 export default function HomePage() {

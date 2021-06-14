@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card , Button} from 'react-bootstrap';
-import '../components/NewArriveCardItems.css';
+import './NewArriveCardItems.css';
 import Link from '@material-ui/core/Link';
 
 function NewArriveCardItems(props) {
