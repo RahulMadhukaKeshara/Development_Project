@@ -50,7 +50,7 @@ function UpdateUsers() {
             user_Address : user.user_Address, 
             user_City : user.user_City, 
             user_Postal : user.user_Postal,
-            user_Password : user.user_Postal
+            user_Password : user.user_Password
 
         })
         .then(res => {

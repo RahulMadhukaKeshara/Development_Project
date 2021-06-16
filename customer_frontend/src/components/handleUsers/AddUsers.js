@@ -49,8 +49,8 @@ function AddUsers() {
         })
         .then(res => {
 
-            console.log(res.data)
-            if(res.data === "User Added!"){
+            console.log(res.data.msg)
+            if(res.data.msg === "User Added!"){
               Swal.fire({
                 icon: 'success',
                 title: 'User Added!',
@@ -133,7 +133,6 @@ function AddUsers() {
                             <Form.Label>User Type</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Type} >
                                     <option>Select...</option>
-                                    <option>Customer</option>
                                     <option>Delivery Staff</option>
                                     <option>Admin</option>
                             </Form.Control>
