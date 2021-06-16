@@ -47,7 +47,7 @@ function App() {
                     <Route path='/add-suppliers' exact component={AddSuppliersPage}/>
                     <Route path='/update-suppliers/:id' exact component={UpdateSuppliersPage}/>
                     <Route path='/add-products' exact component={AddProductsPage}/>
-                    <Route path='/update-products' exact component={UpdateProductsPage}/>
+                    <Route path='/update-products/:id' exact component={UpdateProductsPage}/>
                     <Route path='/display-items' exact component={DisplayItemsPage}/>
                     <Route path='/product-details/:id' exact component={ProductDetailsPage}/>
                     <Route path='/cart' exact component={CartPage}/>

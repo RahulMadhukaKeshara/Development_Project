@@ -32,16 +32,7 @@ function ProductDetails(props) {
       getProductData();
     }, []);
 
-    function splitCol(color){
 
-        var col = color.toString();
-        return col.split(",");
-
-        
-    }
-    const colors = splitCol(`${products.product_Colors}`);
-
-    
     return (    
         <>
             
@@ -50,11 +41,11 @@ function ProductDetails(props) {
                     <Col sm={12} lg={6} md={6} className='detail_col col1'>
                     <Media className='pro_det_img imgset'>
                     <img
-                            width={225}
-                            height={225}
+                            width={200}
+                            height={200}
                             className="mr-3"
-                            src={products.product_Img}
-                            alt="Generic placeholder"
+                            src={"http://localhost:5000/products/photo/" + products._id }
+                            alt="Product"
                         />
                     </Media>
 
@@ -62,8 +53,10 @@ function ProductDetails(props) {
                     <Col sm={12} lg={6} md={6} className='detail_col col2'>
                         <h5 className="product_det_category">{products.product_Category}</h5>
                         <h3 className="product_det_name">{products.product_Name}</h3>
-                        <h5 className="product_det_colors">Available Colors <br/>{colors}</h5> 
-                        <h5 className="product_det_size">Available Sizes <br/>{colors} </h5>
+                        <h5 className="product_det_colors">Available Colors</h5>
+                        <div className="product_det_coldis" style={{backgroundColor:`${products.product_Colors}` , color:`${products.product_Colors}` ,width:"20px" , height:"20px"}}></div>
+                        
+                        <h5 className="product_det_size">Available Sizes </h5>{products.product_Sizes}
                         {
                           products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{products.product_Price}</h5>) : 
                           ("")

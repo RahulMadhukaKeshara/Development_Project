@@ -2,11 +2,13 @@ import React,{useState,useEffect} from 'react';
 import {Form , Button , Col} from 'react-bootstrap';
 import '../handleProducts/AddProduct.css';
 import Axios from 'axios';
-
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 
 function AddProduct() {
 
+    const history = useHistory();
     const url = 'http://localhost:5000/products/add';
     const [data , setData] = useState({
 
@@ -16,7 +18,7 @@ function AddProduct() {
         product_Quantity : "",
         product_Description : "",
         product_Sizes : "",
-        product_Colors : "",
+        product_Colors : "#563d7c",
         product_Price : "",
         product_Discount : "",
         product_Re_Quantity : "",
@@ -25,10 +27,6 @@ function AddProduct() {
         product_Featured : "",
         product_New : "",
 
-    })
-
-    const [checkSize , setCheckSize] = useState({
-        product_Sizes : [""],
     })
 
     const [productCategories, setProductCategories] = useState([]);
@@ -50,12 +48,6 @@ function AddProduct() {
       getProductData();
     }, []);
 
-    /*function handleUpload(e) {
-        setData({
-            product_Img: e.target.files[0],
-        });
-      }*/
-
     function handleChange(e) {
         const newData = {...data};
         newData[e.target.id] = e.target.value;
@@ -63,14 +55,6 @@ function AddProduct() {
         console.log(newData)
     }
 
-    function handleCheck(e) {
-
-        const newCheckSize = {...checkSize};
-        newCheckSize[e.target.id] = e.target.checked;
-        setCheckSize(newCheckSize);
-        console.log(newCheckSize);
-          
-    }
 
    function handleUpload(e) {
 
@@ -110,10 +94,25 @@ function AddProduct() {
             }
           ).then((res) => {
               console.log(res.data)
+              if (res.data === "Product Added!") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Product Added!',
+                  })
+                  history.push('/products');
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+
+                  })
+            }
             }
           );
         } catch (err) {
-          console.log(err.response.data.msg)
+          console.log(err.res.data)
         }
 
 
@@ -191,22 +190,23 @@ function AddProduct() {
                     <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                            <Form.Group >
+                            <Form.Group controlId="product_Sizes">
                             <Form.Label>Available Sizes</Form.Label>
-                            <div key={`inline-checkbox`} className="mb-3" >
-                                <Form.Check inline label="XS" name="XS" type="checkbox"  onChange={(e) => handleCheck(e)} id="XS" />
-                                <Form.Check inline label="S" name="S" type="checkbox" onChange={(e) => handleCheck(e)} id="S" />
-                                <Form.Check inline label="M" name="M" type="checkbox" onChange={(e) => handleCheck(e)} id="M" />
-                                <Form.Check inline label="L" name="L" type="checkbox" onChange={(e) => handleCheck(e)} id="L" />
-                                <Form.Check inline label="XL" name="XL" type="checkbox" onChange={(e) => handleCheck(e)} id="XL" />
-                            </div>
+                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.product_Sizes} >
+                                    <option>Select ...</option>
+                                    <option>XS</option>
+                                    <option>S</option>
+                                    <option>M</option>
+                                    <option>L</option>
+                                    <option>XL</option>
+                            </Form.Control>
                             </Form.Group>
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
                             <Form.Group  controlId="product_Colors">
                             <Form.Label>Available Colours</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_Colors} type="text" placeholder="Product Colors"  />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  type="color"  value={data.product_Colors} title="Choose Item Color :"/>
                             </Form.Group>
                     </Col>
 

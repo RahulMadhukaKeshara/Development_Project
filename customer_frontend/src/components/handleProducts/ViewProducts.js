@@ -25,7 +25,8 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import axios from 'axios';
-import qq from '../../images/Cat01.jpg';
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -147,7 +148,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected , onClickDelete , onClickUpdate} = props;
 
   return (
     <Toolbar
@@ -166,19 +167,19 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
-        <Link href='/update-products'>
-        <Tooltip title="Update">
+
+        <Tooltip title="Update" onClick={onClickUpdate}>
           <IconButton aria-label="update">
             <UpdateIcon/>
           </IconButton>
         </Tooltip>
-        </Link>
+
       ) : (
         <Typography/>
       )}      
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={onClickDelete}>
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>
@@ -207,6 +208,8 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onClickDelete: PropTypes.func.isRequired,
+  onClickUpdate: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -269,7 +272,7 @@ useEffect(() => {
   getProductData();
 }, []);
 
-
+  const history = useHistory();
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('_id');
@@ -322,6 +325,42 @@ useEffect(() => {
     setPage(0);
   };
 
+  const handleDelete = (_id) => {
+
+  
+    console.log(selected.toString(_id))
+    axios.delete(
+      `http://localhost:5000/products/` + selected.toString(_id)
+    )
+    .then(res => {
+
+      console.log(res.data)
+              
+      if(res.data === "Product Deleted!"){
+        Swal.fire({
+          icon: 'success',
+          title: 'Product Deleted!',
+        })
+        getProductData();
+        setSelected([]);
+
+
+      }else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+    }
+    })
+  
+  }
+
+  const handleUpdate = (_id) => {
+
+    history.push(`/update-products/` + selected.toString(_id));
+
+  }
 
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
@@ -344,7 +383,7 @@ useEffect(() => {
     <h1>Products</h1>
     <div className={classes.root} >
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}  onClickUpdate={handleUpdate}/>
         <TableContainer id="cv">
           <Table
             className={classes.table}
@@ -400,7 +439,7 @@ useEffect(() => {
                       <TableCell align="center">{row.product_Re_Quantity}</TableCell>
                       <TableCell align="center">{row.product_Published}</TableCell>
                       <TableCell align="center">{row.product_New}</TableCell>
-                      <TableCell align="center">{row.product_Discount}</TableCell>
+                      <TableCell align="center">{row.product_Featured}</TableCell>
                     </TableRow>
                   );
                 })}

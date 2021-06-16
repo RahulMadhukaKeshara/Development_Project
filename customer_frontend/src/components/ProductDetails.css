@@ -78,6 +78,9 @@
 
         justify-content:center;
     }
+    .product_det_coldis{
+        margin: 0px auto;
+    }
 }
 
 @media only screen and (max-width:576px) {
@@ -96,5 +99,6 @@
  
         justify-content:center;
     }
+
 
 }

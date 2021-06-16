@@ -63,8 +63,8 @@ const [qty, setQty] = useState(1);
                         <Media className='addToCart_img '>
                         <img 
                                 className="mr-3 img1"
-                                src={products.product_Img}
-                                alt="Generic placeholder"
+                                src={"http://localhost:5000/products/photo/" + products._id }
+                                alt="product"
                             />                      
                         </Media>
                     </Col>
@@ -78,7 +78,8 @@ const [qty, setQty] = useState(1);
                           (<span className='addToCartError'>Out of Stock</span>)
                         }
                         </h4>
-                        <h5 className="addToCart_colors">Select Color <br/> {colors}</h5>
+                        <h5 className="addToCart_colors">Select Color </h5>
+                        <div className="addToCart_color_dis" style={{backgroundColor:`${products.product_Colors}` , color:`${products.product_Colors}` ,width:"20px" , height:"20px"}}></div>
                         <h5 className="addToCart_size">Select Size<br/> {sizes}</h5>
                         <div>
                         <h5 className="addToCart_Qty">Select Quantity<br/></h5>

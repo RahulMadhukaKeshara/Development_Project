@@ -23,6 +23,10 @@
     text-decoration: line-through;
 }
 
+.addToCart_color_dis{
+    margin: 0px auto;
+}
+
 @media only screen and (max-width:576px) {
 
     .addToCart_container{
