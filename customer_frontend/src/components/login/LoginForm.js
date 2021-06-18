@@ -38,13 +38,16 @@ function LoginForm() {
         const jwt = localStorage.getItem("token");
         let type = jwtDecode(jwt).user_Type;
         if(type === "Customer"){
-            history.push("/");
+            //history.push("/");
+            window.location = "/";
         }
         else if(type === "Admin"){
-            history.push("/owner-main-page");
+            //history.push("/owner-main-page");
+            window.location = "/owner-main-page";
         }
         else if(type === "Delivery Staff"){
-            history.push("/owner-main-page");
+            //history.push("/owner-main-page");
+            window.location = "/owner-main-page";
         }
 
 

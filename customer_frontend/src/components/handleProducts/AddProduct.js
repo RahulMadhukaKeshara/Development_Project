@@ -93,29 +93,38 @@ function AddProduct() {
     function handleSubmit(e){
         e.preventDefault(); 
     
-        const formData = new FormData();
-        formData.append("product_Name", data.product_Name);
-        formData.append("product_Category", data.product_Category);
-        formData.append("product_Description", data.product_Description);
-        formData.append("product_Price", data.product_Price);
-        formData.append("product_Discount", data.product_Discount);
-        formData.append("product_Stock", data.product_Stock);
-        formData.append("product_Re_Quantity", data.product_Re_Quantity);
-        formData.append("product_Re_Level", data.product_Re_Level);
-        formData.append("product_Published", data.product_Published);
-        formData.append("product_Featured", data.product_Featured);
-        formData.append("product_New", data.product_New);
-        //formData.append("product_Img", data.product_Img);
-        
+        // const formData = new FormData();
+        // formData.append("product_Name", data.product_Name);
+        // formData.append("product_Category", data.product_Category);
+        // formData.append("product_Description", data.product_Description);
+        // formData.append("product_Price", data.product_Price);
+        // formData.append("product_Discount", data.product_Discount);
+        // formData.append("product_Stock", data.product_Stock);
+        // formData.append("product_Re_Quantity", data.product_Re_Quantity);
+        // formData.append("product_Re_Level", data.product_Re_Level);
+        // formData.append("product_Published", data.product_Published);
+        // formData.append("product_Featured", data.product_Featured);
+        // formData.append("product_New", data.product_New);
+        //const img = formData.append("product_Img", data.product_Img);
+
+        const DataSet = {
+            product_Name : data.product_Name,
+            product_Category : data.product_Category,
+            product_Description : data.product_Description,
+            product_Price : data.product_Price,
+            product_Discount : data.product_Discount,
+            product_Stock : data.product_Stock,
+            product_Re_Quantity : data.product_Re_Quantity,
+            product_Re_Level : data.product_Re_Level,
+            product_Published : data.product_Published,
+            product_Featured : data.product_Featured,
+            product_New : data.product_Re_Quantity,
+            
+        }
         try {
           Axios.post(
             url,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
+            DataSet
           ).then((res) => {
               console.log(res.data)
               if (res.data === "Product Added!") {

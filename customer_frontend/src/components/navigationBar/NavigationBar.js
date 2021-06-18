@@ -32,7 +32,8 @@ function NavigationBar() {
 
      function logOut(){
        localStorage.clear();
-       history.push('/')
+       //history.push('/')
+       window.location = '/'
      }
      const jwt = localStorage.getItem("token");
      let type;
@@ -130,7 +131,3 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
-/*                <Nav className="">
-                    <Button className="navbar-btn" href="/sign-up">Sign Up</Button>
-                    <Button className="navbar-btn" href="/login">Login</Button>
-                </Nav>*/
