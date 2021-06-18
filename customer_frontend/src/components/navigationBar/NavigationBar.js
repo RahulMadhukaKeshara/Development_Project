@@ -2,10 +2,15 @@ import React,{useState,useEffect} from 'react';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import '../navigationBar/NavigationBar.css';
 import Axios from 'axios';
+import jwtDecode from "jwt-decode";
+import IconButton from '@material-ui/core/IconButton';
+import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
+import {useHistory} from 'react-router-dom';
+
 
 function NavigationBar() {
 
-
+  const history = useHistory();
     const [productCategories, setProductCategories] = useState([]);
    
      const getProductData = async () => {
@@ -24,6 +29,14 @@ function NavigationBar() {
      useEffect(() => {
        getProductData();
      }, []);
+
+     function logOut(){
+       localStorage.clear();
+       history.push('/')
+     }
+     const jwt = localStorage.getItem("token");
+     let type;
+
 
     return (
         <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
@@ -48,14 +61,64 @@ function NavigationBar() {
                             
                             )
                         }
-                        
                     </NavDropdown>
+
                 </Nav>
-                
-                <Nav className="">
+
+                {
+                  jwt ?
+                  (
+                    type = jwtDecode(jwt).user_Type,
+                    console.log(type),
+                    type === "Customer" ? 
+                    (
+                      <Nav className="">
+                      <IconButton className="icon_btn" aria-label="Go to Cart">
+                        <ShoppingCartRoundedIcon />
+                      </IconButton>
+                      <NavDropdown title={<i class="fas fa-user-circle"></i>} id="collasible-nav-dropdown">                   
+                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item href="/#">My Orders</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
+                      </NavDropdown>
+                      <Button className="navbar-btn" onClick={logOut}>Logout</Button>
+                      </Nav>                    
+                    ):
+                    (type === "Admin" ? 
+                    (
+                      <Nav className="">
+                      <NavDropdown title="Profile" id="collasible-nav-dropdown">                   
+                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
+                      </NavDropdown>
+                      <Button className="navbar-btn" onClick={logOut}>Logout</Button>
+                      </Nav>                
+                    ):
+                    (type === "Delivery Staff" ? 
+                    (
+                      <Nav className="">
+                      <NavDropdown title="Profile" id="collasible-nav-dropdown">                   
+                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
+                      </NavDropdown>
+                      <Button className="navbar-btn" onClick={logOut}>Logout</Button>
+                      </Nav>                  
+                    ):
+                    ("")
+                    )
+                    )                                         
+                  ):
+                  (
+                  <Nav className="">
                     <Button className="navbar-btn" href="/sign-up">Sign Up</Button>
                     <Button className="navbar-btn" href="/login">Login</Button>
-                </Nav>
+                  </Nav>                     
+                  )
+
+                }
+
+
+
 
             </Navbar.Collapse>
 
@@ -67,3 +130,7 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
+/*                <Nav className="">
+                    <Button className="navbar-btn" href="/sign-up">Sign Up</Button>
+                    <Button className="navbar-btn" href="/login">Login</Button>
+                </Nav>*/

@@ -4,6 +4,7 @@ import '../login/LoginForm.css';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
+import jwtDecode from "jwt-decode";
 
 function LoginForm() {
 
@@ -34,7 +35,18 @@ function LoginForm() {
           })
       })
       .then(() => {
+        const jwt = localStorage.getItem("token");
+        let type = jwtDecode(jwt).user_Type;
+        if(type === "Customer"){
             history.push("/");
+        }
+        else if(type === "Admin"){
+            history.push("/owner-main-page");
+        }
+        else if(type === "Delivery Staff"){
+            history.push("/owner-main-page");
+        }
+
 
       })
       .catch((e) => {
@@ -88,7 +100,8 @@ function LoginForm() {
         </div>
 
 
-
+        
+        <h1>Hello</h1>
  
         </>
 
