@@ -13,6 +13,7 @@ const upload = multer({
       }
       cb(undefined, true); // continue with upload
     },
+
   });
 
 
@@ -32,7 +33,7 @@ router.route('/add').post(upload.single("product_Img"),(req,res) => {
     const product_Description = req.body.product_Description;
     const product_Price = req.body.product_Price;
     const product_Discount = req.body.product_Discount;
-    const product_Stock = req.body.product_Stock;
+    const product_Stock = JSON.parse(req.body.product_Stock);
     const product_Re_Quantity = req.body.product_Re_Quantity;
     const product_Re_Level = req.body.product_Re_Level;
     const product_Published = req.body.product_Published;
@@ -57,9 +58,8 @@ router.route('/add').post(upload.single("product_Img"),(req,res) => {
 
     });
 
-    //const file = req.file.buffer;
-    //newProduct.product_Img = file;
-
+    const file = req.file.buffer;
+    newProduct.product_Img = file;
 
     newProduct.save()
     .then(() => res.json('Product Added!'))
@@ -89,7 +89,7 @@ router.route('/:id').delete((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
-router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
+router.route('/update/:id').post((req,res) => {
     Product.findById(req.params.id)
     .then(products => {
 

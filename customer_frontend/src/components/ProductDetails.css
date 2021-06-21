@@ -64,6 +64,21 @@
     justify-content:flex-start;
 }
 
+.col_div{
+    display: flex;
+    justify-content: flex-start;
+    
+}
+
+.col_item{
+    margin-right: 10px;
+    margin-left: 0px;
+}
+.col_size{
+    display: flex;
+    justify-content: flex-start;
+}
+
 
 @media only screen and (max-width:768px) {
 
@@ -80,6 +95,14 @@
     }
     .product_det_coldis{
         margin: 0px auto;
+    }
+    .col_div{
+        justify-content: center;
+        
+    }
+
+    .col_size{
+        justify-content: center;
     }
 }
 
@@ -99,6 +122,13 @@
  
         justify-content:center;
     }
+    .col_div{
+        justify-content: center;
+        
+    }
 
+    .col_size{
+        justify-content: center;
+    }
 
 }
