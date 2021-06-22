@@ -14,7 +14,7 @@ function ProductDetails(props) {
     
     const [modalShow, setModalShow] = React.useState(false);
     const [products, setProducts] = useState([]);
-    const [itemID , setItemID] = useState("");
+    const [itemID , setItemID] = useState(0);
 
     const getProductData = async () => {
       try {
@@ -34,13 +34,18 @@ function ProductDetails(props) {
       getProductData();
     }, []);
 
+
+
     function handleRadio(e){
-      let newItemID = {...itemID};
-      let index = e.target.id;
-      console.log(index)
-      newItemID = index-1;
-      setItemID(newItemID)
-      console.log(products.product_Stock[newItemID])
+    
+      console.log(e.target.id)
+      console.log(products.product_Stock[e.target.id - 1])
+      setItemID(e.target.id - 1)
+    //   let index = e.target.id;
+    //   //console.log(index)
+    //  let newItemID = index-1;
+    //   setItemID(newItemID)
+    //   console.log(products.product_Stock[itemID])
     }
 
 
@@ -69,43 +74,22 @@ function ProductDetails(props) {
                         {
                             products.product_Stock && products.product_Stock.map((item , x) =>
                               <>
-                               <Form.Check onChange={(e) => handleRadio(e)}  className="mr-0" inline name="group1" type="radio" id={`${x+1}`} />
+                               <Form.Check onChange={(e) => handleRadio(e)}  className="mr-0" inline name="group1" type="radio" id={x + 1}/>
                                <div className="col_item" style={{width:"40px" , height:"15px" , backgroundColor:`${item.color}`, borderRadius:"40px"}}></div>
                               </>  
                             )
                         }
                         </div>
                         <h5 className="product_det_size">Available Sizes </h5>
-                        <div className="mb-3 col_size">
-                        {
-                        
-                        <>
-                        {products.product_Stock[itemID].xs_qty > 0 ? (<h5 className="col_item">XS</h5>) : ("")}
-                        {products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
-                        {products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
-                        {products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
-                        {products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
-                        {products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")}  
-                        </>
-                        
-                        
-                        /* {
-                            products.product_Stock && products.product_Stock.map((item , x) =>
-                              <>
-                               {item.xs_qty > 0 ? (<h5 >XS</h5>) : ("")}
-                               {item.s_qty > 0 ? (<h5 >S</h5>) : ("")}
-                               {item.m_qty > 0 ? (<h5 >M</h5>) : ("")}
-                               {item.l_qty > 0 ? (<h5 >L</h5>) : ("")}
-                               {item.xl_qty > 0 ? (<h5 >XL</h5>) : ("")}
-                               {item.xxl_qty > 0 ? (<h5 >XXL</h5>) : ("")}                       
-                              </>  
-                            )
-                        }                                                                 */}
-                        </div>
-                        {
-                          products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{products.product_Price}</h5>) : 
-                          ("")
-                        }
+                        { <div className="mb-3 col_size">
+                        { products.product_Stock && products.product_Stock[itemID].xs_qty  > 0 ? (<h5 className="col_item">XS</h5>) : ("")}
+                        { products.product_Stock && products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
+                        { products.product_Stock && products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
+                        { products.product_Stock && products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
+                        { products.product_Stock && products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
+                        { products.product_Stock && products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")} 
+                        </div> }
+
                         
                         <h4 className="product_det_newprice">LKR :{
                          ((products.product_Price)-(products.product_Price*products.product_Discount*(1/100))) 
@@ -143,13 +127,12 @@ function ProductDetails(props) {
 
 export default ProductDetails;
 
-/*                        <div className="col_div">
-                        {
+/* 
 
-                            products.product_Stock && products.product_Stock.map(( item , x) =>
-                                
-                              <Form.Check inline type="radio" name={`group${x}`} className="col_item" id={`default-radio-${x}`} label={`${item.color}`}/>
-                            
-                            )
-                        }
-                        </div>*/
+                        {products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
+                        {products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
+                        {products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
+                        {products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
+                        {products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")}  
+
+*/

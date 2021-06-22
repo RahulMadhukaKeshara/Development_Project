@@ -89,27 +89,25 @@ router.route('/:id').delete((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
-router.route('/update/:id').post((req,res) => {
+router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
     Product.findById(req.params.id)
     .then(products => {
 
         //products.product_Img = req.body.product_Img;
         products.product_Name = req.body.product_Name;
         products.product_Category = req.body.product_Category;
-        products.product_Quantity = req.body.product_Quantity;
         products.product_Description = req.body.product_Description;
-        products.product_Sizes = req.body.product_Sizes;
-        products.product_Colors = req.body.product_Colors;
         products.product_Price = req.body.product_Price;
         products.product_Discount = req.body.product_Discount;
+        products.product_Stock = JSON.parse(req.body.product_Stock);
         products.product_Re_Quantity = req.body.product_Re_Quantity;
         products.product_Re_Level = req.body.product_Re_Level;
         products.product_Published = req.body.product_Published;
         products.product_Featured = req.body.product_Featured;
         products.product_New = req.body.product_New;
 
-        //const file = req.file.buffer;
-        //products.product_Img = file;
+        const file = req.file.buffer;
+        products.product_Img = file;
 
         products.save()
         .then(() => res.json('Product Updated!'))

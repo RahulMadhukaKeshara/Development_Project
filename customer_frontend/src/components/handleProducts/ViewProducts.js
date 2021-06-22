@@ -60,9 +60,8 @@ const headCells = [
   { id: 'product_Name', numeric: false, disablePadding: false, label: 'Product Name' },
   { id: 'product_Category', numeric: false, disablePadding: false, label: 'Product Category' },
   { id: 'product_Description', numeric: false, disablePadding: false, label: 'Product Description' },
-  { id: 'product_Quantity', numeric: false, disablePadding: false, label: 'Quantity' },
-  { id: 'product_Colors', numeric: false, disablePadding: false, label: 'Colors' },
-  { id: 'product_Sizes', numeric: false, disablePadding: false, label: 'Sizes' },
+  { id: 'product_Colors', numeric: false, disablePadding: false, label: 'Colors , Sizes & Quantity' },
+  //{ id: 'product_Sizes', numeric: false, disablePadding: false, label: 'Sizes' },
   { id: 'product_Img', numeric: false, disablePadding: false, label: 'Images' },
   { id: 'product_Price', numeric: false, disablePadding: false, label: 'Price(LKR.)' },
   { id: 'product_Discount', numeric: false, disablePadding: false, label: 'Discount(%)' },
@@ -250,6 +249,23 @@ const useStyles = makeStyles((theme) => ({
     marginTop:'50px',
 
   },
+
+  col_tab_div:{
+    display:'flex',
+    justifyContent:'center'
+    
+  },
+
+  col_tab_item:{
+    marginRight:'10px',
+    marginLeft:'0px'
+  },
+
+  tab_cell:{
+    minWidth : '250px'
+  }
+
+
 }));
 
 export default function ViewProducts() {
@@ -429,9 +445,15 @@ useEffect(() => {
                       <TableCell align="center">{row.product_Name}</TableCell>
                       <TableCell align="center">{row.product_Category}</TableCell>
                       <TableCell align="center">{row.product_Description}</TableCell>
-                      <TableCell align="center">{row.product_Quantity}</TableCell>
-                      <TableCell align="center">{row.product_Colors}</TableCell>
-                      <TableCell align="center">{row.product_Sizes}</TableCell>
+                      <TableCell align="center" className={classes.tab_cell}>
+                      <div className={classes.col_tab_div}>
+                      {
+                            row.product_Stock && row.product_Stock.map((item ) =>                     
+                             <div className={classes.col_tab_item} style={{width:"15px" , height:"15px" , backgroundColor:`${item.color}`, borderRadius:"40px"}}></div> 
+                            )
+                      }                        
+                      </div>
+                      </TableCell>
                       <TableCell align="center"><img alt="" src={"http://localhost:5000/products/photo/" + row._id} style={{width:"50px" , height:"50px"}}/></TableCell>
                       <TableCell align="center">{row.product_Price}</TableCell>
                       <TableCell align="center">{row.product_Discount}</TableCell>

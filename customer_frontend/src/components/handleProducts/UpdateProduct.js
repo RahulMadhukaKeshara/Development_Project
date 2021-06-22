@@ -72,20 +72,24 @@ function UpdateProduct() {
 }
 
 
-//  function handleUpload(e) {
+  function handleUpload(e) {
 
-    //setData({product_Img : e.target.files[0]})
+    // console.log(e.target.files[0])
+    const newProduct = {...product}
+    newProduct.product_Img = e.target.files[0];
+    setProduct(newProduct)
+    // console.log(newProduct)
 
-//}
+}
 
 function handleAddFields(){
     
     const newProduct = {...product};
     const count = newProduct.product_Stock.length;
     newProduct.product_Stock[count] = {color:"#f95957" , xs_qty :"", s_qty :"", m_qty :"",  l_qty :"", xl_qty :"",  xxl_qty :""};
-    console.log(newProduct)
-    //setProduct(newProduct);
-    console.log(product.product_Stock)
+    //console.log(newProduct)
+    setProduct(newProduct);
+
 
 }
 
@@ -98,22 +102,21 @@ function handleRemoveFields(index){
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
-
-            //product_Img : product.product_Img,
-            product_Name : product.product_Name,
-            product_Category : product.product_Category,
-            product_Description : product.product_Description,
-            product_Price : product.product_Price,
-            product_Discount : product.product_Discount,
-            product_Stock : product.product_Stock,
-            product_Re_Quantity : product.product_Re_Quantity,
-            product_Re_Level : product.product_Re_Level,
-            product_Published : product.product_Published,
-            product_Featured : product.product_Featured,
-            product_New : product.product_New,
-
-        })
+        const stockData = JSON.stringify(product.product_Stock);
+        const formData = new FormData();
+         formData.append("product_Name", product.product_Name);
+         formData.append("product_Category", product.product_Category);
+         formData.append("product_Description", product.product_Description);
+         formData.append("product_Price", product.product_Price);
+         formData.append("product_Discount", product.product_Discount);
+         formData.append("product_Stock", stockData);
+         formData.append("product_Re_Quantity", product.product_Re_Quantity);
+         formData.append("product_Re_Level", product.product_Re_Level);
+         formData.append("product_Published", product.product_Published);
+         formData.append("product_Featured", product.product_Featured);
+         formData.append("product_New", product.product_New);
+         formData.append("product_Img", product.product_Img);
+        Axios.post(url,formData)
         .then(res => {
             console.log(res.data)
             if (res.data === "Product Updated!") {
@@ -144,198 +147,200 @@ function handleRemoveFields(index){
             <h1 className="add_product_category_title">Update Product</h1>
             <div className='add_product_category_form_container'>
 
-                <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
+            <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
 
-                    <Form.Row>
-                        <Col sm={12} lg={3} md={6}>
-                        <Form.Group  controlId="product_Img">
-                            <Form.Label>Product Image</Form.Label>
-                            <Form.File className='add_product_category_form_input' /* onChange={(e) => handleUpload(e)}*/  type="file" name="product_Img"  />
-                        </Form.Group>
+<Form.Row>
+    <Col sm={12} lg={3} md={6}>
+    <Form.Group  controlId="product_Img">
+        <Form.Label>Product Image</Form.Label>
+        <Form.File className='add_product_category_form_input'  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
+    </Form.Group>
 
-                        </Col>
-                    </Form.Row>
+    </Col>
+</Form.Row>
 
-                    <Form.Row>
+<Form.Row>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Name">
-                            <Form.Label>Product Name</Form.Label>
-                            <Form.Control  className='add_product_category_form_input'  onChange={(e) => handleChange(e)}  value={product.product_Name} type="text"  placeholder="Product Name" />
-                        </Form.Group>
-                        </Col>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Name">
+        <Form.Label>Product Name</Form.Label>
+        <Form.Control  className='add_product_category_form_input'  name="product_Name" onChange={(e) => handleChange(e)}  value={product.product_Name} type="text"  placeholder="Product Name" />
+    </Form.Group>
+    </Col>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Category">
-                            <Form.Label>Product Category</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_Category} >
-                                    <option>Select ...</option>
-                            {
-                            productCategories.map(productCategories =>
-                                
-                                <option key={productCategories.product_category_Name}>{productCategories.product_category_Name}</option>
-                                )
-                            }
-                            </Form.Control>
-                        </Form.Group>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Category">
+        <Form.Label>Product Category</Form.Label>
+        <Form.Control as="select" name="product_Category" onChange={(e) => handleChange(e)}  value={product.product_Category} >
+                <option>Select ...</option>
+        {
+         productCategories && productCategories.map(productCategories =>
+            
+            <option key={productCategories.product_category_Name}>{productCategories.product_category_Name}</option>
+            )
+        }
+        </Form.Control>
+    </Form.Group>
 
-                        </Col>
-                    </Form.Row>
-
-
-
-                    <Form.Row>
+    </Col>
+</Form.Row>
 
 
-                        <Col sm={12} >
-                        <Form.Group  controlId="product_Description">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Description} type="text" placeholder="Description..." />
-                        </Form.Group>
-                        </Col>
 
-                    </Form.Row>
+<Form.Row>
 
-                    <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Price">
-                            <Form.Label>Product Price(LKR.)</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Price} type="text" placeholder="Product Price"  />
-                        </Form.Group>
 
-                        </Col>
+    <Col sm={12} >
+    <Form.Group  controlId="product_Description">
+        <Form.Label>Description</Form.Label>
+        <Form.Control as="textarea" rows={3} className='add_product_category_form_input' name="product_Description" onChange={(e) => handleChange(e)}  value={product.product_Description} type="text" placeholder="Description..." />
+    </Form.Group>
+    </Col>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Discount">
-                            <Form.Label>Product Discount</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Discount} type="text" placeholder="Product Discount" />
-                        </Form.Group>
-                        </Col>
-                    </Form.Row> 
-                    <Form.Row>
-                        <h4>Product Stock Details</h4>
+</Form.Row>
 
-                        <IconButton onClick={()=> handleAddFields()}>
-                                    <AddIcon />
-                        </IconButton>
+<Form.Row>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Price">
+        <Form.Label>Product Price(LKR.)</Form.Label>
+        <Form.Control className='add_product_category_form_input' name="product_Price" onChange={(e) => handleChange(e)}  value={product.product_Price} type="text" placeholder="Product Price"  />
+    </Form.Group>
 
-                        {
-                            product.product_Stock && product.product_Stock.map((x , i) =>
-                               
-                            <Container fluid key={i}>
-                            <Form.Row>
-                            <Col sm={12} lg={6} md={6}>
-                                    <Form.Group  controlId="color">
-                                    <Form.Label>Colour</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  type="color"  value={x.color} title="Choose Item Color :"/>
-                                    </Form.Group>
-                            </Col>
-                            </Form.Row>
-                            <Form.Row>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="xs_qty">
-                                    <Form.Label>XS Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.xs_qty} type="text" placeholder="XS Quantity"  />
-                                </Form.Group>
-                                </Col>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="s_qty">
-                                    <Form.Label>S Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.s_qty} type="text" placeholder="S Quantity"  />
-                                </Form.Group>
-                                </Col>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="m_qty">
-                                    <Form.Label>M Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.m_qty} type="text" placeholder="M Quantity"  />
-                                </Form.Group>
-                                </Col>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="l_qty">
-                                    <Form.Label>L Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.l_qty} type="text" placeholder="L Quantity"  />
-                                </Form.Group>
-                                </Col>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="xl_qty">
-                                    <Form.Label>XL Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.xl_qty} type="text" placeholder="XL Quantity"  />
-                                </Form.Group>
-                                </Col>
-                                <Col xs={4} sm={4} lg={2} md={3}>
-                                <Form.Group  controlId="xxl_qty">
-                                    <Form.Label>XXL Quantity</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' onChange={(e) => handleChangeStock(e ,i)}  value={x.xxl_qty} type="text" placeholder="XXL Quantity"  />
-                                </Form.Group>
-                                </Col>
-                            </Form.Row>
-                                <IconButton onClick={() => handleRemoveFields(i)}>
-                                    <RemoveIcon />
-                                </IconButton>
-                                <IconButton onClick={handleAddFields}>
-                                    <AddIcon />
-                                </IconButton>
-                            </Container>
-                        
-                        )}
-                         
-                    </Form.Row>   
+    </Col>
 
-                    <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Re_Quantity">
-                            <Form.Label>Reorder Quantity</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Quantity} type="text" placeholder="Reorder Quantity"  />
-                        </Form.Group>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Discount">
+        <Form.Label>Product Discount</Form.Label>
+        <Form.Control className='add_product_category_form_input' name="product_Discount" onChange={(e) => handleChange(e)}  value={product.product_Discount} type="text" placeholder="Product Discount" />
+    </Form.Group>
+    </Col>
+</Form.Row> 
+<Form.Row>
+    <h4>Product Stock Details</h4>
 
-                        </Col>
+    <IconButton onClick={()=> handleAddFields()}>
+                <AddIcon />
+    </IconButton>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Re_Level">
-                            <Form.Label>Reorder Level</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Level} type="text"  placeholder="Reorder Level" />
-                        </Form.Group>
-                        </Col>
-                    </Form.Row>  
+    {
+       product.product_Stock &&  product.product_Stock.map((x , i) =>
+           
+        <Container fluid key={i}>
+        <Form.Group  controlId="product_Stock">
+        <Form.Row>
+        <Col sm={12} lg={6} md={6}>
+                <Form.Group  controlId="color">
+                <Form.Label>Colour</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="color" onChange={(e) => handleChangeStock(e ,i)}  type="color"  value={x.color} title="Choose Item Color :"/>
+                </Form.Group>
+        </Col>
+        </Form.Row>
+        <Form.Row>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="xs_qty">
+                <Form.Label>XS Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="xs_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.xs_qty} type="text" placeholder="XS Quantity"  />
+            </Form.Group>
+            </Col>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="s_qty">
+                <Form.Label>S Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="s_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.s_qty} type="text" placeholder="S Quantity"  />
+            </Form.Group>
+            </Col>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="m_qty">
+                <Form.Label>M Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="m_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.m_qty} type="text" placeholder="M Quantity"  />
+            </Form.Group>
+            </Col>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="l_qty">
+                <Form.Label>L Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="l_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.l_qty} type="text" placeholder="L Quantity"  />
+            </Form.Group>
+            </Col>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="xl_qty">
+                <Form.Label>XL Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="xl_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.xl_qty} type="text" placeholder="XL Quantity"  />
+            </Form.Group>
+            </Col>
+            <Col xs={4} sm={4} lg={2} md={3}>
+            <Form.Group  controlId="xxl_qty">
+                <Form.Label>XXL Quantity</Form.Label>
+                <Form.Control className='add_product_category_form_input' name="xxl_qty" onChange={(e) => handleChangeStock(e ,i)}  value={x.xxl_qty} type="text" placeholder="XXL Quantity"  />
+            </Form.Group>
+            </Col>
+        </Form.Row>
+        </Form.Group>
+            <IconButton onClick={() => handleRemoveFields(i)}>
+                <RemoveIcon />
+            </IconButton>
+            <IconButton onClick={handleAddFields}>
+                <AddIcon />
+            </IconButton>
+        </Container>
+    
+    )}
+    
+</Form.Row>   
 
-                    <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Published">
-                            <Form.Label>Published</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_Published} >
-                                    <option>Select ...</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
-                            </Form.Control>
-                        </Form.Group>
+<Form.Row>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Re_Quantity">
+        <Form.Label>Reorder Quantity</Form.Label>
+        <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Quantity} type="text" placeholder="Reorder Quantity"  />
+    </Form.Group>
 
-                        </Col>
+    </Col>
 
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_Featured">
-                            <Form.Label>Featured</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_Featured} >
-                                    <option>Select ...</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
-                            </Form.Control>
-                        </Form.Group>
-                        </Col>
-                    </Form.Row>            
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Re_Level">
+        <Form.Label>Reorder Level</Form.Label>
+        <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Level} type="text"  placeholder="Reorder Level" />
+    </Form.Group>
+    </Col>
+</Form.Row>  
 
-                    <Form.Row>
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="product_New">
-                            <Form.Label>New</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_New} >
-                                    <option>Select ...</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
-                            </Form.Control>
-                        </Form.Group>
+<Form.Row>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Published">
+        <Form.Label>Published</Form.Label>
+        <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_Published} >
+                <option>Select ...</option>
+                <option>Yes</option>
+                <option>No</option>
+        </Form.Control>
+    </Form.Group>
 
-                        </Col>
-                    </Form.Row>  
+    </Col>
+
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_Featured">
+        <Form.Label>Featured</Form.Label>
+        <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_Featured} >
+                <option>Select ...</option>
+                <option>Yes</option>
+                <option>No</option>
+        </Form.Control>
+    </Form.Group>
+    </Col>
+</Form.Row>            
+
+<Form.Row>
+    <Col sm={12} lg={6} md={6}>
+    <Form.Group  controlId="product_New">
+        <Form.Label>New</Form.Label>
+        <Form.Control as="select" onChange={(e) => handleChange(e)}  value={product.product_New} >
+                <option>Select ...</option>
+                <option>Yes</option>
+                <option>No</option>
+        </Form.Control>
+    </Form.Group>
+
+    </Col>
+</Form.Row>  
 
 
 

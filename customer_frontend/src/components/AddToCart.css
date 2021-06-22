@@ -27,6 +27,21 @@
     margin: 0px auto;
 }
 
+.col_div_addToCart{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.col_item_addToCart{
+    margin-right: 10px;
+    margin-left: 0px;
+}
+.col_size_addToCart{
+    display: flex;
+    justify-content: center;
+}
+
 @media only screen and (max-width:576px) {
 
     .addToCart_container{

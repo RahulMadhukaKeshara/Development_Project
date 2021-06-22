@@ -98,7 +98,7 @@ function AddProduct() {
     function handleSubmit(e){
         e.preventDefault(); 
     
-    const stockData = JSON.stringify(data.product_Stock);
+        const stockData = JSON.stringify(data.product_Stock);
         const formData = new FormData();
          formData.append("product_Name", data.product_Name);
          formData.append("product_Category", data.product_Category);
