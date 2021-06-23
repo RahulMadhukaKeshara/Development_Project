@@ -81,15 +81,28 @@ function ProductDetails(props) {
                         }
                         </div>
                         <h5 className="product_det_size">Available Sizes </h5>
-                        { <div className="mb-3 col_size">
-                        { products.product_Stock && products.product_Stock[itemID].xs_qty  > 0 ? (<h5 className="col_item">XS</h5>) : ("")}
-                        { products.product_Stock && products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
-                        { products.product_Stock && products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
-                        { products.product_Stock && products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
-                        { products.product_Stock && products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
-                        { products.product_Stock && products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")} 
-                        </div> }
 
+                        { (products.product_Stock && products.product_Stock[itemID].xs_qty  <= 0)&&
+                          (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0)&& 
+                          (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0)&&
+                          (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0)&&
+                          (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0)&&
+                          (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0) ? 
+                        
+                          (<span className='addToCartError'>No Available Size</span>) :
+                          (
+                            <div className="mb-3 col_size">
+                            { products.product_Stock && products.product_Stock[itemID].xs_qty  > 0 ? (<h5 className="col_item">XS</h5>) : ("")}
+                            { products.product_Stock && products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
+                            { products.product_Stock && products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
+                            { products.product_Stock && products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
+                            { products.product_Stock && products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
+                            { products.product_Stock && products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")} 
+                            </div> 
+                          )
+                          
+
+                        }
                         
                         <h4 className="product_det_newprice">LKR :{
                          ((products.product_Price)-(products.product_Price*products.product_Discount*(1/100))) 

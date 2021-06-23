@@ -9,7 +9,7 @@ const usersSchema = new Schema({
     user_Fname: {type:String , required: true},
     user_Lname: {type:String , required: true},
     user_Contact: {type:String , required: true},
-    user_Email: {type:String , required: true ,unique:true},
+    user_Email: {type:String , required: true},
     user_Address: {type:String},
     user_City: {type:String},
     user_Postal: {type:String},

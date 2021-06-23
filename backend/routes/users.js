@@ -81,22 +81,13 @@ router.route('/:id').delete((req,res) => {
 });
 
 
-
+// Owner updating user details
 router.route('/update/:id').post((req,res) => {
     User.findById(req.params.id)
     .then(users => {
 
         users.user_Type = req.body.user_Type; 
         users.user_Status = req.body.user_Status;
- //       users.user_Fname = req.body.user_Fname;
- //       users.user_Lname = req.body.user_Lname;
-//        users.user_Contact = req.body.user_Contact; 
-//        users.user_Email = req.body.user_Email;
-//        users.user_Address = req.body.user_Address; 
-//        users.user_City = req.body.user_City; 
-//        users.user_Postal = req.body.user_Postal;
-//        users.user_Password = req.body.user_Postal;
-
 
         users.save()
         .then(() => res.json('User Updated!'))
@@ -127,6 +118,28 @@ router.route('/login').post(async (req,res) => {
         msg: 'Logged In Successfully'
     })
 
+});
+
+
+// Account User Updating User Account Details 
+router.route('/update/user-account/:id').post((req,res) => {
+    User.findById(req.params.id)
+    .then(users => {
+
+
+        users.user_Fname = req.body.user_Fname;
+        users.user_Lname = req.body.user_Lname;
+        users.user_Contact = req.body.user_Contact; 
+        users.user_Address = req.body.user_Address; 
+        users.user_City = req.body.user_City; 
+        users.user_Postal = req.body.user_Postal;
+
+
+        users.save()
+        .then(() => res.json('Account Details Updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: '+ err));
 });
 
 

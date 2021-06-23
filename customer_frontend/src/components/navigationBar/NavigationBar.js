@@ -37,6 +37,7 @@ function NavigationBar() {
      }
      const jwt = localStorage.getItem("token");
      let type;
+     let userID;
 
 
     return (
@@ -70,6 +71,7 @@ function NavigationBar() {
                   jwt ?
                   (
                     type = jwtDecode(jwt).user_Type,
+                    userID = jwtDecode(jwt)._id,
                     console.log(type),
                     type === "Customer" ? 
                     (
@@ -78,7 +80,7 @@ function NavigationBar() {
                         <ShoppingCartRoundedIcon />
                       </IconButton>
                       <NavDropdown title={<i class="fas fa-user-circle"></i>} id="collasible-nav-dropdown">                   
-                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item href="/#">My Orders</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
@@ -89,7 +91,7 @@ function NavigationBar() {
                     (
                       <Nav className="">
                       <NavDropdown title="Profile" id="collasible-nav-dropdown">                   
-                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
                       <Button className="navbar-btn" onClick={logOut}>Logout</Button>
@@ -99,7 +101,7 @@ function NavigationBar() {
                     (
                       <Nav className="">
                       <NavDropdown title="Profile" id="collasible-nav-dropdown">                   
-                            <NavDropdown.Item href="/#">Profile Details</NavDropdown.Item>
+                            <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
                       <Button className="navbar-btn" onClick={logOut}>Logout</Button>

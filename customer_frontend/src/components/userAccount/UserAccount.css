@@ -1,0 +1,29 @@
+.breadcrumb{
+    margin-top: 74px !important;
+    background-color: #fff;
+}
+
+.account_container{
+    border: 2px solid black;
+    margin-top: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.account_container1{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.account_container2{
+
+    padding: 10px auto;
+}
+
+.account_sub_title{
+    margin: 10px auto;
+}
+
+.account_divider{
+    margin: 10px auto !important;
+}
