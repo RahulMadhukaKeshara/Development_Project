@@ -136,12 +136,10 @@ function UpdateUsers() {
                         <Form.Group  controlId="user_Type">
                             <Form.Label>User Type</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={user.user_Type}>
-                                    <option>Customer</option>
                                     <option>Delivery Staff</option>
                                     <option>Admin</option>
                             </Form.Control>
                         </Form.Group>
-
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>

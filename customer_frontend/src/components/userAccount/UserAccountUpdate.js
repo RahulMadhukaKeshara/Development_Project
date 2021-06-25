@@ -116,28 +116,50 @@ function UserAccountUpdate() {
 
                     </Form.Row>
 
+                    {
+                    user.user_Type === "Customer" ?
+                    (
+                    <>
+                    <h4 className="add_product_category_sub_title">Billing Address</h4>
+                        <Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                            <Form.Group  controlId="user_Address">
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address} type="text" placeholder="Address..."  />
+                            </Form.Group>
+                        </Col>
 
-                    <h4 className="add_product_category_sub_title">Personal Details</h4>
-
-                    <Form.Row>
-                    <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_Address">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address} type="text" placeholder="Address..."  />
-                        </Form.Group>
-                    </Col>
-
-                    <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_City">
-                            <Form.Label>City</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_City} placeholder="City..." />
-                        </Form.Group>
-                        <Form.Group  controlId="user_Postal">
-                            <Form.Label>Postal Code</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Postal} placeholder="Postal Code..."/>
-                        </Form.Group>
-                    </Col>                       
-                    </Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="user_City">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_City} placeholder="City..." />
+                            </Form.Group>
+                            <Form.Group  controlId="user_Postal">
+                                <Form.Label>Postal Code</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Postal} placeholder="Postal Code..."/>
+                            </Form.Group>
+                        </Col>                       
+                        </Form.Row>                  
+                    </>):
+                    (
+                        <>
+                            <Form.Row>
+                            <Col sm={12} lg={6} md={6}>
+                                <Form.Group  controlId="user_Address">
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address} type="text" placeholder="Address..."  />
+                                </Form.Group>
+                            </Col>
+    
+                            <Col sm={12} lg={6} md={6}>
+                            <Form.Group  controlId="user_City">
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_City} placeholder="City..." />
+                                </Form.Group>
+                            </Col>                       
+                            </Form.Row>                  
+                        </>)
+                    }
 
 
                     <div className='add_product_category_form_btns'>             

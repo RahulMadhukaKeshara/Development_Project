@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import {Row,Col ,Container,Button,Media , Form} from 'react-bootstrap'
 import '../components/ProductDetails.css';
-
+import Swal from 'sweetalert2';
 import Axios from 'axios';
 import { useParams } from 'react-router';
-import AddToCart from './AddToCart';
+import AddToCart from './cart/AddToCart';
 import { Fragment } from 'react';
 
 function ProductDetails(props) {
@@ -37,24 +37,27 @@ function ProductDetails(props) {
 
 
     function handleRadio(e){
-    
       console.log(e.target.id)
       console.log(products.product_Stock[e.target.id - 1])
       setItemID(e.target.id - 1)
-    //   let index = e.target.id;
-    //   //console.log(index)
-    //  let newItemID = index-1;
-    //   setItemID(newItemID)
-    //   console.log(products.product_Stock[itemID])
     }
 
+    const jwt = localStorage.getItem("token");
+
+    function handleAddtoCart(){
+      Swal.fire({
+        icon: 'info',
+        title: 'Please Login to Your Account!',
+        text: 'You have to login to the account , to use add to cart option'
+      })
+    }
 
 
     return (    
         <>
             <Container className='pro_detail_container'>
                 <Row>
-                    <Col sm={12} lg={6} md={6} className='detail_col col1'>
+                    <Col sm={12} lg={5} md={6} className='detail_col col1'>
                     <Media className='pro_det_img imgset'>
                     <img
                             width={200}
@@ -66,7 +69,7 @@ function ProductDetails(props) {
                     </Media>
 
                     </Col>
-                    <Col sm={12} lg={6} md={6} className='detail_col col2'>
+                    <Col sm={12} lg={7} md={6} className='detail_col col2'>
                         <h5 className="product_det_category">{products.product_Category}</h5>
                         <h3 className="product_det_name">{products.product_Name}</h3>
                         <h5 className="product_det_colors">Available Colors</h5>
@@ -89,7 +92,7 @@ function ProductDetails(props) {
                           (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0)&&
                           (products.product_Stock && products.product_Stock[itemID].s_qty  <= 0) ? 
                         
-                          (<span className='addToCartError'>No Available Size</span>) :
+                          (<span className='addToCartError'>Out of Stock</span>) :
                           (
                             <div className="mb-3 col_size">
                             { products.product_Stock && products.product_Stock[itemID].xs_qty  > 0 ? (<h5 className="col_item">XS</h5>) : ("")}
@@ -103,6 +106,10 @@ function ProductDetails(props) {
                           
 
                         }
+                        {
+                          products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{products.product_Price}</h5>) : 
+                          ("")
+                        }
                         
                         <h4 className="product_det_newprice">LKR :{
                          ((products.product_Price)-(products.product_Price*products.product_Discount*(1/100))) 
@@ -110,15 +117,13 @@ function ProductDetails(props) {
                         </h4>
                         {
                           products.product_Discount > 0 ? (<h5 className="product_det_discount">{products.product_Discount}% OFF</h5>) : 
-                          (<span className='addToCartError'>No Discount</span>)
+                          (<span >No Discount</span>)
                         }
                         
                         
                         <div className='product_det_btngrp'>
-                            <Button className='product_det_btn' onClick={() => setModalShow(true)} >Add to Cart</Button>
+                            <Button className='product_det_btn' onClick={jwt? (() => setModalShow(true)):(()=>handleAddtoCart())} >Add to Cart</Button>                           
                             <AddToCart show={modalShow} onHide={() => setModalShow(false)}/>
-                            <br/>
-                            {/*<Button className='product_det_btn' >Buy Now</Button>*/}
                         </div>
 
                     </Col>

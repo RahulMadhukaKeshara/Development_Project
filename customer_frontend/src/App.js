@@ -23,6 +23,7 @@ import ProductDetailsPage from './components/pages/ProductDetailsPage';
 import CartPage from './components/pages/CartPage';
 import UserAccountPage from './components/pages/UserAccountPage';
 import UpdateAccountDetailsPage from './components/pages/UpdateAccountDetailsPage';
+import CheckoutPage from './components/pages/CheckoutPage';
 
 
 
@@ -52,9 +53,10 @@ function App() {
                     <Route path='/update-products/:id' exact component={UpdateProductsPage}/>
                     <Route path='/display-items' exact component={DisplayItemsPage}/>
                     <Route path='/product-details/:id' exact component={ProductDetailsPage}/>
-                    <Route path='/cart' exact component={CartPage}/>
+                    <Route path='/cart/:id' exact component={CartPage}/>
                     <Route path='/user-account/:id' exact component={UserAccountPage}/>
                     <Route path='/update-user-account/:id' exact component={UpdateAccountDetailsPage}/>
+                    <Route path='/checkout' exact component={CheckoutPage}/>
 
 
 

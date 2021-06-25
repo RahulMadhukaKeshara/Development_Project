@@ -21,6 +21,11 @@
 .col1{
     display: flex;
     justify-content: center;
+
+}
+
+.col2{
+    text-align: center;
 }
 
 
@@ -41,6 +46,7 @@
 
 .product_det_newprice{
     color: #f95957;
+    margin-top: 15px;
 }
 
 .product_det_discount{
@@ -61,12 +67,14 @@
 }
 .product_det_btngrp{
     display: flex;
-    justify-content:flex-start;
+    justify-content:center;
+
 }
 
 .col_div{
     display: flex;
     justify-content: flex-start;
+    justify-content: center;
     
 }
 
@@ -76,7 +84,7 @@
 }
 .col_size{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 

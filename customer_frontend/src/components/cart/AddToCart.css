@@ -42,6 +42,10 @@
     justify-content: center;
 }
 
+.addToCartError{
+    color: red;
+}
+
 @media only screen and (max-width:576px) {
 
     .addToCart_container{

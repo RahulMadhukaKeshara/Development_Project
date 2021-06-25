@@ -3,6 +3,7 @@ let User = require('../models/users.model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const env = require('../envVariables')
+let Cart = require('../models/carts.model');
 
 
 router.route('/').get((req,res) => {
@@ -49,6 +50,14 @@ router.route('/add').post(async (req,res) => {
         newUser.user_Password = await bcrypt.hash(newUser.user_Password, salt)
     
         await newUser.save();
+
+        //cart imp
+        var newCartOb = new Cart({
+            cart_User : newUser
+        })
+
+        await newCartOb.save();
+
 
         //Create Token
         const token = jwt.sign({_id : newUser._id, user_Email: newUser.user_Email , user_Type:newUser.user_Type}, env.jwtKey)

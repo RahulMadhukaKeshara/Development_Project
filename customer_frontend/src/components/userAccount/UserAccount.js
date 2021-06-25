@@ -70,25 +70,39 @@ function UserAccount() {
         </Col>
         </Row>
 
-        <Divider className="account_divider"/>
+        {
+        user.user_Type === "Customer" ? 
+        (<>
+            <Divider className="account_divider"/>
+            <h3 className="account_sub_title">Billing Address</h3>
+            <Row>
+            <Col sm={12} lg={6} md={6}>
+                <h5>Address : {user.user_Address !== "" ? (user.user_Address):("Not Given")}</h5>
+            </Col>
+            <Col sm={12} lg={6} md={6}>
+                <h5>City : {user.user_City !== "" ? (user.user_City):("Not Given")}</h5>
+            </Col>
+            </Row>
+            <Row>
+            <Col sm={12} lg={6} md={6}>
+                <h5>Postal Code : {user.user_Postal !== "" ? (user.user_Postal):("Not Given")}</h5>
+            </Col>
+            </Row>
+        </>):
+        (<>
+            <h3 className="account_sub_title">Address</h3>
+            <Row>
+            <Col sm={12} lg={6} md={6}>
+                <h5>Address : {user.user_Address !== "" ? (user.user_Address):("Not Given")}</h5>
+            </Col>
+            <Col sm={12} lg={6} md={6}>
+                <h5>City : {user.user_City !== "" ? (user.user_City):("Not Given")}</h5>
+            </Col>
+            </Row>
+        </>)
+        }
 
-        <h3 className="account_sub_title">Billing Address</h3>
-        <Row>
-        <Col sm={12} lg={6} md={6}>
-            <h5>Address : {user.user_Address !== "" ? (user.user_Address):("Not Given")}</h5>
-        </Col>
-        <Col sm={12} lg={6} md={6}>
-            <h5>City : {user.user_City !== "" ? (user.user_City):("Not Given")}</h5>
-        </Col>
-        </Row>
-        <Row>
-        <Col sm={12} lg={6} md={6}>
-            <h5>Postal Code : {user.user_Postal !== "" ? (user.user_Postal):("Not Given")}</h5>
-        </Col>
-        </Row>
         </Container>  
-
-
         </Container>
        
         
