@@ -13,7 +13,7 @@ router.route('/').get((req,res) => {
 });
 
 
-
+//Owner Adding Users(Admin and Delivery Staff)
 router.route('/add').post(async (req,res) => {
 
         //Check Current Users
@@ -27,8 +27,10 @@ router.route('/add').post(async (req,res) => {
         const user_Lname = req.body.user_Lname;
         const user_Contact = req.body.user_Contact; 
         const user_Email = req.body.user_Email;
-        const user_Address = req.body.user_Address; 
-        const user_City = req.body.user_City; 
+        const user_Address_1 = req.body.user_Address_1;
+        const user_Address_2 = req.body.user_Address_2; 
+        const user_Address_3 = req.body.user_Address_3;  
+        const user_District = req.body.user_District; 
         const user_Postal = req.body.user_Postal;
         const user_Password = req.body.user_Password;
 
@@ -40,8 +42,10 @@ router.route('/add').post(async (req,res) => {
             user_Lname,
             user_Contact, 
             user_Email, 
-            user_Address, 
-            user_City, 
+            user_Address_1,
+            user_Address_2,
+            user_Address_3, 
+            user_District, 
             user_Postal,
             user_Password 
         });
@@ -50,14 +54,6 @@ router.route('/add').post(async (req,res) => {
         newUser.user_Password = await bcrypt.hash(newUser.user_Password, salt)
     
         await newUser.save();
-
-        //cart imp
-        var newCartOb = new Cart({
-            cart_User : newUser
-        })
-
-        await newCartOb.save();
-
 
         //Create Token
         const token = jwt.sign({_id : newUser._id, user_Email: newUser.user_Email , user_Type:newUser.user_Type}, env.jwtKey)
@@ -71,6 +67,70 @@ router.route('/add').post(async (req,res) => {
                 msg: 'User Added!'
             })
 });
+
+//Customer Sign Up
+router.route('/signup').post(async (req,res) => {
+
+    //Check Current Users
+    let user = await User.findOne({ user_Email: req.body.user_Email});
+    if(user) return res.status(400).send('Already Registered')
+
+    //Create New User
+    const user_Type = req.body.user_Type; 
+    const user_Status = req.body.user_Status;
+    const user_Fname = req.body.user_Fname;
+    const user_Lname = req.body.user_Lname;
+    const user_Contact = req.body.user_Contact; 
+    const user_Email = req.body.user_Email;
+    const user_Address_1 = req.body.user_Address_1;
+    const user_Address_2 = req.body.user_Address_2; 
+    const user_Address_3 = req.body.user_Address_3;  
+    const user_District = req.body.user_District; 
+    const user_Postal = req.body.user_Postal;
+    const user_Password = req.body.user_Password;
+
+    const newCustomer = new User({
+
+        user_Type, 
+        user_Status, 
+        user_Fname, 
+        user_Lname,
+        user_Contact, 
+        user_Email, 
+        user_Address_1,
+        user_Address_2,
+        user_Address_3, 
+        user_District, 
+        user_Postal,
+        user_Password 
+    });
+
+    const salt = await bcrypt.genSalt(10)
+    newCustomer.user_Password = await bcrypt.hash(newCustomer.user_Password, salt)
+
+    await newCustomer.save();
+
+    //cart implementation
+    var newCartOb = new Cart({
+        cart_User : newCustomer
+    })
+
+    await newCartOb.save();
+
+
+    //Create Token
+    const token = jwt.sign({_id : newCustomer._id, user_Email: newCustomer.user_Email , user_Type:newCustomer.user_Type}, env.jwtKey)
+
+    //Response
+        res.status(200)
+        .header('x-auth-token', token)
+        .header('access-control-expose-headers', 'x-auth-token')
+        .json({
+            jwt: token,
+            msg: 'User Added!'
+        })
+});
+
 
 
 
@@ -105,7 +165,7 @@ router.route('/update/:id').post((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
-
+//User Login
 router.route('/login').post(async (req,res) => {
 
     //Check Current Users
@@ -135,12 +195,14 @@ router.route('/update/user-account/:id').post((req,res) => {
     User.findById(req.params.id)
     .then(users => {
 
-
+        console.log(req.body)
         users.user_Fname = req.body.user_Fname;
         users.user_Lname = req.body.user_Lname;
         users.user_Contact = req.body.user_Contact; 
-        users.user_Address = req.body.user_Address; 
-        users.user_City = req.body.user_City; 
+        users.user_Address_1 = req.body.user_Address_1;
+        users.user_Address_2 = req.body.user_Address_2;
+        users.user_Address_3 = req.body.user_Address_3; 
+        users.user_District = req.body.user_District; 
         users.user_Postal = req.body.user_Postal;
 
 

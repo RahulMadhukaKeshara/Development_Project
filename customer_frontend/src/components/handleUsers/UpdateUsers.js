@@ -43,14 +43,6 @@ function UpdateUsers() {
 
             user_Type : user.user_Type, 
             user_Status : user.user_Status,
-            user_Fname : user.user_Fname,
-            user_Lname : user.user_Lname,
-            user_Contact : user.user_Contact, 
-            user_Email : user.user_Email,
-            user_Address : user.user_Address, 
-            user_City : user.user_City, 
-            user_Postal : user.user_Postal,
-            user_Password : user.user_Password
 
         })
         .then(res => {

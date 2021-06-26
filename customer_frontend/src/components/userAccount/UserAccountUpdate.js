@@ -44,8 +44,10 @@ function UserAccountUpdate() {
             user_Fname : user.user_Fname,
             user_Lname : user.user_Lname,
             user_Contact : user.user_Contact, 
-            user_Address : user.user_Address, 
-            user_City : user.user_City, 
+            user_Address_1 : user.user_Address_1,
+            user_Address_2 : user.user_Address_2,
+            user_Address_3 : user.user_Address_3, 
+            user_District : user.user_District, 
             user_Postal : user.user_Postal,
 
         })
@@ -121,43 +123,73 @@ function UserAccountUpdate() {
                     (
                     <>
                     <h4 className="add_product_category_sub_title">Billing Address</h4>
-                        <Form.Row>
+                    <Form.Row>
                         <Col sm={12} lg={6} md={6}>
-                            <Form.Group  controlId="user_Address">
-                                <Form.Label>Address</Form.Label>
-                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address} type="text" placeholder="Address..."  />
+                            <Form.Group  controlId="user_Address_1">
+                                <Form.Label>Address Line 1</Form.Label>
+                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address_1} type="text" placeholder="Address Line 1..."  />
                             </Form.Group>
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_City">
-                                <Form.Label>City</Form.Label>
-                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_City} placeholder="City..." />
+                        <Form.Group  controlId="user_Address_2">
+                                <Form.Label>Address Line 2</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Address_2} placeholder="Address Line 2..." />
+                        </Form.Group>
+                        </Col>                       
+                    </Form.Row> 
+                    <Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                            <Form.Group  controlId="user_Address_3">
+                                <Form.Label>Address Line 3</Form.Label>
+                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address_3} type="text" placeholder="Address Line 3..."  />
                             </Form.Group>
-                            <Form.Group  controlId="user_Postal">
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="user_District">
+                                <Form.Label>District</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_District} placeholder="District..." />
+                        </Form.Group>
+                        <Form.Group  controlId="user_Postal">
                                 <Form.Label>Postal Code</Form.Label>
                                 <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Postal} placeholder="Postal Code..."/>
-                            </Form.Group>
+                        </Form.Group>
                         </Col>                       
-                        </Form.Row>                  
+                    </Form.Row>                  
                     </>):
                     (
                         <>
-                            <Form.Row>
-                            <Col sm={12} lg={6} md={6}>
-                                <Form.Group  controlId="user_Address">
-                                    <Form.Label>Address</Form.Label>
-                                    <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address} type="text" placeholder="Address..."  />
-                                </Form.Group>
-                            </Col>
-    
-                            <Col sm={12} lg={6} md={6}>
-                            <Form.Group  controlId="user_City">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_City} placeholder="City..." />
-                                </Form.Group>
-                            </Col>                       
-                            </Form.Row>                  
+                    <Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                            <Form.Group  controlId="user_Address_1">
+                                <Form.Label>Address Line 1</Form.Label>
+                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address_1} type="text" placeholder="Address Line 1..."  />
+                            </Form.Group>
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="user_Address_2">
+                                <Form.Label>Address Line 2</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Address_2} placeholder="Address Line 2..." />
+                        </Form.Group>
+                        </Col>                       
+                    </Form.Row> 
+                    <Form.Row>
+                        <Col sm={12} lg={6} md={6}>
+                            <Form.Group  controlId="user_Address_3">
+                                <Form.Label>Address Line 3</Form.Label>
+                                <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={user.user_Address_3} type="text" placeholder="Address Line 3..."  />
+                            </Form.Group>
+                        </Col>
+
+                        <Col sm={12} lg={6} md={6}>
+                        <Form.Group  controlId="user_District">
+                                <Form.Label>District</Form.Label>
+                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_District} placeholder="District..." />
+                        </Form.Group>
+                        </Col>                       
+                    </Form.Row>                  
                         </>)
                     }
 

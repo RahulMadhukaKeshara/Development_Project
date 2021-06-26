@@ -17,8 +17,10 @@ function AddUsers() {
         user_Lname : "",
         user_Contact : "", 
         user_Email : "",
-        user_Address : "",
-        user_City : "",
+        user_Address_1 : "",
+        user_Address_2 : "",
+        user_Address_3 : "",
+        user_District : "",
         user_Postal : "",
         user_Password : ""
 
@@ -41,8 +43,10 @@ function AddUsers() {
             user_Lname : data.user_Lname,
             user_Contact : data.user_Contact, 
             user_Email : data.user_Email,
-            user_Address : data.user_Address,
-            user_City : data.user_City,
+            user_Address_1 : data.user_Address_1,
+            user_Address_2 : data.user_Address_2,
+            user_Address_3 : data.user_Address_3,
+            user_District : data.user_District,
             user_Postal : data.user_Postal,
             user_Password : data.user_Password
 

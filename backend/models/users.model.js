@@ -10,8 +10,10 @@ const usersSchema = new Schema({
     user_Lname: {type:String , required: true},
     user_Contact: {type:String , required: true},
     user_Email: {type:String , required: true},
-    user_Address: {type:String},
-    user_City: {type:String},
+    user_Address_1: {type:String},
+    user_Address_2: {type:String},
+    user_Address_3: {type:String},
+    user_District: {type:String},
     user_Postal: {type:String},
     user_Password: {type:String}
 

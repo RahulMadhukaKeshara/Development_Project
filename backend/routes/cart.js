@@ -42,7 +42,7 @@ router.route('/:id').get(async (req,res) => {
   }
 });
 
-router.route('/').post(async (req,res) => {
+router.route('/remove').post(async (req,res) => {
 
   console.log(req.body)
   

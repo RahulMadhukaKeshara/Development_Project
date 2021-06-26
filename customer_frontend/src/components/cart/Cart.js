@@ -39,18 +39,18 @@ function Cart() {
         console.log(itemID)
         console.log(userID)
         Axios.post(
-            `http://localhost:5000/cart/`, {itemID , userID}
+            `http://localhost:5000/cart/remove/`, {itemID , userID}
           )
            .then(res => {
       
              console.log(res.data)
                     
              if(res.data === "Item Deleted"){
-               getCartItemData()
                Swal.fire({
                  icon: 'success',
                  title: 'Item Deleted!',
                })
+               getCartItemData()
       
       
              }else {

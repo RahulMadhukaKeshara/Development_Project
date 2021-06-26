@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom';
 function SignUpForm() {
 
     const history = useHistory();
-    const url = 'http://localhost:5000/users/add';
+    const url = 'http://localhost:5000/users/signup';
     const [userData , setUserData] = useState({
 
         user_Type : "Customer",
@@ -17,8 +17,10 @@ function SignUpForm() {
         user_Lname : "",
         user_Contact : "", 
         user_Email : "",
-        user_Address : "",
-        user_City : "",
+        user_Address_1 : "", 
+        user_Address_2 : "",
+        user_Address_3 : "",
+        user_District : "",
         user_Postal : "",
         user_Password : ""
 
@@ -41,8 +43,10 @@ function SignUpForm() {
             user_Lname : userData.user_Lname,
             user_Contact : userData.user_Contact, 
             user_Email : userData.user_Email,
-            user_Address : userData.user_Address,
-            user_City : userData.user_City,
+            user_Address_1 : userData.user_Address_1,
+            user_Address_2 : userData.user_Address_2,
+            user_Address_3 : userData.user_Address_3,
+            user_District : userData.user_District,
             user_Postal : userData.user_Postal,
             user_Password : userData.user_Password
 
