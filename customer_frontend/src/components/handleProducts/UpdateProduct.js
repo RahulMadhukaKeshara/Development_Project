@@ -72,15 +72,15 @@ function UpdateProduct() {
 }
 
 
-  function handleUpload(e) {
+   function handleUpload(e) {
 
-    // console.log(e.target.files[0])
-    const newProduct = {...product}
-    newProduct.product_Img = e.target.files[0];
-    setProduct(newProduct)
-    // console.log(newProduct)
+    //  console.log(e.target.files[0])
+    //  const newProduct = {...product}
+    //  newProduct.product_Img = e.target.files[0];
+    //  setProduct(newProduct)
+    //  console.log(newProduct)
 
-}
+ }
 
 function handleAddFields(){
     
@@ -115,7 +115,7 @@ function handleRemoveFields(index){
          formData.append("product_Published", product.product_Published);
          formData.append("product_Featured", product.product_Featured);
          formData.append("product_New", product.product_New);
-         formData.append("product_Img", product.product_Img);
+        //  formData.append("product_Img", product.product_Img);
         Axios.post(url,formData)
         .then(res => {
             console.log(res.data)

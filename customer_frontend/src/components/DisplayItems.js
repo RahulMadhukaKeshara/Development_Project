@@ -3,10 +3,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import FeaturedCardItems from './FeaturedCardItems';
 import '../components/DisplayItems.css';
 import Axios from 'axios';
+import { useParams } from 'react-router';
 
 function DisplayItems(props) {
 
+    let params = useParams();
     const [products, setProducts] = useState([]);
+    const [productCategory , setProductCategory] = useState({})
 
      const getProductData = async () => {
        try {
@@ -20,9 +23,23 @@ function DisplayItems(props) {
          console.log(e);
        }
      };
+
+     const getProductCategoryData = async () => {
+      try {
+        const data = await Axios.get(
+          "http://localhost:5000/productCategories/" + params.id
+        );
+        console.log(data.data);
+        setProductCategory(data.data);
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
    
      useEffect(() => {
        getProductData();
+       getProductCategoryData();
      }, []);
 
 
@@ -30,21 +47,24 @@ function DisplayItems(props) {
         <>
     
             <Container className='container-md'>
-                <h1 className='feature_title'>All Items</h1>
+                <h1 className='feature_title'>{productCategory.product_category_Name + "'s Items"}</h1>
                 <Row  className="justify-content-md-center">
                 { 
                 
-                products.map(  products =>            
-                    
-                    <Col lg={3} md={6} className="featured_col">
-                        <FeaturedCardItems
-                        src= {"http://localhost:5000/products/photo/" + products._id }
-                        title={products.product_Name}
-                        price={products.product_Price}
-                        id= {'/product-details/' + products._id}
-                        />
-                    </Col>
-                    
+                products.map(  products =>   {
+                  
+                  return products.product_Category === productCategory.product_category_Name ? 
+                    (
+                      <Col lg={3} md={6} className="featured_col">
+                      <FeaturedCardItems
+                      src= {"http://localhost:5000/products/photo/" + products._id }
+                      title={products.product_Name}
+                      price={products.product_Price}
+                      id= {'/product-details/' + products._id}/>
+                      </Col>                    
+                    ) : 
+                    ("") 
+                   }              
                 )
 
                 }
@@ -57,23 +77,3 @@ function DisplayItems(props) {
 }
 
 export default DisplayItems;
-
-/* 
-
-    let active = 1;
-    let items = [];
-    for (let number = 1; number <= 5; number++) {
-    items.push(
-        <Pagination.Item key={number} active={number === active}>
-        {number}
-        </Pagination.Item>,
-    );
-    }
-    const paginationBasic = (
-    <div>
-        <Pagination>{items}</Pagination>
-
-    </div>
-    );
-                <Pagination className='display_pagination'>{items}</Pagination>
-    */

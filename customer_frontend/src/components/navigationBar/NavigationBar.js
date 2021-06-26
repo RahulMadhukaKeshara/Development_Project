@@ -54,12 +54,12 @@ function NavigationBar() {
                 </Form>
                 <Nav className="navbar-links mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/display-items">All Items</Nav.Link>
+                    <Nav.Link href="/all-items">All Items</Nav.Link>
                     <NavDropdown title="Categories" id="collasible-nav-dropdown">
                         {
                             productCategories.map(productCategories =>
                                 
-                                <NavDropdown.Item key={productCategories.product_category_Name} href="/display-items">{productCategories.product_category_Name}</NavDropdown.Item>
+                                <NavDropdown.Item key={productCategories.product_category_Name} href={"/display-items/" + productCategories._id} >{productCategories.product_category_Name}</NavDropdown.Item>
                             
                             )
                         }

@@ -106,8 +106,8 @@ router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
         products.product_Featured = req.body.product_Featured;
         products.product_New = req.body.product_New;
 
-        const file = req.file.buffer;
-        products.product_Img = file;
+        // const file = req.file.buffer;
+        // products.product_Img = file;
 
         products.save()
         .then(() => res.json('Product Updated!'))

@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react';
-import { Col , Row , Container} from 'react-bootstrap';
-import '../components/FeaturedCardItems.css';
+import { Col, Container, Row } from 'react-bootstrap';
 import FeaturedCardItems from './FeaturedCardItems';
+import '../components/DisplayItems.css';
 import Axios from 'axios';
 
-function NewArrivals() {
+function DisplayItems(props) {
 
     const [products, setProducts] = useState([]);
 
@@ -22,21 +22,20 @@ function NewArrivals() {
      };
 
      useEffect(() => {
-        getProductData();
-      }, []);
+       getProductData();
+     }, []);
 
-  return (
-    <>
 
-        <Container className='container-md'>
-            <h1 className='feature_title'>New Arrivals</h1>
-            <Row className="justify-content-md-center">
-            { 
+    return (
+        <>
+    
+            <Container className='container-md'>
+                <h1 className='feature_title'>All Items</h1>
+                <Row  className="justify-content-md-center">
+                { 
                 
-                products.map(  products =>   {
+                products.map(  products =>  
                   
-                  return products.product_New === "Yes" ? 
-                    (
                       <Col lg={3} md={6} className="featured_col">
                       <FeaturedCardItems
                       src= {"http://localhost:5000/products/photo/" + products._id }
@@ -44,16 +43,16 @@ function NewArrivals() {
                       price={products.product_Price}
                       id= {'/product-details/' + products._id}/>
                       </Col>                    
-                    ) : 
-                    ("") 
-                   }              
+                                 
                 )
 
                 }
-            </Row>
-        </Container>
-    </>
-  )
+                </Row>
+            </Container>
+
+            
+        </>
+      )
 }
 
-export default NewArrivals;
+export default DisplayItems;
