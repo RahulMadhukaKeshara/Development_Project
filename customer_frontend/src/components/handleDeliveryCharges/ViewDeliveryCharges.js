@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useParams} from 'react';
+import React,{useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -24,7 +24,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
-import Axios from 'axios';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
 
@@ -58,15 +58,12 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: '_id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'supplier_Name', numeric: false, disablePadding: false, label: 'Name' },
-  { id: 'supplier_Description', numeric: false, disablePadding: false, label: 'Description' },
-  { id: 'supplier_Contact', numeric: false, disablePadding: false, label: 'Contact Number' },
-  { id: 'supplier_Email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'supplier_Address', numeric: false, disablePadding: false, label: 'Adderss' },
+  { id: 'district', numeric: false, disablePadding: false, label: 'District' },
+  { id: 'delivery_charge', numeric: false, disablePadding: false, label: 'Delivery Charge'},
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort  } = props;
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -142,8 +139,6 @@ const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected , onClickDelete , onClickUpdate } = props;
 
-
- 
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -156,18 +151,17 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Supplier List
+          Delivery Charges List
         </Typography>
       )}
 
       {numSelected === 1 ? (
-
-        <Tooltip title="Update" onClick={onClickUpdate}>
+        
+        <Tooltip title="Update"  onClick={onClickUpdate}>
           <IconButton aria-label="update">
             <UpdateIcon/>
           </IconButton>
         </Tooltip>
-
       ) : (
         <Typography/>
       )}      
@@ -180,13 +174,14 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
       ) : (
         <>
-        <Link href='/add-suppliers'>
-        <Tooltip title="Add New Supplier">
+        <Link href='/add-delivery-charge'>
+        <Tooltip title="Add New Delivery Charge">
           <IconButton aria-label="AddBoxRounded">
             <AddBoxRoundedIcon />
             </IconButton>
         </Tooltip>
         </Link>
+
 
         <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
@@ -194,7 +189,10 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
         </>
+
       )}
+
+
 
     </Toolbar>
   );
@@ -202,8 +200,8 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onClickDelete:PropTypes.func.isRequired,
-  onClickUpdate:PropTypes.func.isRequired
+  onClickDelete: PropTypes.func.isRequired,
+  onClickUpdate: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -232,33 +230,33 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
-  supplier_breadcrumb:{
+  pro_cat_breadcrumb:{
 
       marginTop:'85px',
       marginBottom:'10px',
       paddingLeft:'25px',
   },
 
-  supplier_container:{
+  pro_cat_container:{
 
     marginTop:'50px',
 
   },
 }));
 
-export default function ViewSuppliers() {
+export default function ViewDeliveryCharges() {
 
-  const history = useHistory()
-  const [suppliers, setSuppliers] = useState([]);
- // const [search, setSearch] = useState("");
+  const history = useHistory();
+  const classes = useStyles();
+  const [product, setProduct] = useState([]);
 
   const getProductData = async () => {
     try {
-      const data = await Axios.get(
-        "http://localhost:5000/suppliers/"
+      const data = await axios.get(
+        "http://localhost:5000/deliveryCharges/"
       );
       console.log(data.data);
-      setSuppliers(data.data);
+      setProduct(data.data);
     } catch (e) {
       console.log(e);
     }
@@ -267,11 +265,9 @@ export default function ViewSuppliers() {
   useEffect(() => {
     getProductData();
   }, []);
-  
 
-  const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('_id');
+  const [orderBy, setOrderBy] = React.useState('product_category_Name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -285,7 +281,7 @@ export default function ViewSuppliers() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = suppliers.map((n) => n._id);
+      const newSelecteds = product.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
@@ -321,22 +317,21 @@ export default function ViewSuppliers() {
     setPage(0);
   };
 
-  //delete suppliers
   const handleDelete = (_id) => {
 
   
     console.log(selected.toString(_id))
-    Axios.delete(
-      `http://localhost:5000/suppliers/` + selected.toString(_id)
+    axios.delete(
+      `http://localhost:5000/deliveryCharges/` + selected.toString(_id)
     )
     .then(res => {
 
       console.log(res.data)
               
-      if(res.data === "Supplier Deleted!"){
+      if(res.data === "Delivery Charge Deleted!"){
         Swal.fire({
           icon: 'success',
-          title: 'Supplier Deleted!',
+          title: 'Delivery Charge Deleted!',
         })
         getProductData();
         setSelected([]);
@@ -353,33 +348,34 @@ export default function ViewSuppliers() {
   
   }
 
-const handleUpdate = (_id) => {
+  const handleUpdate = (_id) => {
 
-  history.push(`/update-suppliers/` + selected.toString(_id));
+    history.push(`/update-delivery-charge/` + selected.toString(_id));
 
-}
+  }
+
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, suppliers.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, product.length - page * rowsPerPage);
 
   return (
 
     <>
-      <Breadcrumbs separator="›" aria-label="breadcrumb" className={classes.supplier_breadcrumb}>
-        <Link color="inherit" href="/owner-main-page" >
+      <Breadcrumbs separator="›" aria-label="breadcrumb" className={classes.pro_cat_breadcrumb}>
+        <Link color="inherit" href="/owner-main-page">
           Home
         </Link>
-      <Typography color="textPrimary">Suppliers</Typography>
+      <Typography color="textPrimary">Delivery Charges</Typography>
       </Breadcrumbs>
       <Divider />
 
-    <Container className={classes.supplier_container}>
+    <Container className={classes.pro_cat_container}>
     
-    <h1>Suppliers</h1>
+    <h1 style={{textAlign:'center' , marginBottom:'35px'}}>Delivery Charges</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} onClickUpdate={handleUpdate}/>
+        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}  onClickUpdate={handleUpdate} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -394,10 +390,10 @@ const handleUpdate = (_id) => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={suppliers.length}
+              rowCount={product.length}
             />
             <TableBody>
-              {stableSort(suppliers, getComparator(order, orderBy))
+              {stableSort(product, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row._id);
@@ -422,11 +418,8 @@ const handleUpdate = (_id) => {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.supplier_Name}</TableCell>
-                      <TableCell align="center">{row.supplier_Description}</TableCell>
-                      <TableCell align="center">{row.supplier_Contact}</TableCell>
-                      <TableCell align="center">{row.supplier_Email}</TableCell>
-                      <TableCell align="center">{row.supplier_Address}</TableCell>
+                      <TableCell align="center">{row.district}</TableCell>
+                      <TableCell align="center">{row.delivery_charge}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -441,7 +434,7 @@ const handleUpdate = (_id) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={suppliers.length}
+          count={product.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

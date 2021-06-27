@@ -29,18 +29,6 @@ import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
 
 
-/*function createData(product_category_id, product_category_name) {
-
-  return { product_category_id, product_category_name};
-}
-
-const rows = [
-  createData('PC1', 'Men'),
-  createData('PC2', 'Women'),
-  createData('PC3', 'Couple'),
-  createData('PC4', 'Kids')
-];*/
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -343,6 +331,8 @@ export default function ViewProductCategories() {
           icon: 'success',
           title: 'ProductCategory Deleted!',
         })
+        getProductData();
+        setSelected([]);
 
 
       }else {

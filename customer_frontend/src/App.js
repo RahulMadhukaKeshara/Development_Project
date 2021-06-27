@@ -25,6 +25,9 @@ import UserAccountPage from './components/pages/UserAccountPage';
 import UpdateAccountDetailsPage from './components/pages/UpdateAccountDetailsPage';
 import CheckoutPage from './components/pages/CheckoutPage';
 import AllItemsPage from './components/pages/AllItemsPage';
+import AddDeliveryChargesPage from './components/pages/AddDeliveryChargesPage';
+import UpdateDeliveryChargesPage from './components/pages/UpdateDeliveryChargesPage';
+import DeliveryChargesPage from './components/pages/DeliveryChargesPage';
 
 
 
@@ -60,6 +63,9 @@ function App() {
                     <Route path='/update-user-account/:id' exact component={UpdateAccountDetailsPage}/>
                     <Route path='/checkout' exact component={CheckoutPage}/>
                     <Route path='/all-items' exact component={AllItemsPage}/>
+                    <Route path='/add-delivery-charge' exact component={AddDeliveryChargesPage}/>
+                    <Route path='/update-delivery-charge/:id' exact component={UpdateDeliveryChargesPage}/>
+                    <Route path='/deliveryCharges' exact component={DeliveryChargesPage}/>
 
 
 
