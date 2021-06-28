@@ -288,6 +288,7 @@ export default function ViewUsers() {
 
   const history = useHistory();
   const [users, setUsers] = useState([]);
+  
   // const [search, setSearch] = useState("");
  
    const getProductData = async () => {
@@ -305,6 +306,8 @@ export default function ViewUsers() {
    useEffect(() => {
      getProductData();
    }, []);
+
+
 
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -358,38 +361,83 @@ export default function ViewUsers() {
     setPage(0);
   };
 
-  const handleDelete = (_id) => {
+  const handleDelete = async(_id) => {
 
-  
-    console.log(selected.toString(_id))
-    Axios.delete(
-      `http://localhost:5000/users/` + selected.toString(_id)
-    )
-    .then(res => {
+      try {
+        const user =  await Axios.get(
+          "http://localhost:5000/users/" + selected.toString(_id)
+        );
+       // console.log(user.data.user_Type);
+        if (user.data.user_Type !== "Customer") {
+          Axios.delete(
+            `http://localhost:5000/users/` + selected.toString(_id)
+          )
+          .then(res => {
 
-      console.log(res.data)
-      if(res.data === "User Deleted!"){
+            console.log(res.data)
+            if(res.data === "User Deleted!"){
+              Swal.fire({
+                icon: 'success',
+                title: 'User Deleted!',
+              })
+              getProductData();
+              setSelected([]);
+     
+     
+            }else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                })
+          }
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Cannot Delete Customers...',
+          })
+          getProductData();
+          setSelected([]);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+
+    
+
+
+
+  }
+
+  const handleUpdate = async(_id) => {
+
+    try {
+      const data = await Axios.get(
+        "http://localhost:5000/users/" + selected.toString(_id)
+      );
+      //console.log(data.data);
+      if (data.data.user_Type === "Customer") {
         Swal.fire({
-          icon: 'success',
-          title: 'User Deleted!',
+          icon: 'error',
+          title: 'Cannot Update Customer Details',
         })
         getProductData();
         setSelected([]);
 
+      } else {
 
-      }else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          })
+        history.push(`/update-users/` + selected.toString(_id))
+
+      }
+    } catch (e) {
+
+      console.log(e);
+
     }
-    })
 
-  }
 
-  const handleUpdate = (_id) => {
-    history.push(`/update-users/` + selected.toString(_id))
+
   }
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;

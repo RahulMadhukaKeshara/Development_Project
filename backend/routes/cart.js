@@ -3,6 +3,8 @@ let Cart = require('../models/carts.model');
 let User = require('../models/users.model');
 let Product = require('../models/products.model');
 
+
+//add items to the cart
 router.route('/add').post(async(req,res) => {
 
       let userOb = await User.findById(req.body.cart_User)
@@ -23,13 +25,14 @@ router.route('/add').post(async(req,res) => {
 
 });
 
+//get all carts
 router.route('/').get((req,res) => {
   Cart.find()
   .then(cart => res.json(cart))
   .catch(err => res.status(400).json('Error: '+ err));
 });
 
-
+//get specific cart
 router.route('/:id').get(async (req,res) => {
   
   try {
@@ -42,6 +45,7 @@ router.route('/:id').get(async (req,res) => {
   }
 });
 
+//remove cart items 
 router.route('/remove').post(async (req,res) => {
 
   console.log(req.body)
@@ -63,6 +67,7 @@ router.route('/remove').post(async (req,res) => {
      res.status(400).json('Error: '+ error)
    }
 });
+
 
 
 

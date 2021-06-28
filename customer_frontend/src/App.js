@@ -61,7 +61,7 @@ function App() {
                     <Route path='/cart/:id' exact component={CartPage}/>
                     <Route path='/user-account/:id' exact component={UserAccountPage}/>
                     <Route path='/update-user-account/:id' exact component={UpdateAccountDetailsPage}/>
-                    <Route path='/checkout' exact component={CheckoutPage}/>
+                    <Route path='/checkout/:id' exact component={CheckoutPage}/>
                     <Route path='/all-items' exact component={AllItemsPage}/>
                     <Route path='/add-delivery-charge' exact component={AddDeliveryChargesPage}/>
                     <Route path='/update-delivery-charge/:id' exact component={UpdateDeliveryChargesPage}/>

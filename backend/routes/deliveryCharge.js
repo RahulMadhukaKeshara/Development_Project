@@ -38,6 +38,16 @@ router.route('/:id').get((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+router.route('/charges').post(async(req,res) => {
+    try {
+        let District = await DeliveryCharge.findOne({ district: req.body.district});
+        res.json(District)
+
+    } catch (error) {
+        res.status(400).json('Error: '+ error)
+    }
+});
+
 //delete delivery charge
 router.route('/:id').delete((req,res) => {
     DeliveryCharge.findByIdAndDelete(req.params.id)

@@ -76,7 +76,7 @@ function NavigationBar() {
                     type === "Customer" ? 
                     (
                       <Nav className="">
-                      <IconButton className="icon_btn" aria-label="Go to Cart">
+                      <IconButton className="icon_btn" aria-label="Go to Cart" href={"/cart/" + userID}>
                         <ShoppingCartRoundedIcon />
                       </IconButton>
                       <NavDropdown title={<i class="fas fa-user-circle"></i>} id="collasible-nav-dropdown">                   
