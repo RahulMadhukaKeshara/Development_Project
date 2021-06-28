@@ -119,7 +119,7 @@ function Cart() {
           const data = await Axios.post(
             "http://localhost:5000/deliveryCharges/charges", {district : District}
           );
-          setDelCharge(data.data.delivery_charge)
+          setDelCharge(parseInt(data.data.delivery_charge))
         } catch (e) {
           console.log(e);
         }
@@ -218,7 +218,7 @@ function Cart() {
                          <h5>Delivery Charges : LKR {delCharge} </h5>
                     </div>
                     <div className='col2_div'>
-                        <h3>Grand Total : LKR {subTotal - totalDiscount - delCharge }</h3>
+                        <h3>Grand Total : LKR {subTotal - totalDiscount + delCharge }</h3>
                     </div>
                     <div className='col2_div  summry_btns'>             
                         <Button className='summury_btn1' href='/all-items'>Continue Shopping</Button>

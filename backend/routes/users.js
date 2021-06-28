@@ -16,6 +16,7 @@ router.route('/').get((req,res) => {
 //Owner Adding Users(Admin and Delivery Staff)
 router.route('/add').post(async (req,res) => {
 
+    try {
         //Check Current Users
         let user = await User.findOne({ user_Email: req.body.user_Email});
         if(user) return res.status(400).send('Already Registered')
@@ -54,23 +55,18 @@ router.route('/add').post(async (req,res) => {
         newUser.user_Password = await bcrypt.hash(newUser.user_Password, salt)
     
         await newUser.save();
+        res.status(200).json('User Added!')
 
-        //Create Token
-        const token = jwt.sign({_id : newUser._id, user_Email: newUser.user_Email , user_Type:newUser.user_Type}, env.jwtKey)
+    } catch (error) {
+        res.status(400).json('Error: '+ error)
+    }
 
-        //Response
-            res.status(200)
-            .header('x-auth-token', token)
-            .header('access-control-expose-headers', 'x-auth-token')
-            .json({
-                jwt: token,
-                msg: 'User Added!'
-            })
 });
 
 //Customer Sign Up
 router.route('/signup').post(async (req,res) => {
 
+    try {
     //Check Current Users
     let user = await User.findOne({ user_Email: req.body.user_Email});
     if(user) return res.status(400).send('Already Registered')
@@ -114,21 +110,14 @@ router.route('/signup').post(async (req,res) => {
     var newCartOb = new Cart({
         cart_User : newCustomer
     })
-
     await newCartOb.save();
+       res.status(200).json('User Added!')  
+
+    } catch (error) {
+       res.status(400).json('Error: '+ error)
+    }
 
 
-    //Create Token
-    const token = jwt.sign({_id : newCustomer._id, user_Email: newCustomer.user_Email , user_Type:newCustomer.user_Type}, env.jwtKey)
-
-    //Response
-        res.status(200)
-        .header('x-auth-token', token)
-        .header('access-control-expose-headers', 'x-auth-token')
-        .json({
-            jwt: token,
-            msg: 'User Added!'
-        })
 });
 
 

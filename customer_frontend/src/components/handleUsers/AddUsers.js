@@ -53,8 +53,8 @@ function AddUsers() {
         })
         .then(res => {
 
-            console.log(res.data.msg)
-            if(res.data.msg === "User Added!"){
+            console.log(res.data)
+            if(res.data === "User Added!"){
               Swal.fire({
                 icon: 'success',
                 title: 'User Added!',

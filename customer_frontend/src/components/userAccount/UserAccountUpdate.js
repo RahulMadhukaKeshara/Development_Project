@@ -11,6 +11,7 @@ function UserAccountUpdate() {
     let params = useParams();
     const history = useHistory();
     const [user , setUser] = useState({});
+    const [deliveryCharges , setDeliveryCharges] = useState([]);
 
     const url = 'http://localhost:5000/users/update/user-account/' + params.id;
 
@@ -26,8 +27,20 @@ function UserAccountUpdate() {
         }
       };
     
+      const getDeliveryChargeData = async () => {
+        try {
+          const data = await Axios.get(
+            "http://localhost:5000/deliveryCharges/"
+          );
+          // console.log(data.data);
+          setDeliveryCharges(data.data);
+        } catch (e) {
+          console.log(e);
+        }
+      };
       useEffect(() => {
         getUserData();
+        getDeliveryChargeData();
       }, []);
 
     function handleChange(e) {
@@ -39,6 +52,13 @@ function UserAccountUpdate() {
 
     function handleSubmit(e){
         e.preventDefault();
+        let district = "";
+        if (user.user_District === "Choose...") {
+            district = "";
+        }else{
+            district = user.user_District;
+        }
+
         Axios.post(url,{
 
             user_Fname : user.user_Fname,
@@ -47,7 +67,7 @@ function UserAccountUpdate() {
             user_Address_1 : user.user_Address_1,
             user_Address_2 : user.user_Address_2,
             user_Address_3 : user.user_Address_3, 
-            user_District : user.user_District, 
+            user_District : district, 
             user_Postal : user.user_Postal,
 
         })
@@ -148,8 +168,15 @@ function UserAccountUpdate() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_District">
-                                <Form.Label>District</Form.Label>
-                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_District} placeholder="District..." />
+                        <Form.Label>District</Form.Label>
+                        <Form.Control as="select" onChange={(e) => handleChange(e)}  value={user.user_District}>
+                                    <option>Choose...</option>
+                        {
+                                deliveryCharges && deliveryCharges.map(item => 
+                                    <option>{item.district}</option>
+                                )
+                        }
+                        </Form.Control>
                         </Form.Group>
                         <Form.Group  controlId="user_Postal">
                                 <Form.Label>Postal Code</Form.Label>
@@ -185,8 +212,15 @@ function UserAccountUpdate() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_District">
-                                <Form.Label>District</Form.Label>
-                                <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_District} placeholder="District..." />
+                        <Form.Label>District</Form.Label>
+                        <Form.Control as="select" onChange={(e) => handleChange(e)}  value={user.user_District}>
+                                    <option>Choose...</option>
+                        {
+                                deliveryCharges && deliveryCharges.map(item => 
+                                    <option>{item.district}</option>
+                                )
+                        }
+                        </Form.Control>
                         </Form.Group>
                         </Col>                       
                     </Form.Row>                  

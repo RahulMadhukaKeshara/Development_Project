@@ -53,8 +53,6 @@ router.route('/remove').post(async (req,res) => {
    try {
      let userOb = await User.findById(req.body.userID)
      let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'})
-     //res.json(cartOb)
-    //  console.log(cartOb)
 
      let newCart = cartOb.cart_Items.filter(c => {
         if(c._id != req.body.itemID) return true

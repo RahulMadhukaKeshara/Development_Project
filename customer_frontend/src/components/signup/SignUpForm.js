@@ -52,9 +52,8 @@ function SignUpForm() {
 
         })
         .then((res)=>{
-            localStorage.setItem("token", res.data.jwt);
-            console.log(res.data.msg);
-            if(res.data.msg === "User Added!"){
+            console.log(res.data)
+            if(res.data === "User Added!"){
                 Swal.fire({
                   icon: 'success',
                   title: 'Registered In Successfully!',
