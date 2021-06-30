@@ -28,6 +28,8 @@ import AllItemsPage from './components/pages/AllItemsPage';
 import AddDeliveryChargesPage from './components/pages/AddDeliveryChargesPage';
 import UpdateDeliveryChargesPage from './components/pages/UpdateDeliveryChargesPage';
 import DeliveryChargesPage from './components/pages/DeliveryChargesPage';
+import MyOrdersPage from './components/pages/MyOrdersPage';
+import CustomerViewOrderDetailsPage from './components/pages/CustomerViewOrderDetailsPage';
 
 
 
@@ -66,6 +68,10 @@ function App() {
                     <Route path='/add-delivery-charge' exact component={AddDeliveryChargesPage}/>
                     <Route path='/update-delivery-charge/:id' exact component={UpdateDeliveryChargesPage}/>
                     <Route path='/deliveryCharges' exact component={DeliveryChargesPage}/>
+                    <Route path='/customer-orders' exact component={MyOrdersPage}/>
+                    <Route path='/customer-view-orderDetails' exact component={CustomerViewOrderDetailsPage}/>
+
+
 
 
 

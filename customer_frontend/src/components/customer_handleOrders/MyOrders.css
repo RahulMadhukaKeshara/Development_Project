@@ -1,0 +1,51 @@
+.order_title{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.order_container{
+    border: 2px solid #f95957;
+    padding: 10px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.individual_order{
+    justify-content: space-around;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.order_btn{
+    background-color: #f95757;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 10px 10px;
+    min-width: 100px;
+    border-radius: 40px;
+    height: 40px;
+}
+
+
+@media only screen and (max-width:768px) {
+
+    .order_container{
+        width: 90%;
+    }
+    .individual_order{
+        justify-content: center;
+    }
+
+}
+
+@media only screen and (max-width:576px) {
+
+    .order_container{
+        width: 95%;
+    }
+    .individual_order{
+        justify-content: center;
+    }
+}
