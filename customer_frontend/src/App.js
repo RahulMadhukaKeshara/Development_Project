@@ -68,8 +68,8 @@ function App() {
                     <Route path='/add-delivery-charge' exact component={AddDeliveryChargesPage}/>
                     <Route path='/update-delivery-charge/:id' exact component={UpdateDeliveryChargesPage}/>
                     <Route path='/deliveryCharges' exact component={DeliveryChargesPage}/>
-                    <Route path='/customer-orders' exact component={MyOrdersPage}/>
-                    <Route path='/customer-view-orderDetails' exact component={CustomerViewOrderDetailsPage}/>
+                    <Route path='/customer-orders/:id' exact component={MyOrdersPage}/>
+                    <Route path='/customer-view-orderDetails/:id' exact component={CustomerViewOrderDetailsPage}/>
 
 
 

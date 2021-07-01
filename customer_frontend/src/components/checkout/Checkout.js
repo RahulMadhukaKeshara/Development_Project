@@ -7,11 +7,40 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import { useParams } from 'react-router';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
+import jwtDecode from "jwt-decode";
 
 
 function Checkout() {
 
+    const history = useHistory();
     let params = useParams();
+    const url = "http://localhost:5000/orders/add";
+    const [order , setOrder] = useState({
+
+      order_User : "",
+      order_Items: [{
+          product : "", color : "", size : "", quantity : "", unit_Price : "",
+      }],
+  
+      payment_Method:"",
+      order_Status: "New",
+      order_Total : "",
+      order_Placed_Date :"", 
+      expected_Delivery_Date : "TBA",
+      actual_Delivery_Date : "TBA",
+      delivery_Fname : "",
+      delivery_Lname: "",
+      delivery_Contact: "",
+      delivery_Address_1: "",
+      delivery_Address_2: "",
+      delivery_Address_3: "",
+      delivery_District: "",
+      delivery_Postal: "",
+      delivery_Instructions:"",
+      delivery_Member: "Not Set"
+    })
     const [cartItems , setCartItems] = useState({});
     const [userData , setUserData] = useState({});
     const [deliveryCharges , setDeliveryCharges] = useState([]);
@@ -25,7 +54,6 @@ function Checkout() {
 
     const [isChecked , setIsChecked] = useState(false)
 
-    const [payMethod , setPayMethod] = useState("");
     
     const getUserData = async () => {
         try {
@@ -110,27 +138,22 @@ function Checkout() {
 
       function handleDistrict(e){
 
+        const newOrder = {...order};
          let newData = {...selectedDistrict};
          //console.log(newData)
          newData = e.target.value;
          //console.log(newData)
          setSelectedDistrict(newData);
          handleDelCharges(newData);
+         newOrder.delivery_District = newData;
+         setOrder(newOrder)
 
       }
     function handleChange(e) {
-
-    }
-
-    function handleSubmit(e) {
-
-    }
-
-    function handlePay(e){
-      let pay = {...payMethod};
-      pay = e.target.value;
-      console.log(pay)
-      setPayMethod(pay)
+      const newOrder = {...order};
+      newOrder[e.target.id] = e.target.value;
+      setOrder(newOrder);
+      console.log(newOrder);
     }
 
     function handleCheck(e){
@@ -140,13 +163,78 @@ function Checkout() {
         //console.log(check)
         setIsChecked(check)
         if (check === true) {
+          const newOrder = {...order};
           let newData = {...selectedDistrict};
           newData = userData.user_District;
           setSelectedDistrict(newData);
           handleDelCharges(newData)
+
+          newOrder.delivery_Address_1 = userData.user_Address_1;
+          newOrder.delivery_Address_2 = userData.user_Address_2;
+          newOrder.delivery_Address_3 = userData.user_Address_3;
+          newOrder.delivery_Postal = userData.user_Postal;
+          newOrder.delivery_District = newData;
+          setOrder(newOrder)
         }
     }
 
+    const jwt = localStorage.getItem("token");
+    let userID = jwtDecode(jwt)._id;
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const d = new Date();
+      const date = d.toLocaleDateString()
+
+       let dataSet = {
+         order_User : userID,
+         order_Items: cartItems.cart_Items,
+         payment_Method: order.payment_Method,
+         order_Status: order.order_Status,
+         order_Total : subTotal - totalDiscount + delCharge,
+         order_Placed_Date : date, 
+         expected_Delivery_Date : order.expected_Delivery_Date,
+         actual_Delivery_Date : order.actual_Delivery_Date,
+         delivery_Fname : order.delivery_Fname,
+         delivery_Lname: order.delivery_Lname,
+         delivery_Contact: order.delivery_Contact,
+         delivery_Address_1: order.delivery_Address_1,
+         delivery_Address_2: order.delivery_Address_2,
+         delivery_Address_3: order.delivery_Address_3,
+         delivery_District: order.delivery_District,
+         delivery_Postal: order.delivery_Postal,
+         delivery_Instructions: order.delivery_Instructions,
+         delivery_Member: order.delivery_Member
+       }
+       try {
+        Axios.post(
+          url,
+          dataSet,
+
+        ).then((res) => {
+            console.log(res.data)
+            if (res.data === "Order Placed!") {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Order Placed!',
+                })
+                history.push('/products');
+
+          } else {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+
+                })
+          }
+          }
+        );
+      } catch (err) {
+        console.log(err.res.data)
+      }
+
+    }
 
     return (
         <>
@@ -168,26 +256,26 @@ function Checkout() {
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Fname">
+                    <Form.Group  controlId="delivery_Fname">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="First Name"/>
+                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Fname} onChange={(e) => handleChange(e)} placeholder="First Name"/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Lname">
+                    <Form.Group  controlId="delivery_Lname">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Last Name"/>
+                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Lname} onChange={(e) => handleChange(e)} placeholder="Last Name"/>
                     </Form.Group>
                     </Col>
                 </Form.Row>
 
                 <Form.Row>
                 <Col sm={12} lg={6} md={6}>
-                <Form.Group  controlId="user_Contact">
+                <Form.Group  controlId="delivery_Contact">
                     <Form.Label>Contact Number</Form.Label>
-                    <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Contact Number" />
+                    <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Contact} onChange={(e) => handleChange(e)} placeholder="Contact Number" />
                 </Form.Group>
                 </Col>
                 </Form.Row>
@@ -195,34 +283,33 @@ function Checkout() {
                     <Form.Check type="checkbox" label="Use Billing Address as the Shipping Address" onClick={(e) => handleCheck(e)}/>
                 </Form.Group>
                
-                {/* <h6 className="add_product_category_sub_title">Use Billing Address as the Shipping Address</h6> */}
                 <Form.Row>
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_1">
+                    <Form.Group  controlId="delivery_Address_1">
                         <Form.Label>Address Line 1</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={isChecked === true ? (userData.user_Address_1):("")}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={order.delivery_Address_1}/>
                     </Form.Group>
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_2">
+                    <Form.Group  controlId="delivery_Address_2">
                         <Form.Label>Address Line 2</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 2" value={isChecked === true ? (userData.user_Address_2):("")}/>
+                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 2" value={order.delivery_Address_2}/>
                     </Form.Group>
                     </Col>
                 </Form.Row>   
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_3">
+                    <Form.Group  controlId="delivery_Address_3">
                         <Form.Label>Address Line 3</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 3" value={isChecked === true ? (userData.user_Address_3):("")}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 3" value={order.delivery_Address_3}/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_District">
+                    <Form.Group  controlId="delivery_District">
                         <Form.Label>District</Form.Label>
                         <Form.Control as="select" onChange={(e) => handleDistrict(e)}  value={selectedDistrict}>
                                     <option>Choose...</option>
@@ -238,25 +325,25 @@ function Checkout() {
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Postal">
+                    <Form.Group  controlId="delivery_Postal">
                         <Form.Label>Postal Code</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Postal Code" value={isChecked === true ? (userData.user_Postal):("")}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Postal Code" value={order.delivery_Postal}/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="#">
+                    <Form.Group  controlId="delivery_Instructions">
                         <Form.Label>Delivery Instructions</Form.Label>
-                        <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  type="text" placeholder="Delivery Instructions..."  />
+                        <Form.Control as="textarea" rows={3} className='add_product_category_form_input' value={order.delivery_Instructions} onChange={(e) => handleChange(e)}  type="text" placeholder="Delivery Instructions..."  />
                     </Form.Group>
                     </Col>
                 </Form.Row>
                 <h4 className="add_product_category_sub_title">Payment Details</h4>
                 <Col sm={12} lg={12} md={12}>
-                        <Form.Group  controlId="user_Type" style={{display:'flex'}}>
+                        <Form.Group  controlId="payment_Method" style={{display:'flex'}}>
                             <Form.Label>Select a Payment Method :</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handlePay(e)} value={payMethod}>
+                            <Form.Control as="select" onChange={(e) => handleChange(e)} value={order.payment_Method}>
                                     <option>Choose...</option>
                                     <option>Online Payment</option>
                                     <option>Cash On Delivery</option>
@@ -265,17 +352,13 @@ function Checkout() {
                 </Col>   
                 <div className='add_product_category_form_btns'>
                   {
-                    payMethod === "Cash On Delivery" ? 
+                    order.payment_Method === "Cash On Delivery" ? 
                     (<Button className='add_product_category_form_btn1' type="submit">Place Order</Button>):
 
-                    (payMethod === "Online Payment" ? 
+                    (order.payment_Method === "Online Payment" ? 
                     (<Button className='add_product_category_form_btn1' type="submit">Proceed to Pay</Button>):
                     (
                       ""
-                      // <>
-                      // <Button className='add_product_category_form_btn1' type="submit" disabled>Proceed to Pay</Button>
-                      // <Button className='add_product_category_form_btn1' type="submit" disabled>Place Order</Button> 
-                      // </>
                     ))
 
                   }             

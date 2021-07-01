@@ -27,6 +27,7 @@ const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
 const deliveryChargeRouter = require('./routes/deliveryCharge');
+const orderRouter = require('./routes/orders');
 
 
 app.use('/productCategories', productCategoryRouter);
@@ -35,6 +36,7 @@ app.use('/products', productRouter);
 app.use('/users' , userRouter);
 app.use('/cart' , cartRouter);
 app.use('/deliveryCharges' , deliveryChargeRouter);
+app.use('/orders' , orderRouter);
 
 
 
