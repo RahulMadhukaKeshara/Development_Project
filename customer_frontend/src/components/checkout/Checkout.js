@@ -10,6 +10,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
+import PaymentModal from '../checkout/PaymentModel';
 
 
 function Checkout() {
@@ -107,6 +108,7 @@ function Checkout() {
            setNumOfItems(data.data.cart_Items.length)
            setSubTotal(sub);
            setTotalDiscount(discount);
+           
         } catch (e) {
           console.log(e);
         }
@@ -121,6 +123,7 @@ function Checkout() {
             );
             //console.log(data.data.delivery_charge)
             setDelCharge(parseInt(data.data.delivery_charge))
+            
           } catch (e) {
             console.log(e);
           }  
@@ -218,7 +221,7 @@ function Checkout() {
                   icon: 'success',
                   title: 'Order Placed!',
                 })
-                history.push('/products');
+                history.push('/customer-orders/'+ userID);
 
           } else {
               Swal.fire({
@@ -356,7 +359,7 @@ function Checkout() {
                     (<Button className='add_product_category_form_btn1' type="submit">Place Order</Button>):
 
                     (order.payment_Method === "Online Payment" ? 
-                    (<Button className='add_product_category_form_btn1' type="submit">Proceed to Pay</Button>):
+                    (<PaymentModal orderDetails={order} orderTotal={subTotal - totalDiscount + delCharge} orderItems={cartItems.cart_Items} />):
                     (
                       ""
                     ))
@@ -404,3 +407,5 @@ function Checkout() {
 }
 
 export default Checkout;
+
+//<Button className='add_product_category_form_btn1' type="submit">Proceed to Pay</Button>

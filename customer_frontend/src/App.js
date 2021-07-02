@@ -35,6 +35,8 @@ import CustomerViewOrderDetailsPage from './components/pages/CustomerViewOrderDe
 
 
 
+
+
 function App() {
     return (
         <>
@@ -70,6 +72,7 @@ function App() {
                     <Route path='/deliveryCharges' exact component={DeliveryChargesPage}/>
                     <Route path='/customer-orders/:id' exact component={MyOrdersPage}/>
                     <Route path='/customer-view-orderDetails/:id' exact component={CustomerViewOrderDetailsPage}/>
+
 
 
 
