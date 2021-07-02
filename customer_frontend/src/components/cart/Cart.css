@@ -23,7 +23,7 @@
     border-radius: 20px;
     width: 90%;
     margin: 0px auto;
-
+    min-height: 100px;
 }
 .item_col1{
     display: inline-flex;
@@ -106,6 +106,11 @@
     height: 40px;
 }
 
+.cart_noItem_text{
+    text-align: center;
+    margin: 30px auto;
+}
+
 @media only screen and (max-width:768px) {
 
 
@@ -130,5 +135,11 @@
     .item_container{
         width: 100%; 
         padding: 5px;
+    }
+
+    .cart_noItem_text{
+
+        font-size: 1.5rem;
+
     }
 }

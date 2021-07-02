@@ -125,6 +125,15 @@ function Cart() {
         }
       };
 
+      function handleErrCheckout(){
+        Swal.fire({
+          icon: 'error',
+          title: 'No Items to Checkout',
+          text: 'Add some items to the cart before checkout!',
+          footer: '<a href="/all-items">Continue Shopping</a>'
+        })
+      }
+
 
 
 
@@ -140,43 +149,51 @@ function Cart() {
             <Row>
             <Col sm={12} lg={6} md={6} xs={12} className='cart_col1'>
             <Col  fluid className='item_container'>
-            
             {
-                cartItems.cart_Items && cartItems.cart_Items.map(item =>
-                    
+              cartItems.cart_Items && cartItems.cart_Items.length > 0 ? 
+              (
                 <>
-                <Row className="individual_item_div">
-                <div  className='item_col1'>
-                    <Media >
-                        <img 
-                                className="mr-3 item_image"
-                                src={"http://localhost:5000/products/photo/" + item.product._id}
-                                alt="Generic placeholder"
-                            />                      
-                    </Media>
-                </div>
-                <div  className='item_col2'>
-                    <h6>{item.product.product_Name}</h6>
-                    <h6>Price : LKR {item.unit_Price}</h6>
-                    <h6 className='gg'>color : {item.color}</h6>
-                    <h6 className='gg'>Size : {item.size}</h6>    
-                    <h6 className='gg'>Qty : {item.quantity}</h6>                  
-                </div>
-                <div  className='item_col3'>
-                <IconButton aria-label="Edit">
-                        <EditIcon/>
-                </IconButton>
-                <IconButton aria-label="Edit" onClick={()=>handleDelete(item._id , params.id )}>
-                        <DeleteIcon/>
-                </IconButton>
-                </div>
-                </Row>
-                <Divider/>
-                </>
-                
-                )
-                                                           
+                {
+                  cartItems.cart_Items && cartItems.cart_Items.map(item =>
+                      
+                  <>
+                  <Row className="individual_item_div">
+                  <div  className='item_col1'>
+                      <Media >
+                          <img 
+                                  className="mr-3 item_image"
+                                  src={"http://localhost:5000/products/photo/" + item.product._id}
+                                  alt="Generic placeholder"
+                              />                      
+                      </Media>
+                  </div>
+                  <div  className='item_col2'>
+                      <h6>{item.product.product_Name}</h6>
+                      <h6>Price : LKR {item.unit_Price}</h6>
+                      <h6 className='gg'>color : {item.color}</h6>
+                      <h6 className='gg'>Size : {item.size}</h6>    
+                      <h6 className='gg'>Qty : {item.quantity}</h6>                  
+                  </div>
+                  <div  className='item_col3'>
+                  <IconButton aria-label="Edit">
+                          <EditIcon/>
+                  </IconButton>
+                  <IconButton aria-label="Edit" onClick={()=>handleDelete(item._id , params.id )}>
+                          <DeleteIcon/>
+                  </IconButton>
+                  </div>
+                  </Row>
+                  <Divider/>
+                  </>
+                  
+                  )
+                                                             
+              }
+              </>
+              ):
+              (<h4 className="cart_noItem_text">No Items to show in the Cart</h4>)
             }
+
 
             </Col>
             </Col>
@@ -219,7 +236,12 @@ function Cart() {
                     </div>
                     <div className='col2_div  summry_btns'>             
                         <Button className='summury_btn1' href='/all-items'>Continue Shopping</Button>
-                        <Button className='summury_btn2' href={'/checkout/' + params.id}>Checkout</Button>
+                        {
+                          cartItems.cart_Items && cartItems.cart_Items.length > 0 ? 
+                          (<Button className='summury_btn2' href={'/checkout/' + params.id}>Checkout</Button>):
+                          (<Button className='summury_btn2' onClick={handleErrCheckout}>Checkout</Button>)
+                        }
+                        
                     </div>
             </Container>
             </Col>
@@ -232,3 +254,5 @@ function Cart() {
 }
 
 export default Cart;
+
+

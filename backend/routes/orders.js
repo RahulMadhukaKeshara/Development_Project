@@ -2,6 +2,7 @@ const router = require('express').Router();
 let Order = require('../models/orders.model');
 let User = require('../models/users.model');
 let Product = require('../models/products.model');
+let Cart = require('../models/carts.model');
 
 
 //get all orders
@@ -26,66 +27,121 @@ router.route('/:id').get(async (req,res) => {
 
 router.route('/add').post(async(req,res) => {
 
-  let userOb = await User.findById(req.body.order_User)
+  try {
+    let userOb = await User.findById(req.body.order_User)
 
-   const order_User  = userOb;
-   const order_Items = req.body.order_Items;
-   const payment_Method = req.body.payment_Method;
-   const order_Status = req.body.order_Status;
-   const order_Total  = String(req.body.order_Total);
-   const order_Placed_Date  = req.body.order_Placed_Date; 
-   const expected_Delivery_Date  = req.body.actual_Delivery_Date;
-   const actual_Delivery_Date  = req.body.expected_Delivery_Date;
-   const delivery_Fname  = req.body.delivery_Fname;
-   const delivery_Lname = req.body.delivery_Lname;
-   const delivery_Contact = req.body.delivery_Contact;
-   const delivery_Address_1 = req.body.delivery_Address_1;
-   const delivery_Address_2 = req.body.delivery_Address_2;
-   const delivery_Address_3 = req.body.delivery_Address_3;
-   const delivery_District = req.body.delivery_District;
-   const delivery_Postal = req.body.delivery_Postal;
-   const delivery_Instructions = req.body.delivery_Instructions;
-   const delivery_Member = req.body.delivery_Member;
+    const order_User  = userOb;
+    const order_Items = req.body.order_Items;
+    const payment_Method = req.body.payment_Method;
+    const order_Status = req.body.order_Status;
+    const order_Total  = String(req.body.order_Total);
+    const order_Placed_Date  = req.body.order_Placed_Date; 
+    const expected_Delivery_Date  = req.body.actual_Delivery_Date;
+    const actual_Delivery_Date  = req.body.expected_Delivery_Date;
+    const delivery_Fname  = req.body.delivery_Fname;
+    const delivery_Lname = req.body.delivery_Lname;
+    const delivery_Contact = req.body.delivery_Contact;
+    const delivery_Address_1 = req.body.delivery_Address_1;
+    const delivery_Address_2 = req.body.delivery_Address_2;
+    const delivery_Address_3 = req.body.delivery_Address_3;
+    const delivery_District = req.body.delivery_District;
+    const delivery_Postal = req.body.delivery_Postal;
+    const delivery_Instructions = req.body.delivery_Instructions;
+    const delivery_Member = req.body.delivery_Member;
+ 
+    const newOrder = new Order({
+ 
+      order_User,
+      order_Items,
+      payment_Method,
+      order_Status,
+      order_Total,
+      order_Placed_Date,
+      expected_Delivery_Date,
+      actual_Delivery_Date,
+      delivery_Fname,
+      delivery_Lname,
+      delivery_Contact,
+      delivery_Address_1,
+      delivery_Address_2,
+      delivery_Address_3,
+      delivery_District,
+      delivery_Postal,
+      delivery_Instructions,
+      delivery_Member
+ 
+    });
+ 
+    await newOrder.save();
 
-   const newOrder = new Order({
+    let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
+    //console.log(cartOb)
+     cartOb.cart_Items.forEach(async element => {
+      //console.log(element.product._id)
+      let productOb =  await Product.findById(element.product._id)
+      productOb.product_Stock.forEach(item => {
+        if(element.color === item.color){
 
-     order_User,
-     order_Items,
-     payment_Method,
-     order_Status,
-     order_Total,
-     order_Placed_Date,
-     expected_Delivery_Date,
-     actual_Delivery_Date,
-     delivery_Fname,
-     delivery_Lname,
-     delivery_Contact,
-     delivery_Address_1,
-     delivery_Address_2,
-     delivery_Address_3,
-     delivery_District,
-     delivery_Postal,
-     delivery_Instructions,
-     delivery_Member
+            switch (element.size) {
+              case "S":
+                item.s_qty = parseInt(item.s_qty) - parseInt(element.quantity);
+                break;
 
-   });
+                case "XS":
+                  item.xs_qty = parseInt(item.xs_qty) - parseInt(element.quantity);
+                  break;
+                  
+                  case "M":
+                    item.m_qty = parseInt(item.m_qty) - parseInt(element.quantity);
+                    break;
 
-   newOrder.save()
-   .then(() => res.json('Order Placed!'))
-   .catch(err => res.status(400).json('Error: ' + err));
+                    case "L":
+                      item.l_qty = parseInt(item.l_qty) - parseInt(element.quantity);
+                      break;
+
+                      case "XL":
+                        item.xl_qty = parseInt(item.xl_qty) - parseInt(element.quantity);
+                        break;
+
+                        case "XXL":
+                          item.xxl_qty = parseInt(item.xxl_qty) - parseInt(element.quantity);
+                          break;
+            
+              default:
+                break;
+
+
+            }
+
+        }
+      });
+
+      productOb.save()
+
+     });
+
+   let newCart = []
+   cartOb.cart_Items = newCart
+   cartOb.save()
+    //newOrder.save()
+    res.json('Order Placed!')
+  } catch (error) {
+    res.status(400).json('Error: ' + error)
+  }
+
 
 
 });
 
 //display specific order of a specific user
-router.route('/orderDetails').post(async (req,res) => {
+router.route('/orderDetails/:id').get(async (req,res) => {
   
    try {
-     let userOb = await User.findById(req.body.userID)
-     let orders = await Order.find({order_User : userOb}).populate({path : 'order_Items.product' , model : 'Product'})
 
-     let orderOb = await orders.filter(c => c._id = req.body.orderID);
-     res.json(orderOb[0])
+     let orderOb = await Order.findById(req.params.id).populate({path : 'order_Items.product' , model : 'Product'})
+     res.json(orderOb)
+    //console.log(orders)
+
     
    } catch (error) {
      res.status(400).json('Error: '+ error)

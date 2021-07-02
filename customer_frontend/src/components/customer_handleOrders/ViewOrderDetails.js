@@ -26,8 +26,8 @@ function ViewOrderDetails() {
 
     const getOrderData = async () => {
         try {
-          const data = await Axios.post(
-            "http://localhost:5000/orders/orderDetails" , {orderID , userID}
+          const data = await Axios.get(
+            "http://localhost:5000/orders/orderDetails/" + orderID
           );
           console.log(data.data);
           setOrder(data.data);
