@@ -31,7 +31,7 @@ const ordersSchema = new Schema({
     delivery_District: {type:String},
     delivery_Postal: {type:String},
     delivery_Instructions: {type:String},
-    delivery_Member: {type:String}
+    delivery_Member: {type:Schema.Types.ObjectId , ref: 'User'},
 
 },  {
     timestamps: true,

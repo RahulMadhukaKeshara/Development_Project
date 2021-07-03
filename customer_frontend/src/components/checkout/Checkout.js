@@ -40,7 +40,6 @@ function Checkout() {
       delivery_District: "",
       delivery_Postal: "",
       delivery_Instructions:"",
-      delivery_Member: ""
     })
     const [cartItems , setCartItems] = useState({});
     const [userData , setUserData] = useState({});
@@ -207,7 +206,6 @@ function Checkout() {
          delivery_District: order.delivery_District,
          delivery_Postal: order.delivery_Postal,
          delivery_Instructions: order.delivery_Instructions,
-         delivery_Member: order.delivery_Member
        }
        try {
         Axios.post(

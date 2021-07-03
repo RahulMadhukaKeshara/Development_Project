@@ -7,15 +7,15 @@
 .order_item_container{
     border: 2px solid #f95957;
     padding: 0px;
-    width: 90%;
+    width: 75% !important;
     border-radius: 20px;
     margin: 0px auto;
 
 }
 
 .order_item_image{
-    width: 60px;
-    height: 60px;
+    width: 75px !important;
+    height: 85px !important;
 }
 
 .order_individual_item_div{
@@ -76,7 +76,7 @@
     }
 
     .order_item_container{
-        width: 95%;
+        width: 95% !important;
     }
 
     .order_summury_container{
@@ -91,7 +91,7 @@
 @media only screen and (max-width:576px) {
 
     .order_item_container{
-        width: 100%; 
+        width: 100% !important; 
         padding: 5px;
     }
 

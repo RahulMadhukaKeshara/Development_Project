@@ -99,12 +99,17 @@ function ViewOrderDetails() {
                                     />                      
                             </Media>
                         </div>
-                        <div  className='item_col2'>
-                            <h6>{item.product.product_Name}</h6>
-                            <h6>Price : LKR {item.unit_Price}</h6>
-                            <h6 className='gg'>color : {item.color}</h6>
-                            <h6 className='gg'>Size : {item.size}</h6>    
-                            <h6 className='gg'>Qty : {item.quantity}</h6>                  
+                        <div  className='order_item_col2'>
+                            <div><h5>{item.product.product_Name}</h5></div>
+                            <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                            <div style={{display:'flex'}}>
+                            <div style={{display:'flex' , alignItems:'center'}}>
+                                <div><h6 className='gg'>color : </h6></div>
+                                <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                            </div>
+                            <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                            <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                            </div>                 
                         </div>
                     </Row>
                     <Divider/>                    
@@ -124,7 +129,7 @@ function ViewOrderDetails() {
                     <h6>Ordered Date : {order.order_Placed_Date}</h6>
                 </div>
                 <div className='owner_order_col2_div_2'  >
-                    <h4>Order Status : {order.order_Status}</h4>
+                    <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
                     <Button className='order_summury_btn' href={'/owner-update-orderDetails/' + orderID }>Update Order Status</Button>
                 </div>
                 <div className='order_col2_div'>
@@ -144,21 +149,21 @@ function ViewOrderDetails() {
                 <Divider/>
                 </div>
                 <div className='order_col2_div'>
-                    <h4>Grand Total : LKR {order.order_Total}</h4>
+                    <h4 style={{color:'#f95957'}}>Grand Total : LKR {order.order_Total}</h4>
                 </div>
             </Container>
                 <Container  className='order_summury_container' >
                 <h3 className='order_col2_title'>Delivery Details</h3>
                 <div>
                 <div className='order_col2_div'>
-                    <h6>Expected Delivery Date : {order.expected_Delivery_Date}</h6>
+                    <h6>Expected Delivery Date : {order.expected_Delivery_Date === "TBA" ? ("Not Assigned"):(order.expected_Delivery_Date)}</h6>
                 </div>
                 <div className='order_col2_div'>
-                    <h6>Actual Delivery Date : {order.actual_Delivery_Date}</h6>
+                    <h6>Actual Delivery Date : {order.actual_Delivery_Date === "TBA" ? ("Not Assigned"):(order.actual_Delivery_Date)}</h6>
                 </div>
                 <div className='owner_order_col2_div_2'>
-                    <h4>Delivery Member : {order.delivery_Member}</h4>
-                    <Button className='order_summury_btn' href='#'>Assign Delivery Member</Button>
+                    <h5>Delivery Member : {order.delivery_Member ? (`${order.delivery_Member.user_Fname} ${order.delivery_Member.user_Lname}`):("Not Assigned")}</h5>
+                    <Button className='order_summury_btn' href={'/owner-assign-deliveryMember/' + orderID}>Assign Delivery Member</Button>
                 </div>
                 </div>
                 <div>

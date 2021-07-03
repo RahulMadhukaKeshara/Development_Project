@@ -7,7 +7,7 @@ let Cart = require('../models/carts.model');
 
 //get all orders
 router.route('/').get((req,res) => {
-    Order.find().populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
+    Order.find().populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
     .then(orders => res.json(orders))
     .catch(err => res.status(400).json('Error: '+ err));
 });
@@ -17,7 +17,7 @@ router.route('/:id').get(async (req,res) => {
   
   try {
     let userOb = await User.findById(req.params.id)
-    let orders = await Order.find({order_User : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
+    let orders = await Order.find({order_User : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
     
     //populate({path : 'order_Items.product' , model : 'Product'})
     res.json(orders)
@@ -49,7 +49,6 @@ router.route('/add').post(async(req,res) => {
     const delivery_District = req.body.delivery_District;
     const delivery_Postal = req.body.delivery_Postal;
     const delivery_Instructions = req.body.delivery_Instructions;
-    const delivery_Member = req.body.delivery_Member;
  
     const newOrder = new Order({
  
@@ -70,7 +69,6 @@ router.route('/add').post(async(req,res) => {
       delivery_District,
       delivery_Postal,
       delivery_Instructions,
-      delivery_Member
  
     });
  
@@ -140,7 +138,7 @@ router.route('/orderDetails/:id').get(async (req,res) => {
   
    try {
 
-     let orderOb = await Order.findById(req.params.id).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
+     let orderOb = await Order.findById(req.params.id).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
      res.json(orderOb)
     //console.log(orders)
 
@@ -167,5 +165,24 @@ router.route('/orderStatus/update/:id').post((req,res) => {
    })
    .catch(err => res.status(400).json('Error: '+ err));
 });
+
+//assign delivery member
+router.route('/assignMember/update/:id').post(async(req,res) => {
+
+  try {
+
+    let orderOb = await Order.findById(req.params.id);
+    let delMemberOb = await User.findById(req.body.delivery_Member);
+ 
+    orderOb.delivery_Member = delMemberOb;
+ 
+    await  orderOb.save();
+    res.json('Member Assigned!')
+   
+  } catch (error) {
+    res.status(400).json('Error: '+ error)
+  }
+
+ });
 
   module.exports = router;

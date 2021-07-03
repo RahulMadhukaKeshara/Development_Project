@@ -98,12 +98,17 @@ function ViewOrderDetails() {
                                     />                      
                             </Media>
                         </div>
-                        <div  className='item_col2'>
-                            <h6>{item.product.product_Name}</h6>
-                            <h6>Price : LKR {item.unit_Price}</h6>
-                            <h6 className='gg'>color : {item.color}</h6>
-                            <h6 className='gg'>Size : {item.size}</h6>    
-                            <h6 className='gg'>Qty : {item.quantity}</h6>                  
+                        <div  className='order_item_col2'>
+                            <div><h5>{item.product.product_Name}</h5></div>
+                            <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                            <div style={{display:'flex'}}>
+                            <div style={{display:'flex' , alignItems:'center'}}>
+                                <div><h6 className='gg'>color : </h6></div>
+                                <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                            </div>
+                            <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                            <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                            </div>                 
                         </div>
                     </Row>
                     <Divider/>                    
@@ -156,7 +161,7 @@ function ViewOrderDetails() {
                     <h6>Actual Delivery Date : {order.actual_Delivery_Date === "TBA" ? ("Not Assigned"):(order.actual_Delivery_Date)}</h6>
                 </div>
                 <div className='order_col2_div'>
-                    <h6>Delivery Member : {order.delivery_Member === "" ? ("Not Assigned"):(order.delivery_Member)}</h6>
+                <h6>Delivery Member : {order.delivery_Member ? (`${order.delivery_Member.user_Fname} ${order.delivery_Member.user_Lname}`):("Not Assigned")}</h6>
                 </div>
                 </div>
                 <div>

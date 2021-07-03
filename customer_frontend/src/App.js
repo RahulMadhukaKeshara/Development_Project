@@ -33,6 +33,7 @@ import CustomerViewOrderDetailsPage from './components/pages/CustomerViewOrderDe
 import OwnerViewOrdersPage from './components/pages/OwnerViewOrdersPage';
 import OwnerViewOrderDetailsPage from './components/pages/OwnerViewOrderDetailsPage';
 import OwnerUpdateOrderStatusPage from './components/pages/OwnerUpdateOrderStatusPage';
+import AssignDeliveryMemberPage from './components/pages/AssignDeliveryMemberPage';
 
 
 
@@ -78,6 +79,7 @@ function App() {
                     <Route path='/owner-view-orders' exact component={OwnerViewOrdersPage}/>
                     <Route path='/owner-view-orderDetails/:id' exact component={OwnerViewOrderDetailsPage}/>
                     <Route path='/owner-update-orderDetails/:id' exact component={OwnerUpdateOrderStatusPage}/>
+                    <Route path='/owner-assign-deliveryMember/:id' exact component={AssignDeliveryMemberPage}/>
                     
 
 

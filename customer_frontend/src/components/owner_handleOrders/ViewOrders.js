@@ -406,7 +406,7 @@ const handleUpdate = (_id) => {
                       <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
                       <TableCell align="center">{row.delivery_District}</TableCell>
                       <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Member}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{`${row.delivery_Member.user_Fname} ${row.delivery_Member.user_Lname}`}</TableCell>
                     </TableRow>
                   );
                 })}
