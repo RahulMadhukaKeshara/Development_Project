@@ -40,7 +40,7 @@ function Checkout() {
       delivery_District: "",
       delivery_Postal: "",
       delivery_Instructions:"",
-      delivery_Member: "Not Set"
+      delivery_Member: ""
     })
     const [cartItems , setCartItems] = useState({});
     const [userData , setUserData] = useState({});

@@ -7,7 +7,7 @@ let Cart = require('../models/carts.model');
 
 //get all orders
 router.route('/').get((req,res) => {
-    Order.find()
+    Order.find().populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
     .then(orders => res.json(orders))
     .catch(err => res.status(400).json('Error: '+ err));
 });
@@ -17,7 +17,9 @@ router.route('/:id').get(async (req,res) => {
   
   try {
     let userOb = await User.findById(req.params.id)
-    let orders = await Order.find({order_User : userOb}).populate({path : 'order_Items.product' , model : 'Product'})
+    let orders = await Order.find({order_User : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
+    
+    //populate({path : 'order_Items.product' , model : 'Product'})
     res.json(orders)
     
   } catch (error) {
@@ -133,12 +135,12 @@ router.route('/add').post(async(req,res) => {
 
 });
 
-//display specific order of a specific user
+//display specific order
 router.route('/orderDetails/:id').get(async (req,res) => {
   
    try {
 
-     let orderOb = await Order.findById(req.params.id).populate({path : 'order_Items.product' , model : 'Product'})
+     let orderOb = await Order.findById(req.params.id).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'}])
      res.json(orderOb)
     //console.log(orders)
 
@@ -148,5 +150,22 @@ router.route('/orderDetails/:id').get(async (req,res) => {
    }
 });
 
+//update order status
+router.route('/orderStatus/update/:id').post((req,res) => {
+
+ // console.log(req.body)
+ // console.log(req.params.id)
+   Order.findById(req.params.id)
+   .then(order => {
+
+       order.order_Status = req.body.order_Status;
+
+
+       order.save()
+       .then(() => res.json('Order Status Updated!'))
+       .catch(err => res.status(400).json('Error: ' + err));
+   })
+   .catch(err => res.status(400).json('Error: '+ err));
+});
 
   module.exports = router;

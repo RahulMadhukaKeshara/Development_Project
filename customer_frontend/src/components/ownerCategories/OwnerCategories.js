@@ -48,7 +48,7 @@ function OwnerCategories() {
 
                     <Col lg={3} md={4} className="owner_category_col">
                     <OwnerCategoryItems
-                        path='/orders'
+                        path='/owner-view-orders'
                         src='./images/Cat03.jpg'
                         title='ORDERS'
     

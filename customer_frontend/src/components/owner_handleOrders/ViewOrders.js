@@ -57,12 +57,19 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: '_id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'supplier_Name', numeric: false, disablePadding: false, label: 'Name' },
-  { id: 'supplier_Description', numeric: false, disablePadding: false, label: 'Description' },
-  { id: 'supplier_Contact', numeric: false, disablePadding: false, label: 'Contact Number' },
-  { id: 'supplier_Email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'supplier_Address', numeric: false, disablePadding: false, label: 'Adderss' },
+  { id: '_id', numeric: true, disablePadding: true, label: 'Order ID' },
+  { id: 'order_User', numeric: false, disablePadding: false, label: 'Ordered Customer' },
+  { id: 'payment_Method', numeric: false, disablePadding: false, label: 'Payment Method' },
+  { id: 'order_Status', numeric: false, disablePadding: false, label: 'Order Status' },
+  { id: 'order_Items', numeric: false, disablePadding: false, label: 'Order Items' },
+  { id: 'order_Total', numeric: false, disablePadding: false, label: 'Order Total' },
+  { id: 'order_Placed_Date', numeric: false, disablePadding: false, label: 'Order Placed Date' },
+  { id: 'delivery_Fname', numeric: false, disablePadding: false, label: 'Order Receiving Person' },
+  { id: 'delivery_Contact', numeric: false, disablePadding: false, label: 'Deivery Contact' },
+  { id: 'delivery_Address_1', numeric: false, disablePadding: false, label: 'Deivery Address' },
+  { id: 'delivery_District', numeric: false, disablePadding: false, label: 'Delivery District' },
+  { id: 'delivery_Instructions', numeric: false, disablePadding: false, label: 'Delivery Instructions' },
+  { id: 'delivery_Member', numeric: false, disablePadding: false, label: 'Assigned Delivery Member' },
 ];
 
 function EnhancedTableHead(props) {
@@ -85,7 +92,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'left' : 'center'}
+            align={headCell.numeric ? 'center' : 'center'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -156,7 +163,7 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Supplier List
+          Orders List
         </Typography>
       )}
 
@@ -172,22 +179,10 @@ const EnhancedTableToolbar = (props) => {
         <Typography/>
       )}      
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete" onClick={onClickDelete}>
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+      {numSelected > 1 ? (
+        <Typography/>
       ) : (
         <>
-        <Link href='/add-suppliers'>
-        <Tooltip title="Add New Supplier">
-          <IconButton aria-label="AddBoxRounded">
-            <AddBoxRoundedIcon />
-            </IconButton>
-        </Tooltip>
-        </Link>
-
         <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
@@ -215,11 +210,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
     border:'2px solid #f95757',
-
-    
   },
   table: {
     minWidth: 750,
+  },
+
+  page_title:{
+    textAlign:'center',
+    marginBottom:50
   },
   visuallyHidden: {
     border: 0,
@@ -246,26 +244,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewSuppliers() {
+export default function ViewOrders() {
 
   const history = useHistory()
-  const [suppliers, setSuppliers] = useState([]);
+  const [orders, setOrders] = useState([]);
  // const [search, setSearch] = useState("");
 
-  const getSupplierData = async () => {
+  const getOrdersData = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:5000/suppliers/"
+        "http://localhost:5000/orders/"
       );
-      console.log(data.data);
-      setSuppliers(data.data);
+      //console.log(data.data);
+      setOrders(data.data);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    getSupplierData();
+    getOrdersData();
   }, []);
   
 
@@ -285,7 +283,7 @@ export default function ViewSuppliers() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = suppliers.map((n) => n._id);
+      const newSelecteds = orders.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
@@ -309,7 +307,7 @@ export default function ViewSuppliers() {
       );
     }
 
-    setSelected(newSelected);
+    setSelected(newSelected); 
   };
 
   const handleChangePage = (event, newPage) => {
@@ -321,47 +319,16 @@ export default function ViewSuppliers() {
     setPage(0);
   };
 
-  //delete suppliers
-  const handleDelete = (_id) => {
-
-  
-    console.log(selected.toString(_id))
-    Axios.delete(
-      `http://localhost:5000/suppliers/` + selected.toString(_id)
-    )
-    .then(res => {
-
-      console.log(res.data)
-              
-      if(res.data === "Supplier Deleted!"){
-        Swal.fire({
-          icon: 'success',
-          title: 'Supplier Deleted!',
-        })
-        getSupplierData();
-        setSelected([]);
-
-
-      }else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          })
-    }
-    })
-  
-  }
 
 const handleUpdate = (_id) => {
 
-  history.push(`/update-suppliers/` + selected.toString(_id));
+  history.push(`/owner-view-orderDetails/` + selected.toString(_id));
 
 }
 
   const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, suppliers.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, orders.length - page * rowsPerPage);
 
   return (
 
@@ -370,16 +337,16 @@ const handleUpdate = (_id) => {
         <Link color="inherit" href="/owner-main-page" >
           Home
         </Link>
-      <Typography color="textPrimary">Suppliers</Typography>
+      <Typography color="textPrimary">Orders</Typography>
       </Breadcrumbs>
       <Divider />
 
     <Container className={classes.supplier_container}>
     
-    <h1>Suppliers</h1>
+    <h1 className={classes.page_title}>Orders</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} onClickUpdate={handleUpdate}/>
+        <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -394,10 +361,10 @@ const handleUpdate = (_id) => {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={suppliers.length}
+              rowCount={orders.length}
             />
             <TableBody>
-              {stableSort(suppliers, getComparator(order, orderBy))
+              {stableSort(orders, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row._id);
@@ -422,11 +389,24 @@ const handleUpdate = (_id) => {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.supplier_Name}</TableCell>
-                      <TableCell align="center">{row.supplier_Description}</TableCell>
-                      <TableCell align="center">{row.supplier_Contact}</TableCell>
-                      <TableCell align="center">{row.supplier_Email}</TableCell>
-                      <TableCell align="center">{row.supplier_Address}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_User.user_Fname} {row.order_User.user_Lname}</TableCell>
+                      <TableCell align="center" style={{minWidth:'175px'}}>{row.payment_Method}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
+                      <TableCell align="center" style={{minWidth:'250px'}}>
+                      {
+                            row.order_Items && row.order_Items.map((item ) =>                     
+                             <div>{item.product.product_Name}</div>
+                            )
+                      } 
+                      </TableCell>
+                      <TableCell align="center">{row.order_Total}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Fname} {row.delivery_Lname}</TableCell>
+                      <TableCell align="center" style={{minWidth:'175px'}}>{row.delivery_Contact}</TableCell>
+                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
+                      <TableCell align="center">{row.delivery_District}</TableCell>
+                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Member}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -441,7 +421,7 @@ const handleUpdate = (_id) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={suppliers.length}
+          count={orders.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

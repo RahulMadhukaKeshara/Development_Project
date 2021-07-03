@@ -19,7 +19,7 @@ function MyOrders() {
           const data = await Axios.get(
             "http://localhost:5000/orders/"+ params.id
           );
-          // console.log(data.data);
+           //console.log(data.data);
           setOrderData(data.data);
 
         } catch (e) {

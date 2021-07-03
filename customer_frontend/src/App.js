@@ -30,6 +30,9 @@ import UpdateDeliveryChargesPage from './components/pages/UpdateDeliveryChargesP
 import DeliveryChargesPage from './components/pages/DeliveryChargesPage';
 import MyOrdersPage from './components/pages/MyOrdersPage';
 import CustomerViewOrderDetailsPage from './components/pages/CustomerViewOrderDetailsPage';
+import OwnerViewOrdersPage from './components/pages/OwnerViewOrdersPage';
+import OwnerViewOrderDetailsPage from './components/pages/OwnerViewOrderDetailsPage';
+import OwnerUpdateOrderStatusPage from './components/pages/OwnerUpdateOrderStatusPage';
 
 
 
@@ -72,7 +75,10 @@ function App() {
                     <Route path='/deliveryCharges' exact component={DeliveryChargesPage}/>
                     <Route path='/customer-orders/:id' exact component={MyOrdersPage}/>
                     <Route path='/customer-view-orderDetails/:id' exact component={CustomerViewOrderDetailsPage}/>
-
+                    <Route path='/owner-view-orders' exact component={OwnerViewOrdersPage}/>
+                    <Route path='/owner-view-orderDetails/:id' exact component={OwnerViewOrderDetailsPage}/>
+                    <Route path='/owner-update-orderDetails/:id' exact component={OwnerUpdateOrderStatusPage}/>
+                    
 
 
 

@@ -29,6 +29,7 @@ function ViewOrderDetails() {
           const data = await Axios.get(
             "http://localhost:5000/orders/orderDetails/" + orderID
           );
+          console.log(data.data);
           setOrder(data.data);
 
         } catch (e) {
@@ -119,9 +120,12 @@ function ViewOrderDetails() {
                 <div className='order_col2_div'>
                     <h5>Order ID : {orderID}</h5>
                 </div>
-                <div className='order_col2_div_2'  >
+                <div className='order_col2_div'  >
                     <h6>Ordered Date : {order.order_Placed_Date}</h6>
-                    <h6 style={{color:'#f95957' , fontWeight:'bolder'}} >Order Status : {order.order_Status}</h6>
+                </div>
+                <div className='owner_order_col2_div_2'  >
+                    <h4>Order Status : {order.order_Status}</h4>
+                    <Button className='order_summury_btn' href={'/owner-update-orderDetails/' + orderID }>Update Order Status</Button>
                 </div>
                 <div className='order_col2_div'>
                     <h5>Payment Method : {order.payment_Method}</h5>
@@ -139,24 +143,22 @@ function ViewOrderDetails() {
                 <h5>Delivery Charges : LKR {delCharge} </h5>
                 <Divider/>
                 </div>
-                <div className='order_col2_div' style={{color:'#f95957'}}>
-                    <h3>Grand Total : LKR {order.order_Total}</h3>
+                <div className='order_col2_div'>
+                    <h4>Grand Total : LKR {order.order_Total}</h4>
                 </div>
-                {/* <div className='order_col2_div' style={{textAlign :'center'}}>             
-                    <Button className='order_summury_btn' href='/all-items'>Request to Cancel Order</Button>
-                </div> */}
             </Container>
                 <Container  className='order_summury_container' >
                 <h3 className='order_col2_title'>Delivery Details</h3>
                 <div>
                 <div className='order_col2_div'>
-                    <h6>Expected Delivery Date : {order.expected_Delivery_Date === "TBA" ? ("Not Assigned"):(order.expected_Delivery_Date)}</h6>
+                    <h6>Expected Delivery Date : {order.expected_Delivery_Date}</h6>
                 </div>
                 <div className='order_col2_div'>
-                    <h6>Actual Delivery Date : {order.actual_Delivery_Date === "TBA" ? ("Not Assigned"):(order.actual_Delivery_Date)}</h6>
+                    <h6>Actual Delivery Date : {order.actual_Delivery_Date}</h6>
                 </div>
-                <div className='order_col2_div'>
-                    <h6>Delivery Member : {order.delivery_Member === "" ? ("Not Assigned"):(order.delivery_Member)}</h6>
+                <div className='owner_order_col2_div_2'>
+                    <h4>Delivery Member : {order.delivery_Member}</h4>
+                    <Button className='order_summury_btn' href='#'>Assign Delivery Member</Button>
                 </div>
                 </div>
                 <div>

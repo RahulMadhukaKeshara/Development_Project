@@ -30,7 +30,7 @@ function Cart() {
           const data = await Axios.get(
             "http://localhost:5000/cart/"+ params.id
           );
-          // console.log(data.data);
+           console.log(data.data);
           setCartItems(data.data);
 
         } catch (e) {
