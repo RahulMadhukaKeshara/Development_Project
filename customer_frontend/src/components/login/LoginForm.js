@@ -47,7 +47,7 @@ function LoginForm() {
         }
         else if(type === "Delivery Staff"){
             //history.push("/owner-main-page");
-            window.location = "/owner-main-page";
+            window.location = "/deliveryStaff-main-page";
         }
 
 

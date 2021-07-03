@@ -27,6 +27,7 @@ import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
+import jwtDecode from "jwt-decode";
 
 
 
@@ -58,18 +59,13 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: '_id', numeric: true, disablePadding: true, label: 'Order ID' },
-  { id: 'order_User', numeric: false, disablePadding: false, label: 'Ordered Customer' },
-  { id: 'payment_Method', numeric: false, disablePadding: false, label: 'Payment Method' },
   { id: 'order_Status', numeric: false, disablePadding: false, label: 'Order Status' },
-  { id: 'order_Items', numeric: false, disablePadding: false, label: 'Order Items' },
-  { id: 'order_Total', numeric: false, disablePadding: false, label: 'Order Total' },
   { id: 'order_Placed_Date', numeric: false, disablePadding: false, label: 'Order Placed Date' },
   { id: 'delivery_Fname', numeric: false, disablePadding: false, label: 'Order Receiving Person' },
   { id: 'delivery_Contact', numeric: false, disablePadding: false, label: 'Deivery Contact' },
   { id: 'delivery_Address_1', numeric: false, disablePadding: false, label: 'Deivery Address' },
   { id: 'delivery_District', numeric: false, disablePadding: false, label: 'Delivery District' },
   { id: 'delivery_Instructions', numeric: false, disablePadding: false, label: 'Delivery Instructions' },
-  { id: 'delivery_Member', numeric: false, disablePadding: false, label: 'Assigned Delivery Member' },
 ];
 
 function EnhancedTableHead(props) {
@@ -244,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewOrders() {
+export default function NewlyAssignedDeliveries() {
 
   const history = useHistory()
   const [orders, setOrders] = useState([]);
@@ -262,11 +258,13 @@ export default function ViewOrders() {
     }
   };
 
+
   useEffect(() => {
     getOrdersData();
   }, []);
   
-
+  const jwt = localStorage.getItem("token");
+  let userID = jwtDecode(jwt)._id;
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('_id');
@@ -337,13 +335,13 @@ const handleUpdate = (_id) => {
         <Link color="inherit" href="/owner-main-page" >
           Home
         </Link>
-      <Typography color="textPrimary">Orders</Typography>
+      <Typography color="textPrimary">Assigned Deliveries</Typography>
       </Breadcrumbs>
       <Divider />
 
     <Container className={classes.supplier_container}>
     
-    <h1 className={classes.page_title}>Orders</h1>
+    <h1 className={classes.page_title}>Assigned Deliveries</h1>
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
@@ -364,13 +362,13 @@ const handleUpdate = (_id) => {
               rowCount={orders.length}
             />
             <TableBody>
-              {stableSort(orders, getComparator(order, orderBy))
+            {stableSort(orders, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map(  (row, index) =>   {
                   const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
+                  return row.delivery_Member._id === userID ? 
+                    (
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row._id)}
@@ -389,27 +387,20 @@ const handleUpdate = (_id) => {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row._id}
                       </TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_User.user_Fname} {row.order_User.user_Lname}</TableCell>
-                      <TableCell align="center" style={{minWidth:'175px'}}>{row.payment_Method}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
-                      <TableCell align="center" style={{minWidth:'250px'}}>
-                      {
-                            row.order_Items && row.order_Items.map((item ) =>                     
-                             <div>{item.product.product_Name}</div>
-                            )
-                      } 
-                      </TableCell>
-                      <TableCell align="center">{row.order_Total}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Fname} {row.delivery_Lname}</TableCell>
                       <TableCell align="center" style={{minWidth:'175px'}}>{row.delivery_Contact}</TableCell>
                       <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
                       <TableCell align="center">{row.delivery_District}</TableCell>
                       <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Member ? (`${row.delivery_Member.user_Fname} ${row.delivery_Member.user_Lname}`):("Not Assigned")}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                    </TableRow>                 
+                    ) : 
+                    ("") 
+                   }              
+                )
+
+              }
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
                   <TableCell colSpan={6} />

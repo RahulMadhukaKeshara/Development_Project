@@ -155,7 +155,7 @@ function Cart() {
                 <>
                 {
                   cartItems.cart_Items && cartItems.cart_Items.map(item =>
-                      
+
                   <>
                   <Row className="individual_item_div">
                   <div  className='item_col1'>

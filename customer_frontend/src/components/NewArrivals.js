@@ -49,7 +49,7 @@ function NewArrivals() {
                    }              
                 )
 
-                }
+              }
             </Row>
         </Container>
     </>
