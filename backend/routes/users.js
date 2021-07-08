@@ -2,9 +2,9 @@ const router = require('express').Router();
 let User = require('../models/users.model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const env = require('../envVariables')
+//const env = require('../envVariables')
 let Cart = require('../models/carts.model');
-
+require('dotenv').config();
 
 router.route('/').get((req,res) => {
     User.find()
@@ -166,7 +166,7 @@ router.route('/login').post(async (req,res) => {
     if(!validPassword) res.status(400).send('Invalid Password')
 
     //Set Token
-    const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Type:user.user_Type}, env.jwtKey)
+    const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Type:user.user_Type},  process.env.jwtKey)
 
     //Response
     res.status(200)

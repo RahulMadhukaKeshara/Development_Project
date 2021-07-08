@@ -1,32 +1,58 @@
-.hero-container {
-    background: url('../../images/peacot2.jpg') center center/cover no-repeat;
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.75);
-    object-fit: contain;
-    border-radius: 0%;
-    margin-top: 74px;
+.hero-container{
+  height: 647px;
+  margin-top: 74px;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 1);
+}
+
+.caption{
+  text-align: left;
+  position: absolute !important;
+  top: 40%;
+}
+
+.caption > h1 {
+  color:#f95757 !important;
+  font-size: 5rem !important;
+}
+
+.caption > p {
+  color:#ffffff;
+  font-size: 2rem;
+}
+
+.heroImg{
+  height: 647px !important;
+  width: 100% !important;
+  opacity: 0.3;
+  text-align: center;
+}
+
+.hero-btn{
+  background-color: #f95757;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  min-width: 150px;
+  height: 40px;
+  font-size: 1.25rem;
+}
+
+@media only screen and (max-width:576px) {
+
+  .heroImg{
+    height: 565px !important;
   }
 
-  .hero-container > h1 {
-    color:#f95757;
-    font-size: 5rem;
+  .hero-container{
+    height: 565px;
   }
 
-  .hero-container > p {
-    color:#ffffff;
-    font-size: 2rem;
+  .caption > h1 {
+    font-size: 3rem !important;
+  }
+  
+  .caption > p {
+    font-size: 1rem;
   }
 
-  .hero-btn{
-    background-color: #f95757;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    min-width: 150px;
-    height: 40px;
-    font-size: 1.25rem;
-  }
+}
