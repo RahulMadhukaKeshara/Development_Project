@@ -43,6 +43,8 @@ function ProductDetails(props) {
     }
 
     const jwt = localStorage.getItem("token");
+    
+
 
     function handleAddtoCart(){
       Swal.fire({

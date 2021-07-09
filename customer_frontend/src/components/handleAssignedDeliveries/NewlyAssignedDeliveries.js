@@ -244,14 +244,16 @@ export default function NewlyAssignedDeliveries() {
 
   const history = useHistory()
   const [orders, setOrders] = useState([]);
+  const jwt = localStorage.getItem("token");
+  let userID = jwtDecode(jwt)._id;
  // const [search, setSearch] = useState("");
 
   const getOrdersData = async () => {
     try {
       const data = await Axios.get(
-        "http://localhost:5000/orders/"
+        "http://localhost:5000/orders/assignedOrders/" + userID
       );
-      //console.log(data.data);
+      console.log(data.data);
       setOrders(data.data);
     } catch (e) {
       console.log(e);
@@ -263,8 +265,7 @@ export default function NewlyAssignedDeliveries() {
     getOrdersData();
   }, []);
   
-  const jwt = localStorage.getItem("token");
-  let userID = jwtDecode(jwt)._id;
+
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('_id');
@@ -320,7 +321,7 @@ export default function NewlyAssignedDeliveries() {
 
 const handleUpdate = (_id) => {
 
-  history.push(`/owner-view-orderDetails/` + selected.toString(_id));
+  history.push(`/deliveryStaff-view-orderDetails/` + selected.toString(_id));
 
 }
 
@@ -342,85 +343,92 @@ const handleUpdate = (_id) => {
     <Container className={classes.supplier_container}>
     
     <h1 className={classes.page_title}>Assigned Deliveries</h1>
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={orders.length}
-            />
-            <TableBody>
-            {stableSort(orders, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(  (row, index) =>   {
-                  const isItemSelected = isSelected(row._id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return row.delivery_Member._id === userID ? 
-                    (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row._id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row._id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row._id}
-                      </TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Fname} {row.delivery_Lname}</TableCell>
-                      <TableCell align="center" style={{minWidth:'175px'}}>{row.delivery_Contact}</TableCell>
-                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
-                      <TableCell align="center">{row.delivery_District}</TableCell>
-                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
-                    </TableRow>                 
-                    ) : 
-                    ("") 
-                   }              
-                )
+    {orders.length === 0 ?
+    (
 
-              }
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={orders.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
+        <h4 style={{textAlign:'center' , border:'2px solid #f95957' , borderRadius:'30px' , padding:'20px'}}>No Assigned Deliveries to Show</h4>
 
-    </div>
+    )
+    :(
+      <>
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          
+          <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+              aria-label="enhanced table"
+            >
+              <EnhancedTableHead
+                classes={classes}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={orders.length}
+              />
+              <TableBody>
+              {stableSort(orders, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row._id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+  
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row._id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row._id}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            inputProps={{ 'aria-labelledby': labelId }}
+                          />
+                        </TableCell>
+                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                          {row._id}
+                        </TableCell>
+                        <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
+                        <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>
+                        <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Fname} {row.delivery_Lname}</TableCell>
+                        <TableCell align="center" style={{minWidth:'175px'}}>{row.delivery_Contact}</TableCell>
+                        <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
+                        <TableCell align="center">{row.delivery_District}</TableCell>
+                        <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
+                      </TableRow> 
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={orders.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+  
+      </div>
+      </>
+    )}
     </Container>
     </>
   );

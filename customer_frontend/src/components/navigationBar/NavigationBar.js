@@ -79,7 +79,7 @@ function NavigationBar() {
                       <IconButton className="icon_btn" aria-label="Go to Cart" href={"/cart/" + userID}>
                         <ShoppingCartRoundedIcon />
                       </IconButton>
-                      <NavDropdown title={<i class="fas fa-user-circle"></i>} id="collasible-nav-dropdown">                   
+                      <NavDropdown title={<i class="fas fa-user-circle"> Lakshan</i>} id="collasible-nav-dropdown">                   
                             <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item href={"/customer-orders/" + userID}>My Orders</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   

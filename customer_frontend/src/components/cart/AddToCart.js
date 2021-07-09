@@ -10,6 +10,11 @@ import {useHistory} from 'react-router-dom';
 function AddToCart(props) {
 
   let params = useParams();
+  const jwt = localStorage.getItem("token");
+  let userID;
+  if (jwt) {
+    userID = jwtDecode(jwt)._id;
+  }
   const [products, setProducts] = useState({});
   const getProductData = async () => {
     try {
@@ -43,8 +48,6 @@ const [cartData , setCartData] = useState({
   
 })
 
-const jwt = localStorage.getItem("token");
-let userID = jwtDecode(jwt)._id;
 
 
 function handleRadioCol(e){

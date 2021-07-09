@@ -36,7 +36,8 @@ import OwnerUpdateOrderStatusPage from './components/pages/OwnerUpdateOrderStatu
 import AssignDeliveryMemberPage from './components/pages/AssignDeliveryMemberPage';
 import DeliveryStaffMainPage from './components/pages/DeliveryStaffMainPage';
 import ViewAssignedDeliveriesPage from './components/pages/ViewAssignedDeliveriesPage';
-
+import DelMemberViewOrderDetailsPage from './components/pages/DelMemberViewOrderDetailsPage';
+import DelMemberUpdateOrderStatusPage from './components/pages/DelMemberUpdateOrderStatusPage';
 
 
 
@@ -84,10 +85,12 @@ function App() {
                     <Route path='/owner-assign-deliveryMember/:id' exact component={AssignDeliveryMemberPage}/>
                     <Route path='/deliveryStaff-main-page' exact component={DeliveryStaffMainPage}/>
                     <Route path='/newly-assigned-deliveries/:id' exact component={ViewAssignedDeliveriesPage}/>
+                    <Route path='/deliveryStaff-view-orderDetails/:id' exact component={DelMemberViewOrderDetailsPage}/>
+                    <Route path='/deliveryStaff-update-orderDetails/:id' exact component={DelMemberUpdateOrderStatusPage}/>
 
 
 
-
+                    
 
                </Switch>
                

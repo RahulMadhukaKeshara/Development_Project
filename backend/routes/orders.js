@@ -185,4 +185,36 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
 
  });
 
+ //get orders related to a delivery member
+router.route('/assignedOrders/:id').get(async(req,res) => {
+
+  try {
+    let userOb = await User.findById(req.params.id)
+    let orders = await Order.find({delivery_Member : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
+    res.json(orders)
+  } catch (error) {
+    res.status(400).json('Error: '+ error)
+  }
+
+});
+
+//update expected delivery date 
+router.route('/expectedDelDate/update/:id').post((req,res) => {
+
+  // console.log(req.body)
+  // console.log(req.params.id)
+    Order.findById(req.params.id)
+    .then(order => {
+ 
+        order.expected_Delivery_Date = req.body.expected_Delivery_Date;
+ 
+ 
+        order.save()
+        .then(() => res.json('Date Updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: '+ err));
+ });
+
+
   module.exports = router;

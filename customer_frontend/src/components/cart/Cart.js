@@ -85,15 +85,15 @@ function Cart() {
            })
       }
 
-      function handleDistrict(e){
+      // function handleDistrict(e){
 
-        let newData = {...selectedDistrict};
-        newData = e.target.value;
-        setSelectedDistrict(newData);
-        handleDelCharges(newData);
+      //   let newData = {...selectedDistrict};
+      //   newData = e.target.value;
+      //   setSelectedDistrict(newData);
+      //   handleDelCharges(newData);
 
 
-      }
+      // }
 
       const calcSubTot = async () => {
         let sub = 0;
@@ -114,16 +114,16 @@ function Cart() {
         }
       };
 
-      const handleDelCharges = async (District) => {
-        try {
-          const data = await Axios.post(
-            "http://localhost:5000/deliveryCharges/charges", {district : District}
-          );
-          setDelCharge(parseInt(data.data.delivery_charge))
-        } catch (e) {
-          console.log(e);
-        }
-      };
+      // const handleDelCharges = async (District) => {
+      //   try {
+      //     const data = await Axios.post(
+      //       "http://localhost:5000/deliveryCharges/charges", {district : District}
+      //     );
+      //     setDelCharge(parseInt(data.data.delivery_charge))
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // };
 
       function handleErrCheckout(){
         Swal.fire({
@@ -158,22 +158,27 @@ function Cart() {
 
                   <>
                   <Row className="individual_item_div">
-                  <div  className='item_col1'>
-                      <Media >
-                          <img 
-                                  className="mr-3 item_image"
-                                  src={"http://localhost:5000/products/photo/" + item.product._id}
-                                  alt="Generic placeholder"
-                              />                      
-                      </Media>
-                  </div>
-                  <div  className='item_col2'>
-                      <h6>{item.product.product_Name}</h6>
-                      <h6>Price : LKR {item.unit_Price}</h6>
-                      <h6 className='gg'>color : {item.color}</h6>
-                      <h6 className='gg'>Size : {item.size}</h6>    
-                      <h6 className='gg'>Qty : {item.quantity}</h6>                  
-                  </div>
+                  <div  className='order_item_col1'>
+                            <Media >
+                                <img 
+                                        className="mr-3 order_item_image"
+                                        src={"http://localhost:5000/products/photo/" + item.product._id }
+                                        alt="Generic placeholder"
+                                    />                      
+                            </Media>
+                        </div>
+                        <div  className='order_item_col2'>
+                            <div><h5>{item.product.product_Name}</h5></div>
+                            <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                            <div style={{display:'flex'}}>
+                            <div style={{display:'flex' , alignItems:'center'}}>
+                                <div><h6 className='gg'>color : </h6></div>
+                                <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                            </div>
+                            <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                            <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                            </div>                 
+                        </div>
                   <div  className='item_col3'>
                   <IconButton aria-label="Edit">
                           <EditIcon/>
@@ -218,7 +223,7 @@ function Cart() {
                     <div className='col2_div'>
                         <h5>Total Discount : LKR {totalDiscount}</h5>
                     </div>
-                    <div className='col2_div'>
+                    {/* <div className='col2_div'>
                         <h6>Select District to see the Delivery Charges :</h6>
                         <select value={selectedDistrict} onChange={(e)=> handleDistrict(e)}>
                             <option>Choose...</option>
@@ -230,9 +235,9 @@ function Cart() {
                                                 
                         </select>
                          <h5>Delivery Charges : LKR {delCharge} </h5>
-                    </div>
+                    </div> */}
                     <div className='col2_div'>
-                        <h3>Grand Total : LKR {subTotal - totalDiscount + delCharge }</h3>
+                        <h3>Grand Total : LKR {subTotal - totalDiscount }</h3>
                     </div>
                     <div className='col2_div  summry_btns'>             
                         <Button className='summury_btn1' href='/all-items'>Continue Shopping</Button>
