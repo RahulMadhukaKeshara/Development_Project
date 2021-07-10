@@ -50,7 +50,6 @@ function App() {
            <Router>
                <NavigationBar/>
                <Switch>
-
                     <Route path='/' exact component={HomePage}/>
                     <Route path='/sign-up' exact component={SignUpPage}/>
                     <Route path='/login' exact component={LoginPage}/>
@@ -87,11 +86,6 @@ function App() {
                     <Route path='/newly-assigned-deliveries/:id' exact component={ViewAssignedDeliveriesPage}/>
                     <Route path='/deliveryStaff-view-orderDetails/:id' exact component={DelMemberViewOrderDetailsPage}/>
                     <Route path='/deliveryStaff-update-orderDetails/:id' exact component={DelMemberUpdateOrderStatusPage}/>
-
-
-
-                    
-
                </Switch>
                
            </Router>

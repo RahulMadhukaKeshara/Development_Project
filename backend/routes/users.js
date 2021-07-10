@@ -166,7 +166,7 @@ router.route('/login').post(async (req,res) => {
     if(!validPassword) res.status(400).send('Invalid Password')
 
     //Set Token
-    const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Type:user.user_Type},  process.env.jwtKey)
+    const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Type:user.user_Type , user_Fname:user.user_Fname},  process.env.jwtKey)
 
     //Response
     res.status(200)

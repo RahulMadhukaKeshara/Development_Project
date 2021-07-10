@@ -33,3 +33,16 @@
 .icon_btn{
     color: #f95757 !important;
 }
+
+.delNavLinks{
+    margin-right: 10px;
+}
+
+
+@media only screen and (max-width:768px) {
+
+    .nav-link{
+        text-align: center;
+    }
+
+}

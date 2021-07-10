@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Supplier = require('../models/suppliers.model');
+const nodemailer = require("nodemailer");
 
 router.route('/').get((req,res) => {
     Supplier.find()
@@ -59,6 +60,7 @@ router.route('/update/:id').post((req,res) => {
     })
     .catch(err => res.status(400).json('Error: '+ err));
 });
+
 
 
 module.exports = router;
