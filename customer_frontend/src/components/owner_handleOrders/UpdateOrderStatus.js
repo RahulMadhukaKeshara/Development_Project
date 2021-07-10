@@ -1,12 +1,14 @@
 import React , {useState , useEffect} from 'react';
-import {Form , Button , Col} from 'react-bootstrap';
+import {Modal , Button , Col , Row , Media , Container , Form} from 'react-bootstrap';
 import { useParams } from 'react-router';
 import Axios from 'axios';
 import '../handleProductCategories/AddProductCategory.css';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 
-function UpdateOrderStatus() {
+
+function UpdateOrderStatus(props) {
+
     let params = useParams();
     const history = useHistory();
     const [order , setOrder] = useState({});
@@ -51,7 +53,8 @@ function UpdateOrderStatus() {
                     icon: 'success',
                     title: 'Order Status Updated!',
                   })
-                  history.push('/owner-view-orderDetails/' + params.id);
+                  props.onHide();
+                  history.push('/owner-view-orders');
 
             } else {
                 Swal.fire({
@@ -64,14 +67,23 @@ function UpdateOrderStatus() {
         })
     }
 
+        return (
+                <>
+                <Modal className='addToCart_modal'
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                >
+                <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Update Order Status
+                </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='add_product_category_form_container'>
 
-    return (
-        <>
-            <h1 className="add_product_category_title">Update Order Status</h1>
-            <div className='add_product_category_form_container'>
-
-                <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type="submit">
-
+                    <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type="submit">
                     <Form.Row>
 
                         <Col sm={12} >
@@ -79,22 +91,29 @@ function UpdateOrderStatus() {
                             <Form.Label>Order Status</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
                                     <option>New</option>
+                                    <option>On The Way</option>
                                     <option>Cancelled</option>
                                     <option>Returned</option>
                             </Form.Control>
                         </Form.Group>
                         </Col>
 
-                    </Form.Row>
+                        </Form.Row>
 
-                    <div className='add_product_category_form_btns'>             
+                        <div className='add_product_category_form_btns'>             
                         <Button className='add_product_category_form_btn1' type="submit">Update</Button>
+                        </div>
+                    </Form>
                     </div>
 
-                </Form>
-            </div>
-            
-        </>
-    )
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={props.onHide}>Close</Button>
+                </Modal.Footer>
+                </Modal>
+                </>
+        )
+
 }
 export default UpdateOrderStatus;
+

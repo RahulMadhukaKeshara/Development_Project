@@ -10,6 +10,7 @@ import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import DelMemberUpdateExpectedDelDate from './DelMemberUpdateExpectedDelDate';
+import UpdateOrderStatus from './UpdateOrderStatus';
 
 function ViewOrderDetails() {
 
@@ -132,7 +133,16 @@ function ViewOrderDetails() {
                 </div>
                 <div className='owner_order_col2_div_2'  >
                     <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
-                    <Button className='order_summury_btn' href={'/owner-update-orderDetails/' + orderID }>Update Order Status</Button>
+                    {
+                        (order.order_Status === "Cancelled")||(order.order_Status === "Returned") ? 
+                        (""):
+                        (
+                            <>
+                            <Button className='order_summury_btn'  onClick={() => setModalShow(true)}>Update Order Status</Button>
+                            <UpdateOrderStatus show={modalShow} onHide={() => setModalShow(false)}/> 
+                            </>
+                        )
+                    }
                 </div>
                 <div className='order_col2_div'>
                     <h5>Payment Method : {order.payment_Method}</h5>
