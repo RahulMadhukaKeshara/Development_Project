@@ -175,6 +175,8 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
     let delMemberOb = await User.findById(req.body.delivery_Member);
  
     orderOb.delivery_Member = delMemberOb;
+    orderOb.expected_Delivery_Date = req.body.expected_Delivery_Date;
+    orderOb.order_Status = req.body.order_Status;
  
     await  orderOb.save();
     res.json('Member Assigned!')
@@ -198,23 +200,23 @@ router.route('/assignedOrders/:id').get(async(req,res) => {
 
 });
 
-//update expected delivery date 
-router.route('/expectedDelDate/update/:id').post((req,res) => {
+// //update expected delivery date 
+// router.route('/expectedDelDate/update/:id').post((req,res) => {
 
-  // console.log(req.body)
-  // console.log(req.params.id)
-    Order.findById(req.params.id)
-    .then(order => {
+//   // console.log(req.body)
+//   // console.log(req.params.id)
+//     Order.findById(req.params.id)
+//     .then(order => {
  
-        order.expected_Delivery_Date = req.body.expected_Delivery_Date;
+//         order.expected_Delivery_Date = req.body.expected_Delivery_Date;
  
  
-        order.save()
-        .then(() => res.json('Date Updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-    })
-    .catch(err => res.status(400).json('Error: '+ err));
- });
+//         order.save()
+//         .then(() => res.json('Date Updated!'))
+//         .catch(err => res.status(400).json('Error: ' + err));
+//     })
+//     .catch(err => res.status(400).json('Error: '+ err));
+//  });
 
 
   module.exports = router;

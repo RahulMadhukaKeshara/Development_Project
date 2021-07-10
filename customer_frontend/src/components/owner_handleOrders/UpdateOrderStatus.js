@@ -79,7 +79,6 @@ function UpdateOrderStatus() {
                             <Form.Label>Order Status</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
                                     <option>New</option>
-                                    <option>Delivery Assigned</option>
                                     <option>Cancelled</option>
                                     <option>Returned</option>
                             </Form.Control>

@@ -9,7 +9,7 @@ import { useParams } from 'react-router';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
-import DelMemberUpdateExpectedDelDate from './DelMemberUpdateExpectedDelDate';
+// import DelMemberUpdateExpectedDelDate from './DelMemberUpdateExpectedDelDate';
 
 function DelMemberViewOrderDetails() {
 
@@ -24,7 +24,7 @@ function DelMemberViewOrderDetails() {
     const [totalDiscount , setTotalDiscount] = useState(0);
     const [numOfItems , setNumOfItems] = useState("");
     const [delCharge , setDelCharge] = useState(0);
-    const [modalShow, setModalShow] = React.useState(false);
+    // const [modalShow, setModalShow] = React.useState(false);
 
     const getOrderData = async () => {
         try {
@@ -159,15 +159,11 @@ function DelMemberViewOrderDetails() {
                 <div>
                 <div className='owner_order_col2_div_2'>
                     <h6>Expected Delivery Date : {order.expected_Delivery_Date === "TBA" ? ("Not Set"):(order.expected_Delivery_Date)}</h6>
-                    {
-                        order.expected_Delivery_Date === "" ? 
-                        (
-                            <>
-                            <Button className='order_summury_btn' href={'#' + orderID} onClick={() => setModalShow(true)}>Add Date</Button>
-                            <DelMemberUpdateExpectedDelDate show={modalShow} onHide={() => setModalShow(false)}/> 
-                            </>
-                        ):("")
-                    }
+
+  
+                            {/* <Button className='order_summury_btn' href={'#' + orderID} onClick={() => setModalShow(true)}>Add Date</Button>
+                            <DelMemberUpdateExpectedDelDate show={modalShow} onHide={() => setModalShow(false)}/>  */}
+
 
                 </div>
                 <div className='order_col2_div'>

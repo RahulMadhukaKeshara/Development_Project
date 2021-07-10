@@ -9,6 +9,7 @@ import { useParams } from 'react-router';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
+import DelMemberUpdateExpectedDelDate from './DelMemberUpdateExpectedDelDate';
 
 function ViewOrderDetails() {
 
@@ -23,6 +24,7 @@ function ViewOrderDetails() {
     const [totalDiscount , setTotalDiscount] = useState(0);
     const [numOfItems , setNumOfItems] = useState("");
     const [delCharge , setDelCharge] = useState(0);
+    const [modalShow, setModalShow] = React.useState(false);
 
     const getOrderData = async () => {
         try {
@@ -163,7 +165,16 @@ function ViewOrderDetails() {
                 </div>
                 <div className='owner_order_col2_div_2'>
                     <h5>Delivery Member : {order.delivery_Member ? (`${order.delivery_Member.user_Fname} ${order.delivery_Member.user_Lname}`):("Not Assigned")}</h5>
-                    <Button className='order_summury_btn' href={'/owner-assign-deliveryMember/' + orderID}>Assign Delivery Member</Button>
+                    {
+                        order.order_Status === "New" ? 
+                        (
+                            <>
+                            <Button className='order_summury_btn'  onClick={() => setModalShow(true)}>Assign Delivery Member</Button>
+                            <DelMemberUpdateExpectedDelDate show={modalShow} onHide={() => setModalShow(false)}/> 
+                            </>
+                        ):("")
+                    }
+
                 </div>
                 </div>
                 <div>
