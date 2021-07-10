@@ -187,7 +187,7 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
 
  });
 
- //get orders related to a delivery member
+ //get deliveries related to a delivery member
 router.route('/assignedOrders/:id').get(async(req,res) => {
 
   try {
@@ -200,23 +200,6 @@ router.route('/assignedOrders/:id').get(async(req,res) => {
 
 });
 
-// //update expected delivery date 
-// router.route('/expectedDelDate/update/:id').post((req,res) => {
-
-//   // console.log(req.body)
-//   // console.log(req.params.id)
-//     Order.findById(req.params.id)
-//     .then(order => {
- 
-//         order.expected_Delivery_Date = req.body.expected_Delivery_Date;
- 
- 
-//         order.save()
-//         .then(() => res.json('Date Updated!'))
-//         .catch(err => res.status(400).json('Error: ' + err));
-//     })
-//     .catch(err => res.status(400).json('Error: '+ err));
-//  });
 
 
   module.exports = router;

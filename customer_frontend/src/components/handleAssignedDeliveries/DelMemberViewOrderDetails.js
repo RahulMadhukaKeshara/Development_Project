@@ -193,6 +193,3 @@ function DelMemberViewOrderDetails() {
 }
 
 export default DelMemberViewOrderDetails;
-
-{/* <Button className='product_det_btn' onClick={jwt? (() => setModalShow(true)):(()=>handleAddtoCart())} >Add to Cart</Button>                           
-<AddToCart show={modalShow} onHide={() => setModalShow(false)}/> */}

@@ -28,7 +28,7 @@ function DeliveryStaffCatCards() {
                     </Col>
                     <Col lg={3} md={4} className="delStaff_category_col">
                     <DeliverStaffCatItems
-                        path={'/newly-assigned-deliveries/'+ userID}
+                        path={'/deliveryHistory/'+ userID}
                         src='./images/Cat02.jpg'
                         title="DELIVERY HISTORY"
         

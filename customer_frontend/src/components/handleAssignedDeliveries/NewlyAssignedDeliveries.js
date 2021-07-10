@@ -1,11 +1,13 @@
 import React,{useState,useEffect,useParams} from 'react';
 import PropTypes from 'prop-types';
+import {Button} from 'react-bootstrap';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
+import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
@@ -164,12 +166,26 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected === 1 ? (
+        <>
+        <Tooltip title="Update" onClick={onClickUpdate}>
+          <Button aria-label="update" style={{color:'white' , backgroundColor:'#f95957' , borderRadius:'30px' , border:'none'}}>
+            <ListAltOutlinedIcon/>
+          </Button>
+        </Tooltip>
 
         <Tooltip title="Update" onClick={onClickUpdate}>
-          <IconButton aria-label="update">
-            <UpdateIcon/>
-          </IconButton>
+          <Button aria-label="update" style={{color:'#f95957' , backgroundColor:'whitesmoke' , borderRadius:'30px' , border:'2px solid #f95957'}}>
+            <ListAltOutlinedIcon/>
+          </Button>
         </Tooltip>
+
+              <Tooltip title="Update" onClick={onClickUpdate}>
+                <IconButton aria-label="update" >
+                  <ListAltOutlinedIcon/>
+                </IconButton>
+              </Tooltip>
+        
+        </>
 
       ) : (
         <Typography/>
