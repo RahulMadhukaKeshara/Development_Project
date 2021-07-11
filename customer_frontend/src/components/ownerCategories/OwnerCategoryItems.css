@@ -8,14 +8,25 @@
 .owner_category_card{
     border-radius: 20px;
     width: 225px;
-    border: 2px solid #f95757;
+    border: none;  
     padding: 0px;
+    cursor: pointer;
+    /* text-decoration: none;
+    color: #f95757; */
+    font-size: 10rem;
     
 }
 
 .owner_category_card:hover{
-    transform: scale(1.05);
-    transition: 75ms;   
+    transform: scale(1.07);
+    transition: 75ms;  
+    border: 2px solid #f95757;  
+    
+}
+
+.cards__item__link{
+    text-decoration: none !important;
+    color: #f95757 !important;
 }
 
 .owner_category_card_img{
@@ -34,3 +45,19 @@ color:#f95757;
    margin: 124px 0px 50px 0px;
    text-align: center;
 }
+
+
+
+/* .catLink{
+    cursor: pointer;
+    text-decoration: none;
+    color: #f95757;
+    font-size: 10rem;
+}
+
+.catLink:hover{
+    
+    transition: 75ms; 
+    font-size: smaller;
+    transform: scale(1.05);
+} */
