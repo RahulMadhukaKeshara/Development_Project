@@ -2,7 +2,11 @@ import React from 'react';
 import { Col , Row , Container , Card } from 'react-bootstrap';
 import OwnerCategoryItems from './OwnerCategoryItems';
 import './OwnerCategoryItems.css';
-import Link from '@material-ui/core/Link';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import PeopleIcon from '@material-ui/icons/People';
+import StorageIcon from '@material-ui/icons/Storage';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 
 function OwnerCategories() {
     return (
@@ -15,103 +19,69 @@ function OwnerCategories() {
                 <Row  className="justify-content-md-center">
 
                     <Col lg={3} md={4} className="owner_category_col">
-                        {/* <OwnerCategoryItems
+                        <OwnerCategoryItems
                         path='/users'
-                        src='./images/Cat01.jpg'
+                        icon= {<PeopleIcon style={{fontSize:'11rem'}}/>}
                         title='USERS'
     
-                        /> */}
-                        <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/users">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >USERS</h4>
-                        </Link>
-                        </Card>
+                        />
                     </Col>
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                    <OwnerCategoryItems
                         path='/products'
-                        src='./images/Cat02.jpg'
+                        icon={<i class="fas fa-archive"></i>}
                         title="PRODUCTS"
         
-                        /> */}
-                        <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/products">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >PRODUCTS</h4>
-                        </Link>
-                        </Card>
+                        />
                     </Col>
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                       <OwnerCategoryItems
                         path='/product-categories'
-                        src='./images/Cat03.jpg'
+                        icon={<StorageIcon style={{fontSize:'11rem'}}/>}
                         title='PRODUCT CATEGORIES'
     
-                        /> */}
-                        <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/product-categories">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >PRODUCT CATEGORIES</h4>
-                        </Link>
-                        </Card>
+                        />
                     </Col>
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                     <OwnerCategoryItems
                         path='/suppliers'
-                        src='./images/Cat03.jpg'
+                        icon={<i class="fas fa-user-circle"></i>}
                         title='SUPPLIERS'
     
-                        /> */}
-                                                <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/suppliers">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >SUPPLIERS</h4>
-                        </Link>
-                        </Card>
+                        />
                     </Col>
 
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                    <OwnerCategoryItems
                         path='/owner-view-orders'
-                        src='./images/Cat03.jpg'
+                        icon={<ShoppingCartIcon style={{fontSize:'11rem'}}/>}
                         title='ORDERS'
     
-                        /> */}
-                                                <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/owner-view-orders">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >ORDERS</h4>
-                        </Link>
-                        </Card>
+                        />
                     </Col>
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                    <OwnerCategoryItems
                         path='/generate-reports'
-                        src='./images/Cat03.jpg'
+                        icon={<AssignmentIcon style={{fontSize:'11rem'}}/>}
                         title='GENERATE REPORTS'
-    
-                        /> */}
-                        <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/generate-reports">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >GENERATE REPORTS</h4>
-                        </Link>
-                        </Card>
+                        
+                        />
                     </Col>
                     <Col lg={3} md={4} className="owner_category_col">
-                    {/* <OwnerCategoryItems
+                    <OwnerCategoryItems
                         path='/dashboard'
-                        src='./images/Cat03.jpg'
+                        icon={<i class="fas fa-chart-line"></i>}
                         title='DASHBOARD'
     
-                        /> */}
-                                                <Card className='owner_category_card'>
-                        <Link className="cards__item__link" href="/dashboard">
-                        <i class="fas fa-user-circle"></i>
-                        <h4 >DASHBOARD</h4>
-                        </Link>
-                        </Card>
+                        />
+                    </Col>
+                    <Col lg={3} md={4} className="owner_category_col">
+                    <OwnerCategoryItems
+                        path='/deliveryCharges'
+                        icon={<LocalAtmIcon style={{fontSize:'11rem'}}/>}
+                        title='DELIVERY CHARGES'
+    
+                        />
                     </Col>
                 </Row>
             </Container>

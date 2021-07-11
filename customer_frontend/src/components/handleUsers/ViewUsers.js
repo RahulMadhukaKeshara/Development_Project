@@ -28,6 +28,7 @@ import Axios from 'axios';
 import {Button} from 'react-bootstrap'
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 // function createPDF() {
@@ -201,7 +202,7 @@ const EnhancedTableToolbar = (props) => {
 
         <Tooltip title="Update" onClick={onClickUpdate}>
           <IconButton aria-label="update">
-            <UpdateIcon/>
+            <EditIcon/>
           </IconButton>
         </Tooltip>
 

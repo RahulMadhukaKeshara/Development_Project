@@ -18,16 +18,12 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import UpdateIcon from '@material-ui/icons/Update';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { Container } from '@material-ui/core';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
-import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
 import jwtDecode from "jwt-decode";
 
@@ -167,19 +163,8 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected === 1 ? (
         <>
-        <Tooltip title="Update" onClick={onClickUpdate}>
-          <Button aria-label="update" style={{color:'white' , backgroundColor:'#f95957' , borderRadius:'30px' , border:'none'}}>
-            <ListAltOutlinedIcon/>
-          </Button>
-        </Tooltip>
 
-        <Tooltip title="Update" onClick={onClickUpdate}>
-          <Button aria-label="update" style={{color:'#f95957' , backgroundColor:'whitesmoke' , borderRadius:'30px' , border:'2px solid #f95957'}}>
-            <ListAltOutlinedIcon/>
-          </Button>
-        </Tooltip>
-
-              <Tooltip title="Update" onClick={onClickUpdate}>
+              <Tooltip title="View Details" onClick={onClickUpdate}>
                 <IconButton aria-label="update" >
                   <ListAltOutlinedIcon/>
                 </IconButton>
@@ -260,6 +245,7 @@ export default function NewlyAssignedDeliveries() {
 
   const history = useHistory()
   const [orders, setOrders] = useState([]);
+  let arr = [];
   const jwt = localStorage.getItem("token");
   let userID = jwtDecode(jwt)._id;
  // const [search, setSearch] = useState("");
@@ -270,7 +256,13 @@ export default function NewlyAssignedDeliveries() {
         "http://localhost:5000/orders/assignedOrders/" + userID
       );
       console.log(data.data);
-      setOrders(data.data);
+      // setOrders(data.data);
+      data.data.forEach(element => {
+        if (!((element.order_Status==="Delivered")||(element.order_Status==="Cancelled")||(element.order_Status==="Returned"))) {
+          arr.push(element)
+        }
+      });
+      setOrders(arr)
     } catch (e) {
       console.log(e);
     }

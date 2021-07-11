@@ -167,17 +167,6 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected === 1 ? (
         <>
-        <Tooltip title="Update" onClick={onClickUpdate}>
-          <Button aria-label="update" style={{color:'white' , backgroundColor:'#f95957' , borderRadius:'30px' , border:'none'}}>
-            <ListAltOutlinedIcon/>
-          </Button>
-        </Tooltip>
-
-        <Tooltip title="Update" onClick={onClickUpdate}>
-          <Button aria-label="update" style={{color:'#f95957' , backgroundColor:'whitesmoke' , borderRadius:'30px' , border:'2px solid #f95957'}}>
-            <ListAltOutlinedIcon/>
-          </Button>
-        </Tooltip>
 
               <Tooltip title="Update" onClick={onClickUpdate}>
                 <IconButton aria-label="update" >
@@ -260,6 +249,7 @@ export default function DeliveryHistory() {
 
   const history = useHistory()
   const [orders, setOrders] = useState([]);
+  let arr = [];
   const jwt = localStorage.getItem("token");
   let userID = jwtDecode(jwt)._id;
  // const [search, setSearch] = useState("");
@@ -270,7 +260,13 @@ export default function DeliveryHistory() {
         "http://localhost:5000/orders/assignedOrders/" + userID
       );
       console.log(data.data);
-      setOrders(data.data);
+      //setOrders(data.data);
+      data.data.forEach((element) => {
+        if ((element.order_Status==="Delivered")||(element.order_Status==="Cancelled")||(element.order_Status==="Returned")) {
+          arr.push(element)
+        }
+      });
+      setOrders(arr)
     } catch (e) {
       console.log(e);
     }
@@ -394,8 +390,7 @@ const handleUpdate = (_id) => {
                     const isItemSelected = isSelected(row._id);
                     const labelId = `enhanced-table-checkbox-${index}`;
   
-                    return (orders.order_Status==="Delivered")||(orders.order_Status === "Returned")||(orders.order_Status === "Cancelled") ?
-                    (
+                    return (
                       <TableRow
                         hover
                         onClick={(event) => handleClick(event, row._id)}
@@ -422,8 +417,7 @@ const handleUpdate = (_id) => {
                         <TableCell align="center">{row.delivery_District}</TableCell>
                         {/* <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell> */}
                       </TableRow> 
-                    ):
-                    ("");
+                    )
                   })}
                 {emptyRows > 0 && (
                   <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>

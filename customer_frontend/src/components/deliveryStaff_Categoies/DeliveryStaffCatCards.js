@@ -21,7 +21,7 @@ function DeliveryStaffCatCards() {
                     <Col lg={3} md={4} className="delStaff_category_col">
                         <DeliverStaffCatItems
                         path={'/newly-assigned-deliveries/'+ userID}
-                        src='./images/Cat01.jpg'
+                        icon={<i class="fas fa-shipping-fast"></i>}
                         title='NEWLY ASSIGNED DELIVERIES'
     
                         />
@@ -29,7 +29,7 @@ function DeliveryStaffCatCards() {
                     <Col lg={3} md={4} className="delStaff_category_col">
                     <DeliverStaffCatItems
                         path={'/deliveryHistory/'+ userID}
-                        src='./images/Cat02.jpg'
+                        icon={<i class="fas fa-history"></i>}
                         title="DELIVERY HISTORY"
         
                         />

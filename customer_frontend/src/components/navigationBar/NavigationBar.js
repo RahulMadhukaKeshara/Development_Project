@@ -94,7 +94,7 @@ function NavigationBar() {
                     (
                       <>
                      <Nav className="navbar-links mr-auto ">
-                        <Nav.Link className="delNavLinks" href="/deliveryStaff-main-page">Home</Nav.Link>
+                        <Nav.Link className="delNavLinks" href="/owner-main-page">Home</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/users">User</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/products">Products</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/product-categories">Product Categories</Nav.Link>
@@ -118,7 +118,7 @@ function NavigationBar() {
                      <Nav className="navbar-links mr-auto ">
                         <Nav.Link className="delNavLinks" href="/deliveryStaff-main-page">Home</Nav.Link>
                         <Nav.Link className="delNavLinks" href={"/newly-assigned-deliveries/" + userID}>Newly Assigned Deliveries</Nav.Link>
-                        <Nav.Link className="delNavLinks" href={"/newly-assigned-deliveries/" + userID}>Delivery History</Nav.Link>
+                        <Nav.Link className="delNavLinks" href={"/deliveryHistory/" + userID}>Delivery History</Nav.Link>
                      </Nav>
                       <Nav className="">
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   

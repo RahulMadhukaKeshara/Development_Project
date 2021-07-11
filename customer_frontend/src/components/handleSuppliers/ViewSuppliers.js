@@ -27,6 +27,8 @@ import AddBoxRoundedIcon from '@material-ui/icons/AddBoxRounded';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
+import EditIcon from '@material-ui/icons/Edit';
+
 
 
 
@@ -164,7 +166,7 @@ const EnhancedTableToolbar = (props) => {
 
         <Tooltip title="Update" onClick={onClickUpdate}>
           <IconButton aria-label="update">
-            <UpdateIcon/>
+            <EditIcon/>
           </IconButton>
         </Tooltip>
 
