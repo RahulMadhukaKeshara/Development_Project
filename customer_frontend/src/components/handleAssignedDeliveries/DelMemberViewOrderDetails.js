@@ -9,7 +9,8 @@ import { useParams } from 'react-router';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
-// import DelMemberUpdateExpectedDelDate from './DelMemberUpdateExpectedDelDate';
+import DelMemberUpdateOrderStatus from './DelMemberUpdateOrderStatus';
+
 
 function DelMemberViewOrderDetails() {
 
@@ -24,7 +25,7 @@ function DelMemberViewOrderDetails() {
     const [totalDiscount , setTotalDiscount] = useState(0);
     const [numOfItems , setNumOfItems] = useState("");
     const [delCharge , setDelCharge] = useState(0);
-    // const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = React.useState(false);
 
     const getOrderData = async () => {
         try {
@@ -132,7 +133,16 @@ function DelMemberViewOrderDetails() {
                 </div>
                 <div className='owner_order_col2_div_2'  >
                     <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
-                    <Button className='order_summury_btn' href={'/deliveryStaff-update-orderDetails/' + orderID }>Update Order Status</Button>
+                    {
+                        (order.order_Status === "Cancelled")||(order.order_Status === "Returned")||(order.order_Status === "Delivered") ? 
+                        (""):
+                        (
+                            <>
+                            <Button className='order_summury_btn'  onClick={() => setModalShow(true)}>Update Order Status</Button>
+                            <DelMemberUpdateOrderStatus show={modalShow} onHide={() => setModalShow(false)}/> 
+                            </>
+                        )
+                    }
                 </div>
                 <div className='order_col2_div'>
                     <h5>Payment Method : {order.payment_Method}</h5>
@@ -159,12 +169,6 @@ function DelMemberViewOrderDetails() {
                 <div>
                 <div className='owner_order_col2_div_2'>
                     <h6>Expected Delivery Date : {order.expected_Delivery_Date === "TBA" ? ("Not Set"):(order.expected_Delivery_Date)}</h6>
-
-  
-                            {/* <Button className='order_summury_btn' href={'#' + orderID} onClick={() => setModalShow(true)}>Add Date</Button>
-                            <DelMemberUpdateExpectedDelDate show={modalShow} onHide={() => setModalShow(false)}/>  */}
-
-
                 </div>
                 <div className='order_col2_div'>
                     <h6>Actual Delivery Date : {order.actual_Delivery_Date === "TBA" ? ("Not Set"):(order.actual_Delivery_Date)}</h6>

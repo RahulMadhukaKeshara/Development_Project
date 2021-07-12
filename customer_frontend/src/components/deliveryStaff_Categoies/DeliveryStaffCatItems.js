@@ -6,7 +6,7 @@ import '../deliveryStaff_Categoies/DeliveryStaffCatItems.css';
 function DeliverStaffCatItems(props) {
     return (
         <>
-          <Card className='owner_category_card'>
+          <Card className='delStaff_category_card'>
           <Link className='cards__item__link' to={props.path}>
               {props.icon}
               <Card.Title className='card_category_title'>{props.title}</Card.Title>

@@ -1,12 +1,12 @@
 import React , {useState , useEffect} from 'react';
-import {Form , Button , Col} from 'react-bootstrap';
+import {Modal , Button , Col , Form} from 'react-bootstrap';
 import { useParams } from 'react-router';
 import Axios from 'axios';
 import '../handleProductCategories/AddProductCategory.css';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 
-function DelMemberUpdateOrderStatus() {
+function DelMemberUpdateOrderStatus(props) {
     let params = useParams();
     const history = useHistory();
     const [order , setOrder] = useState({});
@@ -33,8 +33,20 @@ function DelMemberUpdateOrderStatus() {
     function handleChange(e) {
         const newOrder = {...order};
         newOrder[e.target.id] = e.target.value;
-        setOrder(newOrder);
-        console.log(newOrder)
+        if (newOrder.order_Status === "Delivery Assigned") {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Order Status',
+                text: 'Cannot change order status to Delivery Assigned!',
+
+              })         
+            
+        } else {
+            setOrder(newOrder);
+            //console.log(newOrder)  
+        }
+
     }
 
     function handleSubmit(e){
@@ -51,7 +63,17 @@ function DelMemberUpdateOrderStatus() {
                     icon: 'success',
                     title: 'Order Status Updated!',
                   })
-                  history.push('/deliveryStaff-view-orderDetails/' + params.id);
+                  props.onHide();
+                  if ((order.order_Status === "Returned")||(order.order_Status === "Delivered")) {
+
+                    history.push('/deliveryHistory/' + params.id);
+
+                  } else {
+                      
+                    history.push('/newly-assigned-deliveries/' + params.id);
+
+                  }
+                  
 
             } else {
                 Swal.fire({
@@ -67,35 +89,50 @@ function DelMemberUpdateOrderStatus() {
 
     return (
         <>
-            <h1 className="add_product_category_title">Update Order Status</h1>
+        <Modal className='addToCart_modal'
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        >
+        <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+            Update Order Status
+        </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
             <div className='add_product_category_form_container'>
 
-                <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type="submit">
+            <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type="submit">
+            <Form.Row>
 
-                    <Form.Row>
+            <Col sm={12} >
+            <Form.Group  controlId="order_Status">
+                <Form.Label>Order Status</Form.Label>
+                <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
+                        <option>Delivery Assigned</option> 
+                        <option>On The Way</option>
+                        <option>Delivered</option>
+                        <option>Returned</option>
+                </Form.Control>
+            </Form.Group>
+            </Col>
 
-                        <Col sm={12} >
-                        <Form.Group  controlId="order_Status">
-                            <Form.Label>Order Status</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
-                                    <option>Delivery Assigned</option>
-                                    <option>On The Way</option>
-                                    <option>Delivered</option>
-                                    <option>Returned</option>
-                            </Form.Control>
-                        </Form.Group>
-                        </Col>
+            </Form.Row>
 
-                    </Form.Row>
-
-                    <div className='add_product_category_form_btns'>             
-                        <Button className='add_product_category_form_btn1' type="submit">Update</Button>
-                    </div>
-
-                </Form>
+                <div className='add_product_category_form_btns'>             
+                <Button className='add_product_category_form_btn1' type="submit">Update</Button>
+                </div>
+            </Form>
             </div>
-            
+
+        </Modal.Body>
+        <Modal.Footer>
+            <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+        </Modal>
         </>
-    )
+)
 }
 export default DelMemberUpdateOrderStatus;
+

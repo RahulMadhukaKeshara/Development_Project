@@ -7,16 +7,19 @@
 
 .delStaff_category_card{
     border-radius: 20px;
-    width: 225px;
-    height: 325px;
-    border: 2px solid #f95757;
+    width: 250px;
+    border: none;  
     padding: 0px;
+    cursor: pointer;
+    font-size: 10rem;
     
 }
 
 .delStaff_category_card:hover{
-    transform: scale(1.05);
-    transition: 75ms;   
+    transform: scale(1.07);
+    transition: 75ms;  
+    /* border: 2px solid #f95757;   */
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
 }
 
 .delStaff_category_card_img{

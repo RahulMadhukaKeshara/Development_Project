@@ -134,7 +134,7 @@ function ViewOrderDetails() {
                 <div className='owner_order_col2_div_2'  >
                     <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
                     {
-                        (order.order_Status === "Cancelled")||(order.order_Status === "Returned") ? 
+                        (order.order_Status === "Cancelled")||(order.order_Status === "Returned")||(order.order_Status === "Delivered") ? 
                         (""):
                         (
                             <>

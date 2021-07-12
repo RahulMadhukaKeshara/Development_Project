@@ -22,7 +22,7 @@ function DeliveryStaffCatCards() {
                         <DeliverStaffCatItems
                         path={'/newly-assigned-deliveries/'+ userID}
                         icon={<i class="fas fa-shipping-fast"></i>}
-                        title='NEWLY ASSIGNED DELIVERIES'
+                        title='ASSIGNED DELIVERIES'
     
                         />
                     </Col>
