@@ -3,6 +3,7 @@ let Order = require('../models/orders.model');
 let User = require('../models/users.model');
 let Product = require('../models/products.model');
 let Cart = require('../models/carts.model');
+let sendEmail = require('../middlewares/email');
 
 
 //get all orders
@@ -73,7 +74,8 @@ router.route('/add').post(async(req,res) => {
     });
  
     await newOrder.save();
-
+    sendEmail();
+    
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
     //console.log(cartOb)
      cartOb.cart_Items.forEach(async element => {
