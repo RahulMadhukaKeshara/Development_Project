@@ -134,14 +134,14 @@ function ViewOrderDetails() {
                 <div className='owner_order_col2_div_2'  >
                     <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
                     {
-                        (order.order_Status === "New")||(order.order_Status === "Cancelled")||(order.order_Status === "Returned")||(order.order_Status === "Delivered") ? 
-                        (""):
+                        (order.order_Status === "Requested to Return")||(order.order_Status === "Requested to Cancel") ? 
                         (
                             <>
                             <Button className='order_summury_btn'  onClick={() => setModalShow(true)}>Update Order Status</Button>
                             <UpdateOrderStatus show={modalShow} onHide={() => setModalShow(false)}/> 
                             </>
-                        )
+                        ):
+                        ("")
                     }
                 </div>
                 <div className='order_col2_div'>

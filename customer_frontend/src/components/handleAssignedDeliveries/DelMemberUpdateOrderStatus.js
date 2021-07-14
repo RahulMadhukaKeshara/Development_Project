@@ -10,6 +10,7 @@ function DelMemberUpdateOrderStatus(props) {
     let params = useParams();
     const history = useHistory();
     const [order , setOrder] = useState({});
+    const [orderStatus , setOrderStatus] = useState("");
 
     const url = 'http://localhost:5000/orders/orderStatus/update/' + params.id;
 
@@ -20,6 +21,7 @@ function DelMemberUpdateOrderStatus(props) {
           );
           console.log(data.data);
           setOrder(data.data);
+          setOrderStatus(data.data.order_Status);
         } catch (e) {
           console.log(e);
         }
@@ -99,10 +101,38 @@ function DelMemberUpdateOrderStatus(props) {
             <Form.Group  controlId="order_Status">
                 <Form.Label>Order Status</Form.Label>
                 <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
-                  <option disabled>Delivery Assigned</option>
-                  <option>On The Way</option> 
-                  <option >Delivered</option>
-                  <option >Returned</option> 
+                  {
+                    orderStatus === "Delivery Assigned" ?
+                    (
+                      <>
+                      <option disabled>Delivery Assigned</option>
+                      <option>On The Way</option> 
+                      </>
+                    ):
+                    (  orderStatus === "On The Way" ?
+                    (
+                      <>
+                      <option disabled>On The Way</option>
+                      <option>Delivered</option> 
+                      </>
+                    ):
+                    ( orderStatus === "Delivery Assigned" ?
+                    (
+                      <>
+                      <option disabled>Delivery Assigned</option>
+                      <option>On The Way</option> 
+                      </>
+                    ):
+                    (orderStatus === "Return Accepted" ?
+                    (
+                      <>
+                      <option disabled>Delivery Assigned</option>
+                      <option>On The Way</option> 
+                      </>
+                    ):
+                    (""))))
+                  }
+
                 </Form.Control>
             </Form.Group>
             </Col>

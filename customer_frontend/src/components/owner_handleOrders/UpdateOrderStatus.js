@@ -12,6 +12,8 @@ function UpdateOrderStatus(props) {
     let params = useParams();
     const history = useHistory();
     const [order , setOrder] = useState({});
+    const [orderStatus , setOrderStatus] = useState("");
+
 
     const url = 'http://localhost:5000/orders/orderStatus/update/' + params.id;
 
@@ -22,6 +24,7 @@ function UpdateOrderStatus(props) {
           );
           console.log(data.data);
           setOrder(data.data);
+          setOrderStatus(data.data.order_Status);
         } catch (e) {
           console.log(e);
         }
@@ -90,13 +93,26 @@ function UpdateOrderStatus(props) {
                         <Form.Group  controlId="order_Status">
                             <Form.Label>Order Status</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
-                                    <option>New</option>
-                                    <option>Delivery Assigned</option>
-                                    <option>Cancelled</option>
-                                    <option>Delivered</option>
-                                    <option>Return Accepted</option>
-                                    <option>Requested to Cancel</option>
-                                    <option>Requested to Return</option>
+                            {
+                                orderStatus === "Requested to Cancel" ?
+                                (
+                                <>
+                                <option disabled>Requested to Cancel</option>
+                                <option>Cancelled</option> 
+                                <option>New</option>
+                                <option>Delivery Assigned</option>  
+                                </>
+                                ):
+                                (  orderStatus === "Requested to Return" ?
+                                (
+                                <>
+                                <option disabled>Requested to Return</option>
+                                <option>Return Accepted</option> 
+                                <option>Delivered</option> 
+                                </>
+                                ):
+                                (""))
+                            }
                             </Form.Control>
                         </Form.Group>
                         </Col>

@@ -259,7 +259,7 @@ function Checkout() {
 
             <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
 
-                <h4 className="add_product_category_sub_title">Personal Details</h4>
+                <h4 className="add_product_category_sub_title">Shipping Details</h4>
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>

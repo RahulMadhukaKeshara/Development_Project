@@ -127,7 +127,7 @@ function DelMemberUpdateExpectedDelDate(props) {
     <Form.Group  controlId="delivery_Member">
         <Form.Label>Delivery Member</Form.Label>
         <Form.Control as="select" onChange={(e) => handleChange(e)} >
-                <option value="Select a Staff Member">Select a Staff Member</option>
+                <option disabled value="Select a Staff Member">Select a Staff Member</option>
                 {
                     delMembers.map(delMembers =>{
 
