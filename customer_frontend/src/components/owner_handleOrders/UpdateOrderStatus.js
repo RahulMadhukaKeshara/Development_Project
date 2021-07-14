@@ -91,9 +91,12 @@ function UpdateOrderStatus(props) {
                             <Form.Label>Order Status</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
                                     <option>New</option>
-                                    <option>On The Way</option>
+                                    <option>Delivery Assigned</option>
                                     <option>Cancelled</option>
-                                    <option>Returned</option>
+                                    <option>Delivered</option>
+                                    <option>Return Accepted</option>
+                                    <option>Requested to Cancel</option>
+                                    <option>Requested to Return</option>
                             </Form.Control>
                         </Form.Group>
                         </Col>

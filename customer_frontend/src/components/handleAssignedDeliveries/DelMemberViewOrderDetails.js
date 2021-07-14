@@ -134,14 +134,14 @@ function DelMemberViewOrderDetails() {
                 <div className='owner_order_col2_div_2'  >
                     <h5 style={{color:'#f95957'}}>Order Status : {order.order_Status}</h5>
                     {
-                        (order.order_Status === "Cancelled")||(order.order_Status === "Returned")||(order.order_Status === "Delivered") ? 
-                        (""):
+                        (order.order_Status === "Delivery Assigned")||(order.order_Status === "On The Way")||(order.order_Status === "Return Accepted") ? 
                         (
                             <>
                             <Button className='order_summury_btn'  onClick={() => setModalShow(true)}>Update Order Status</Button>
                             <DelMemberUpdateOrderStatus show={modalShow} onHide={() => setModalShow(false)}/> 
                             </>
-                        )
+                        ):
+                        ("")
                     }
                 </div>
                 <div className='order_col2_div'>

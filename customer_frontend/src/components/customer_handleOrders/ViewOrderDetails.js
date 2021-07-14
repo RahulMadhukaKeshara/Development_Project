@@ -9,6 +9,7 @@ import { useParams } from 'react-router';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
+import Swal from 'sweetalert2';
 
 function ViewOrderDetails() {
 
@@ -18,6 +19,8 @@ function ViewOrderDetails() {
     const jwt = localStorage.getItem("token");
     let userID = jwtDecode(jwt)._id;
 
+
+    const url = 'http://localhost:5000/orders/orderStatus/update/' + params.id;
     const [order , setOrder] = useState({});
     const [subTotal , setSubTotal] = useState(0);
     const [totalDiscount , setTotalDiscount] = useState(0);
@@ -71,6 +74,94 @@ function ViewOrderDetails() {
          getOrderData();
          calcSubTot();
       }, []);
+
+      function confirmCancelClick(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Request!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                handleReqtoCancel();
+            }
+          })
+      }
+
+      function confirmReturnClick(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Request!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                handleReqtoReturn();
+            }
+          })   
+      }
+
+      function handleReqtoCancel(){
+
+        Axios.post(url,{
+
+            order_Status : "Requested to Cancel"
+
+        })
+        .then(res => {
+            console.log(res.data)
+            if (res.data === "Order Status Updated!") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Request has Placed successfully',
+                    text: 'Staff Member will contact you soon!!!',
+                  })
+                history.push('/customer-orders/' + userID);
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+
+                  })
+            }            
+        })
+    }
+
+    function handleReqtoReturn(){
+
+        Axios.post(url,{
+
+            order_Status : "Requested to Return"
+
+        })
+        .then(res => {
+            console.log(res.data)
+            if (res.data === "Order Status Updated!") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Request has Placed successfully',
+                    text: 'Staff Member will contact you soon!!!',
+                  })
+                history.push('/customer-orders/' + userID);
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+
+                  })
+            }            
+        })
+    }
 
     return (
         <>
@@ -147,8 +238,24 @@ function ViewOrderDetails() {
                 <div className='order_col2_div' style={{color:'#f95957'}}>
                     <h3>Grand Total : LKR {order.order_Total}</h3>
                 </div>
+                {
+                    (order.order_Status === "New")||(order.order_Status === "Delivery Assigned") ?
+                    (
+                    <div className='order_col2_div' style={{textAlign :'center'}}>             
+                        <Button className='order_summury_btn' onClick={confirmCancelClick}>Request to Cancel Order</Button>
+                    </div>
+                    ):
+                    (order.order_Status === "Delivered" ? 
+                    (
+                    <div className='order_col2_div' style={{textAlign :'center'}}>             
+                        <Button className='order_summury_btn' onClick={confirmReturnClick}>Request to Return</Button>
+                    </div>
+                    ):
+                    (""))
+                }
+
                 {/* <div className='order_col2_div' style={{textAlign :'center'}}>             
-                    <Button className='order_summury_btn' href='/all-items'>Request to Cancel Order</Button>
+                    <Button className='order_summury_btn' href='#'>Request to Return Order</Button>
                 </div> */}
             </Container>
                 <Container  className='order_summury_container' >

@@ -33,19 +33,8 @@ function DelMemberUpdateOrderStatus(props) {
     function handleChange(e) {
         const newOrder = {...order};
         newOrder[e.target.id] = e.target.value;
-        if (newOrder.order_Status === "Delivery Assigned") {
-
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid Order Status',
-                text: 'Cannot change order status to Delivery Assigned!',
-
-              })         
-            
-        } else {
             setOrder(newOrder);
             //console.log(newOrder)  
-        }
 
     }
 
@@ -110,10 +99,10 @@ function DelMemberUpdateOrderStatus(props) {
             <Form.Group  controlId="order_Status">
                 <Form.Label>Order Status</Form.Label>
                 <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
-                        <option>Delivery Assigned</option> 
-                        <option>On The Way</option>
-                        <option>Delivered</option>
-                        <option>Returned</option>
+                  <option disabled>Delivery Assigned</option>
+                  <option>On The Way</option> 
+                  <option >Delivered</option>
+                  <option >Returned</option> 
                 </Form.Control>
             </Form.Group>
             </Col>
