@@ -42,7 +42,6 @@ function UpdateUsers() {
         Axios.post(url,{
 
             user_Type : user.user_Type, 
-            user_Status : user.user_Status,
 
         })
         .then(res => {
@@ -132,17 +131,6 @@ function UpdateUsers() {
                                     <option>Admin</option>
                             </Form.Control>
                         </Form.Group>
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_Status">
-                            <Form.Label>User Status</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={user.user_Status}>
-                                    <option>New</option>
-                                    <option>Verified</option>
-                            </Form.Control>
-                        </Form.Group>
-
                         </Col>
 
                     </Form.Row>

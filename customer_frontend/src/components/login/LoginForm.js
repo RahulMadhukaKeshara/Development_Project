@@ -25,38 +25,58 @@ function LoginForm() {
     //Login User
   const handleSubmit = async (e) => {
     e.preventDefault();
-    Axios
-      .post(url, loginData)
-      .then((res) => {
-        localStorage.setItem("token", res.data.jwt);
-        Swal.fire({
-            icon: 'success',
-            title: `${res.data.msg}`,
-          })
-      })
-      .then(() => {
-        const jwt = localStorage.getItem("token");
-        let type = jwtDecode(jwt).user_Type;
-        if(type === "Customer"){
-            //history.push("/");
-            window.location = "/";
-        }
-        else if(type === "Admin"){
-            //history.push("/owner-main-page");
-            window.location = "/owner-main-page";
-        }
-        else if(type === "Delivery Staff"){
-            //history.push("/owner-main-page");
-            window.location = "/deliveryStaff-main-page";
-        }
 
+    Axios.post(url, loginData)
+      .then((res) => {
+        if(res.data.warn){
+            Swal.fire({
+                icon: 'error',
+                title: `${res.data.warn}`,
+              })
+        }
+        else if(res.data.msg){
+
+            if (res.data.userStatus === "Verified") {
+
+                localStorage.setItem("token", res.data.jwt);
+                Swal.fire({
+                    icon: 'success',
+                    title: `${res.data.msg}`,
+                  })
+    
+                  const jwt = localStorage.getItem("token");
+                  let type = jwtDecode(jwt).user_Type;
+                  if(type === "Customer"){
+                      //history.push("/");
+                      window.location = "/";
+                  }
+                  else if(type === "Admin"){
+                      //history.push("/owner-main-page");
+                      window.location = "/owner-main-page";
+                  }
+                  else if(type === "Delivery Staff"){
+                      //history.push("/owner-main-page");
+                      window.location = "/deliveryStaff-main-page";
+                  }
+
+            } else {
+
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Verify Your Account Before Login',
+                    text: 'Please verify your account using verification link that we send to your email address!!!',
+                  })
+                
+            }
+
+        }
 
       })
       .catch((e) => {
         Swal.fire({
             icon: 'info',
-            title: 'Invalid Login',
-            text: 'Check Your Email and Password',
+            title: 'Opss...',
+            text: 'Something goes wrong!!',
           })
       });
   };

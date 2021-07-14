@@ -160,7 +160,7 @@ router.route('/update/:id').post((req,res) => {
     .then(users => {
 
         users.user_Type = req.body.user_Type; 
-        users.user_Status = req.body.user_Status;
+        //users.user_Status = req.body.user_Status;
         users.save()
         .then(() => res.json('User Updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -173,11 +173,11 @@ router.route('/login').post(async (req,res) => {
 
     //Check Current Users
     let user = await User.findOne({ user_Email: req.body.user_Email});
-    if(!user) return res.status(400).send('Invalid email')
+    if(!user) return res.json({warn:'Invalid email'})
 
     //check password
     const validPassword = await bcrypt.compare(req.body.user_Password, user.user_Password)
-    if(!validPassword) res.status(400).send('Invalid Password')
+    if(!validPassword) return res.json({warn:'Invalid Password'})
 
     //Set Token
     const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Type:user.user_Type , user_Fname:user.user_Fname},  process.env.jwtKey)
@@ -187,7 +187,8 @@ router.route('/login').post(async (req,res) => {
     .header('x-auth-token', token)
     .json({
         jwt: token,
-        msg: 'Logged In Successfully'
+        msg: 'Logged In Successfully',
+        userStatus: user.user_Status
     })
 
 });

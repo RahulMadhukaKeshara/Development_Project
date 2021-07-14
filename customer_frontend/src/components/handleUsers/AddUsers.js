@@ -12,7 +12,7 @@ function AddUsers() {
     const [data , setData] = useState({
 
         user_Type : "",
-        user_Status : "",
+        user_Status : "Verified",
         user_Fname : "",
         user_Lname : "",
         user_Contact : "", 
@@ -111,14 +111,6 @@ function AddUsers() {
                     <Form.Row>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_Email">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Email} type="text" placeholder="Email Address"  />
-                        </Form.Group>
-
-                        </Col>
-
-                        <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Contact">
                             <Form.Label>Contact Number</Form.Label>
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Contact} type="text" placeholder="Contact Number" />
@@ -136,22 +128,17 @@ function AddUsers() {
                         <Form.Group  controlId="user_Type">
                             <Form.Label>User Type</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Type} >
-                                    <option>Select...</option>
+                                    <option disabled>Select...</option>
                                     <option>Delivery Staff</option>
                                     <option>Admin</option>
                             </Form.Control>
                         </Form.Group>
-
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
-                        <Form.Group  controlId="user_Status">
-                            <Form.Label>User Status</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Status} >
-                                    <option>Select...</option>
-                                    <option>New</option>
-                                    <option>Verified</option>
-                            </Form.Control>
+                        <Form.Group  controlId="user_Email">
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Email} type="text" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
