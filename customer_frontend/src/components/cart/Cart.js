@@ -11,19 +11,21 @@ import Swal from 'sweetalert2';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import UpdateCartItem from './UpdateCartItem';
+import jwtDecode from "jwt-decode";
 
 
-function Cart() {
+function Cart(props) {
+
 
     const [cartItems , setCartItems] = useState({});
-    const [deliveryCharges , setDeliveryCharges] = useState([]);
-    const [selectedDistrict , setSelectedDistrict] = useState("");
     const [subTotal , setSubTotal] = useState(0);
-    const [delCharge , setDelCharge] = useState(0);
     const [totalDiscount , setTotalDiscount] = useState(0);
+    const [modalShow, setModalShow] = React.useState(false);
     const [numOfItems , setNumOfItems] = useState("")
 
     let params = useParams();
+    
 
     const getCartItemData = async () => {
         try {
@@ -38,21 +40,21 @@ function Cart() {
         }
       };
 
-      const getDeliveryChargeData = async () => {
-        try {
-          const data = await Axios.get(
-            "http://localhost:5000/deliveryCharges/"
-          );
-          // console.log(data.data);
-          setDeliveryCharges(data.data);
-        } catch (e) {
-          console.log(e);
-        }
-      };
+      // const getDeliveryChargeData = async () => {
+      //   try {
+      //     const data = await Axios.get(
+      //       "http://localhost:5000/deliveryCharges/"
+      //     );
+      //     // console.log(data.data);
+      //     setDeliveryCharges(data.data);
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // };
     
       useEffect(() => {
         getCartItemData();
-        getDeliveryChargeData();
+        // getDeliveryChargeData();
         calcSubTot();
       }, []);
 
@@ -134,11 +136,15 @@ function Cart() {
         })
       }
 
+      function handleModel(itemID){
+        setModalShow(true);
+        
+      }
 
-
-
+      
     return (
         <>
+        <UpdateCartItem show={modalShow} onHide={() => setModalShow(false)}/>
         <Breadcrumbs separator="›" aria-label="breadcrumb" className="breadcrumb">
             <Link color="inherit" href="/owner-main-page" >Home</Link>
             <Typography color="textPrimary">My Cart</Typography>
@@ -180,7 +186,7 @@ function Cart() {
                             </div>                 
                         </div>
                   <div  className='item_col3'>
-                  <IconButton aria-label="Edit">
+                  <IconButton aria-label="Edit" onClick={()=> handleModel(item._id)}>
                           <EditIcon/>
                   </IconButton>
                   <IconButton aria-label="Edit" onClick={()=>handleDelete(item._id , params.id )}>

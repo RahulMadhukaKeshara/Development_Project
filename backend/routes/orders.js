@@ -3,7 +3,8 @@ let Order = require('../models/orders.model');
 let User = require('../models/users.model');
 let Product = require('../models/products.model');
 let Cart = require('../models/carts.model');
-let sendEmail = require('../middlewares/email');
+let sendOrderPlacedEmail = require('../middlewares/orderPlacedEmail');
+let OrderStatusChangeEmail = require('../middlewares/orderStatusChangeEmail');
 
 
 //get all orders
@@ -74,7 +75,7 @@ router.route('/add').post(async(req,res) => {
     });
  
     await newOrder.save();
-    sendEmail();
+    sendOrderPlacedEmail(newOrder);
     
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
     //console.log(cartOb)
@@ -151,21 +152,21 @@ router.route('/orderDetails/:id').get(async (req,res) => {
 });
 
 //update order status
-router.route('/orderStatus/update/:id').post((req,res) => {
+router.route('/orderStatus/update/:id').post(async(req,res) => {
 
- // console.log(req.body)
- // console.log(req.params.id)
-   Order.findById(req.params.id)
-   .then(order => {
+  try {
+    
+    let order = await Order.findById(req.params.id).populate([{path : 'order_User' , model : 'User'},{path : 'delivery_Member' , model : 'User'}]);
+    order.order_Status = req.body.order_Status;
+    order.save();
+    OrderStatusChangeEmail(order);
+    res.json('Order Status Updated!')
 
-       order.order_Status = req.body.order_Status;
+  } catch (error) {
+   
+    res.status(400).json('Error: '+ error)
 
-
-       order.save()
-       .then(() => res.json('Order Status Updated!'))
-       .catch(err => res.status(400).json('Error: ' + err));
-   })
-   .catch(err => res.status(400).json('Error: '+ err));
+  }
 });
 
 //assign delivery member
@@ -173,14 +174,17 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
 
   try {
 
-    let orderOb = await Order.findById(req.params.id);
+    let orderOb = await Order.findById(req.params.id).populate({path : 'order_User' , model : 'User'});
     let delMemberOb = await User.findById(req.body.delivery_Member);
  
     orderOb.delivery_Member = delMemberOb;
     orderOb.expected_Delivery_Date = req.body.expected_Delivery_Date;
     orderOb.order_Status = req.body.order_Status;
- 
     await  orderOb.save();
+
+    let orderDetails = await Order.findById(req.params.id).populate([{path : 'order_User' , model : 'User'},{path : 'delivery_Member' , model : 'User'}]);
+
+    OrderStatusChangeEmail(orderDetails);
     res.json('Member Assigned!')
    
   } catch (error) {

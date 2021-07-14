@@ -18,7 +18,7 @@ function HeroSection() {
           <h1>Knock! knock!</h1>
           <p>It’s free shipping around the corner...</p>
           <p>
-            <Button  className='hero-btn' variant="primary">Shop Now</Button>
+            <Button  className='hero-btn' href="/all-items" variant="primary">Shop Now</Button>
           </p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -33,7 +33,7 @@ function HeroSection() {
           <h1>Knock! knock!</h1>
           <p>It’s free shipping around the corner...</p>
           <p>
-            <Button  className='hero-btn' variant="primary">Shop Now</Button>
+            <Button  className='hero-btn' href="/all-items" variant="primary">Shop Now</Button>
           </p>
         </Carousel.Caption>
       </Carousel.Item>
@@ -48,7 +48,7 @@ function HeroSection() {
           <h1>Knock! knock!</h1>
           <p>It’s free shipping around the corner...</p>
           <p>
-            <Button  className='hero-btn' variant="primary">Shop Now</Button>
+            <Button  className='hero-btn' href="/all-items" variant="primary">Shop Now</Button>
           </p>
         </Carousel.Caption>
       </Carousel.Item>

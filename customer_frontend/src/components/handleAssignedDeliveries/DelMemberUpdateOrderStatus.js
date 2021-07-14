@@ -126,8 +126,8 @@ function DelMemberUpdateOrderStatus(props) {
                     (orderStatus === "Return Accepted" ?
                     (
                       <>
-                      <option disabled>Delivery Assigned</option>
-                      <option>On The Way</option> 
+                      <option disabled>Return Accepted</option>
+                      <option>Returned</option> 
                       </>
                     ):
                     (""))))

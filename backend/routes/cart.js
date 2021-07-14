@@ -25,6 +25,27 @@ router.route('/add').post(async(req,res) => {
 
 });
 
+// //get specific cart item details
+// router.route('/getcartitem').post(async(req,res)=> {
+
+//   try {
+//     let userOb = await User.findById(req.body.userID)
+//     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'})
+//     let cartItem =  cartOb.cart_Items.filter(c => {
+//       if(c._id = req.body.itemID){
+//         console.log(c)
+//       } 
+//    })
+//     // res.json(cartItem)  
+//     // console.log(cartItem)
+    
+//   } catch (error) {
+    
+//   }
+
+
+// });
+
 //get all carts
 router.route('/').get((req,res) => {
   Cart.find()
