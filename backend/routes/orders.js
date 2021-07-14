@@ -157,6 +157,10 @@ router.route('/orderStatus/update/:id').post(async(req,res) => {
   try {
     
     let order = await Order.findById(req.params.id).populate([{path : 'order_User' , model : 'User'},{path : 'delivery_Member' , model : 'User'}]);
+    if(req.body.order_Status === "Delivered"){
+      let date = new Date();
+      order.actual_Delivery_Date = date.toLocaleDateString();
+    }
     order.order_Status = req.body.order_Status;
     order.save();
     OrderStatusChangeEmail(order);
