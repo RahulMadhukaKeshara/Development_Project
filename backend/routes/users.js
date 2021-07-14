@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken')
 //const env = require('../envVariables')
 let Cart = require('../models/carts.model');
 require('dotenv').config();
+let accountVerification = require('../middlewares/accountVerification');
+let jwtDecode = require('jwt-decode');
+
+
 
 router.route('/').get((req,res) => {
     User.find()
@@ -111,7 +115,18 @@ router.route('/signup').post(async (req,res) => {
         cart_User : newCustomer
     })
     await newCartOb.save();
-       res.status(200).json('User Added!')  
+
+    //Set Token
+    const token = jwt.sign({_id : newCustomer._id, user_Email: newCustomer.user_Email , user_Type:newCustomer.user_Type , user_Fname:newCustomer.user_Fname},  process.env.jwtKey);
+
+    let details = {
+        verifyLink : token,
+        userEmail : newCustomer.user_Email,
+    }
+    console.log(details);
+    accountVerification(details);
+
+    res.status(200).json('User Added!'); 
 
     } catch (error) {
        res.status(400).json('Error: '+ error)
@@ -146,7 +161,6 @@ router.route('/update/:id').post((req,res) => {
 
         users.user_Type = req.body.user_Type; 
         users.user_Status = req.body.user_Status;
-
         users.save()
         .then(() => res.json('User Updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -200,6 +214,29 @@ router.route('/update/user-account/:id').post((req,res) => {
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: '+ err));
+});
+
+//email verification
+router.route('/emailVerification/:token').get(async(req,res) => {
+
+    let token = req.params.token;
+    let userID = jwtDecode(token)._id;
+
+    try {
+
+        let userOb = await User.findOne({ _id: userID});
+        userOb.user_Status = "Verified";
+    
+        await userOb.save();
+        res.status(200).redirect('http://localhost:3000/login')
+
+    } catch (error) {
+
+        res.status(400).json('Error: '+ error)
+        
+    }
+
+
 });
 
 
