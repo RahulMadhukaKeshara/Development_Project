@@ -10,7 +10,7 @@ import { Fragment } from 'react';
 function ProductDetails(props) {
 
     let params = useParams();
-    console.log(params.id)
+    //console.log(params.id)
     
     const [modalShow, setModalShow] = React.useState(false);
     const [products, setProducts] = useState([]);

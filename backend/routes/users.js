@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 let Cart = require('../models/carts.model');
 require('dotenv').config();
 let accountVerification = require('../middlewares/accountVerification');
+let passwordResetLink = require('../middlewares/passwordResetLink');
 let jwtDecode = require('jwt-decode');
 
 
@@ -125,6 +126,7 @@ router.route('/signup').post(async (req,res) => {
     }
     console.log(details);
     accountVerification(details);
+    console.log("**+");
 
     res.status(200).json('User Added!'); 
 
@@ -239,6 +241,80 @@ router.route('/emailVerification/:token').get(async(req,res) => {
 
 
 });
+
+//Change Password
+router.route('/changePassword/:id').post(async(req,res)=>{
+
+    try {
+        
+        let userOb = await User.findOne({_id:req.params.id});
+
+        const salt = await bcrypt.genSalt(10)
+        userOb.user_Password = await bcrypt.hash(req.body.user_Password, salt)
+        
+        await userOb.save();
+        res.json('Password Changed!')
+
+    } catch (error) {
+        
+        res.status(400).json('Error: '+ error)
+
+    }
+});
+
+//redirect from password reset link
+router.route('/passwordReset/:token').get(async(req,res) => {
+
+    try {
+
+        let token = req.params.token;
+        let userID = jwtDecode(token)._id;
+        res.status(200).redirect('http://localhost:3000/passwordReset/'+ userID)
+
+    } catch (error) {
+
+        res.status(400).json('Error: '+ error)
+        
+    }
+
+
+});
+
+//send password reset link
+router.route('/sendResetLink').post(async(req,res)=>{
+
+    console.log(req.body)
+    try {
+
+    //Check User Availability
+    let user = await User.findOne({ user_Email: req.body.user_Email});
+    if(!user) return res.json({warn:'Invalid email'});
+    console.log(user);
+
+    //Set Token
+    const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Fname:user.user_Fname},  process.env.jwtKey)
+    console.log(token);
+
+    let details = {
+        resetLink : token,
+        userEmail : user.user_Email,
+    }
+
+    console.log(details);
+
+
+    passwordResetLink(details);
+    console.log("******************");
+    
+    res.status(200).json({msg:'Reset Link Sent!'}); 
+
+        
+    } catch (error) {
+        
+    }
+
+})
+
 
 
 module.exports = router;

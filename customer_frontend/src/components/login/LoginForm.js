@@ -9,7 +9,9 @@ import jwtDecode from "jwt-decode";
 function LoginForm() {
 
     const history = useHistory();
-    const url = 'http://localhost:5000/users/login';
+    const loginUrl = 'http://localhost:5000/users/login';
+    const resetLinkUrl = 'http://localhost:5000/users/sendResetLink';
+
     const [loginData, setloginData] = useState({
         user_Email: "",
         user_Password: "",
@@ -22,11 +24,55 @@ function LoginForm() {
         console.log(newLoginData)
     }
 
+    async function handleForgotPassword(){
+
+        const { value: email } = await Swal.fire({
+            title: 'Enter your account email address to send the password reset link',
+            input: 'email',
+            inputLabel: 'Email address',
+            inputPlaceholder: 'Enter your email address'
+          })
+          
+          if (email) {
+            //Swal.fire(`Entered email: ${email}`)
+            // console.log(email)
+             Axios.post(resetLinkUrl, {user_Email : email})
+            .then((res)=>{
+
+                if(res.data.warn){
+                    Swal.fire({
+                        icon: 'error',
+                        title: `${res.data.warn}`,
+                        text: 'Account not found under entered email address'
+                      })
+                }
+
+                else if(res.data.msg){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Password Reset Link Succesfully Sent',
+                        text: 'Password reset link succesfully sent to your email.Check your email'
+                      })
+                }
+
+            })
+            .catch((e) => {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Opss...',
+                    text: 'Something goes wrong!!',
+                  })
+              });
+
+          }
+        
+    }
+
     //Login User
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
-    Axios.post(url, loginData)
+    Axios.post(loginUrl, loginData)
       .then((res) => {
         if(res.data.warn){
             Swal.fire({
@@ -111,7 +157,7 @@ function LoginForm() {
             </Form.Row>
 
             <div className='login_form_btns'>             
-                <Button className='login_form_btn2' href='#'>Forgot Password?</Button>
+                <Button className='login_form_btn2' href="#" onClick={handleForgotPassword}>Forgot Password?</Button>
                 <Button className='login_form_btn1' type="submit">Login</Button>
             </div>
 

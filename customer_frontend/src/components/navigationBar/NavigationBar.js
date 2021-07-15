@@ -48,6 +48,8 @@ function NavigationBar() {
       getProductData();
      }, []);
 
+
+
      function logOut(){
        localStorage.clear();
        //history.push('/')
@@ -144,6 +146,7 @@ function NavigationBar() {
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   
                             <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item href={"/customer-orders/" + userID}>My Orders</NavDropdown.Item>
+                            <NavDropdown.Item href={"/passwordReset/" + userID}>Change Password</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
                       <Button className="navbar-btn" onClick={logOut}>Logout</Button>
@@ -166,6 +169,7 @@ function NavigationBar() {
                       <Nav className="">
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   
                             <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
+                            <NavDropdown.Item href={"/passwordReset/" + userID}>Change Password</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
                       <Button className="navbar-btn" onClick={logOut}>Logout</Button>
@@ -183,6 +187,7 @@ function NavigationBar() {
                       <Nav className="">
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   
                             <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
+                            <NavDropdown.Item href={"/passwordReset/" + userID}>Change Password</NavDropdown.Item>
                             <NavDropdown.Item onClick={logOut}>Logout</NavDropdown.Item>                   
                       </NavDropdown>
                       <Button className="navbar-btn" onClick={logOut}>Logout</Button>

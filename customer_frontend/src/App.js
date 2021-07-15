@@ -37,6 +37,7 @@ import ViewAssignedDeliveriesPage from './components/pages/ViewAssignedDeliverie
 import DelMemberViewOrderDetailsPage from './components/pages/DelMemberViewOrderDetailsPage';
 import DelMemberUpdateOrderStatusPage from './components/pages/DelMemberUpdateOrderStatusPage';
 import DeliveryHistoryPage from './components/pages/DeliveryHistoryPage';
+import ChangePasswordPage from './components/pages/ChangePasswordPage';
 
 
 
@@ -83,6 +84,8 @@ function App() {
                     <Route path='/deliveryStaff-view-orderDetails/:id' exact component={DelMemberViewOrderDetailsPage}/>
                     <Route path='/deliveryStaff-update-orderDetails/:id' exact component={DelMemberUpdateOrderStatusPage}/>
                     <Route path='/deliveryHistory/:id' exact component={DeliveryHistoryPage}/>
+                    <Route path='/passwordReset/:id' exact component={ChangePasswordPage}/>
+                    
                     
                </Switch>
                
