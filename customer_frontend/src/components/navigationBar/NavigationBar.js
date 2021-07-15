@@ -6,14 +6,18 @@ import jwtDecode from "jwt-decode";
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import {useHistory} from 'react-router-dom';
-
+import SearchIcon from "@material-ui/icons/Search";
+import CloseIcon from "@material-ui/icons/Close";
 
 function NavigationBar() {
 
-  const history = useHistory();
+    const history = useHistory();
     const [productCategories, setProductCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
+    const [wordEntered, setWordEntered] = useState("");
    
-     const getProductData = async () => {
+     const getProductCategoryData = async () => {
        try {
          const data = await Axios.get(
            "http://localhost:5000/productCategories/"
@@ -25,9 +29,23 @@ function NavigationBar() {
          console.log(e);
        }
      };
+
+     const getProductData = async () => {
+      try {
+        const data = await Axios.get(
+          "http://localhost:5000/products/"
+        );
+        console.log(data.data);
+        setProducts(data.data);
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
    
      useEffect(() => {
-       getProductData();
+      getProductCategoryData();
+      getProductData();
      }, []);
 
      function logOut(){
@@ -39,6 +57,26 @@ function NavigationBar() {
      let type;
      let userID;
      let userFname;
+
+     function handleFilter(e){
+      const searchWord = e.target.value;
+      setWordEntered(searchWord);
+      const newFilter = products.filter((value => {
+        return value.product_Name.toLowerCase().includes(searchWord.toLowerCase());
+      }));
+
+      if (searchWord === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilter);
+      }
+      
+     }
+
+     function clearInputs(){
+       setFilteredData([]);
+       setWordEntered("")
+     }
 
 
     return (
@@ -60,10 +98,32 @@ function NavigationBar() {
                     type === "Customer" ? 
                     (
                       <>
-                      <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
-                      </Form>
+                      <div className="search" >
+                        <div className="searchInputs">
+                            <input type="text" placeholder="Search Items...." value={wordEntered} onChange={(e)=>handleFilter(e)} />
+                            <div className="searchIcon">
+                            {
+                              wordEntered === "" ? (<SearchIcon/>):(<CloseIcon onClick={clearInputs}/>)
+                            }                          
+                            </div>
+                        </div>
+                        { filteredData.length !== 0 &&(
+                          <div className="dataResult">
+                          {
+                          filteredData.slice(0,10).map((value,key)=>{
+                             return (
+                             <a className="dataItem" href="/">
+                                <p>{value.product_Name}</p>
+                              </a>
+                              )
+                          })
+                          }
+                          </div>
+                        )
+
+                        }
+
+                      </div>
                       <Nav className="navbar-links mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/all-items">All Items</Nav.Link>
@@ -135,10 +195,32 @@ function NavigationBar() {
                   ):
                   (
                   <>
-                      <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
-                      </Form>
+                      <div className="search" >
+                        <div className="searchInputs">
+                            <input type="text" placeholder="Search Items...." value={wordEntered} onChange={(e)=>handleFilter(e)} />
+                            <div className="searchIcon">
+                            {
+                              wordEntered === "" ? (<SearchIcon/>):(<CloseIcon onClick={clearInputs}/>)
+                            }                          
+                            </div>
+                        </div>
+                        { filteredData.length !== 0 &&(
+                          <div className="dataResult">
+                          {
+                          filteredData.slice(0,10).map((value,key)=>{
+                             return (
+                             <a className="dataItem" href="/">
+                                <p>{value.product_Name}</p>
+                              </a>
+                              )
+                          })
+                          }
+                          </div>
+                        )
+
+                        }
+
+                      </div>
                       <Nav className="navbar-links mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/all-items">All Items</Nav.Link>
