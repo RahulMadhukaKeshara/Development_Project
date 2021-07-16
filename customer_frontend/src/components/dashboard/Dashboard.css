@@ -1,0 +1,70 @@
+.dash_title{
+    margin-top: 25px;
+    text-align: center;
+}
+
+.dash_container{
+    
+    width: 95%;
+    margin: 50px auto 50px auto !important;
+    background-color: transparent;
+    /* border: 1px solid #f95757; */
+    border-radius: 20px;
+    padding: 10px 5px;
+
+}
+
+.dash_card{
+
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    cursor: pointer;
+
+}
+
+.dash_card2{
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.dash_Col :hover{
+
+    transform: scale(1.07);
+    transition: 0.5s; 
+
+}
+
+.dash_card_title{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.dash_card_text{
+    text-align: center;
+    font-size: 3rem;
+}
+
+/* .dash_col2_card{
+
+    margin-top: 15px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    padding: 15px;
+    
+
+}
+
+
+.dash_col2{
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    margin: 15px;
+} */
+
+.MuiPaper-elevation1{
+    box-shadow: none !important;
+}
