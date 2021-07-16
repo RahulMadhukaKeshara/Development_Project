@@ -7,6 +7,7 @@ let sendOrderPlacedEmail = require('../middlewares/orderPlacedEmail');
 let OrderStatusChangeEmail = require('../middlewares/orderStatusChangeEmail');
 
 
+
 //get all orders
 router.route('/').get((req,res) => {
     Order.find().populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
