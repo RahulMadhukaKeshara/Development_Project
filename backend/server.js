@@ -13,7 +13,7 @@ app.use(express.json({limit: '50mb', extended: true}));
 
 
 
-const uri = process.env.ATLAS_URI;
+const uri = process.env.LOCAL_URI;
 mongoose.connect(uri,{useNewUrlParser: true , useCreateIndex: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
