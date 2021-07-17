@@ -128,12 +128,16 @@
     cursor: pointer;
   }
 
+  .ham_icon{
+    background-color: black;
+  }
+
 
 @media only screen and (max-width:992px) {
 
-    .ham_icon{
-      color: black;
-    }
+  .navbar-logo{
+    margin-left: 10px;
+  }
 
     .nav-link{
         text-align: center;

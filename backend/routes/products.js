@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const multer = require("multer");
 let Product = require('../models/products.model');
+let User = require('../models/users.model');
 
 
 const upload = multer({
@@ -78,7 +79,7 @@ router.get("/photo/:id", async (req, res) => {
 });
 
 router.route('/:id').get((req,res) => {
-    Product.findById(req.params.id)
+    Product.findById(req.params.id).populate({path : 'product_reviews.review_person' , model : 'User'})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: '+ err));
 });
@@ -115,6 +116,29 @@ router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
     })
     .catch(err => res.status(400).json('Error: '+ err));
 });
+
+//add reviews
+router.route('/addReview/:id').post(async(req,res)=>{
+
+  try {
+
+     let productOb =  await Product.findOne({ _id: req.params.id });
+     let reviewUserOb = await User.findOne({ _id: req.body.review_person });
+
+     productOb.product_reviews.push({
+      review_person : reviewUserOb,
+      review_date : req.body.review_date,
+      review_text : req.body.review_text
+     })
+    
+     productOb.save();
+     res.json('Review Added!');
+
+  } catch (error) {
+    res.status(400).json('Error: ' + error)
+  }
+
+})
 
 
 module.exports = router;

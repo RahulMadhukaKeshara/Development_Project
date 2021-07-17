@@ -11,7 +11,22 @@
     border: 2px solid #f95757;
     width: 60%;  
     border-radius: 20px;
+    height: 100px;
 }
+
+.pro_detail_container3{
+    margin-top: 25px;
+    border: 2px solid #f95757;
+    width: 60%;  
+    border-radius: 20px;
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* .pro_detail_container3::-webkit-scrollbar {
+    display: none;
+  } */
 
 .detail_col{
     padding: 10px;
@@ -87,6 +102,30 @@
     justify-content: center;
 }
 
+.review_itemPart1{
+    text-align: left;
+}
+
+.individual_review{
+    display: flex;
+    padding-left: 30px;
+    margin-top: 5px;
+}
+
+.product_det_desctitle{
+    margin-bottom: 15px;
+}
+
+.review_btn{
+    background-color: #fff;
+    color: #f95757;
+    border: 2px solid #f95757;
+    outline: none;
+    min-width: 100px;
+
+    border-radius: 40px;
+    height: 40px;
+}
 
 @media only screen and (max-width:768px) {
 

@@ -1,18 +1,21 @@
 import React,{useState,useEffect} from 'react';
 import {Row,Col ,Container,Button,Media , Form} from 'react-bootstrap'
-import '../components/ProductDetails.css';
+import './ProductDetails.css';
 import Swal from 'sweetalert2';
 import Axios from 'axios';
 import { useParams } from 'react-router';
-import AddToCart from './cart/AddToCart';
+import AddToCart from '../cart/AddToCart';
 import { Fragment } from 'react';
+import Divider from '@material-ui/core/Divider';
+import AddReview from './AddReview';
 
 function ProductDetails(props) {
 
     let params = useParams();
-    //console.log(params.id)
+    let productID = params.id;
     
     const [modalShow, setModalShow] = React.useState(false);
+    const [reviweModalShow, setReviewModalShow] = React.useState(false);
     const [products, setProducts] = useState([]);
     const [itemID , setItemID] = useState(0);
 
@@ -50,6 +53,14 @@ function ProductDetails(props) {
       Swal.fire({
         icon: 'info',
         title: 'Please Login to Your Account!',
+        text: 'You have to login to the account , to add reviews to the items'
+      })
+    }
+
+    function handleAddReview(){
+      Swal.fire({
+        icon: 'info',
+        title: 'Please Login to Your Account!',
         text: 'You have to login to the account , to use add to cart option'
       })
     }
@@ -57,6 +68,7 @@ function ProductDetails(props) {
 
     return (    
         <>
+            
             <Container className='pro_detail_container'>
                 <Row>
                     <Col sm={12} lg={5} md={6} className='detail_col col1'>
@@ -141,18 +153,44 @@ function ProductDetails(props) {
                     </Col>
                 </Row>
             </Container>
+            <Container className='pro_detail_container3'>
+                <Row>
+                    <Col sm={12}  className='detail_col'>
+                        <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
+                        <h3 className="product_det_desctitle">Reviews ({products.product_reviews && products.product_reviews.length })</h3>
+                        <Button className='review_btn' onClick={jwt? (() => setReviewModalShow(true)):(()=>handleAddReview())}>Add Review</Button>
+                        <AddReview show={reviweModalShow} onHide={() => setReviewModalShow(false)} productID={productID}/> 
+                        </div>
+                        {
+                          products.product_reviews && products.product_reviews.length === 0 ?
+                          (""):
+                          (
+                            products.product_reviews && products.product_reviews.map((item)=>{
+                              return(
+                                <>
+                                <Row className="individual_review">
+                                <div className="review_itemPart1">
+      
+                                <h4>{<i class="fas fa-user-circle" >{"  " + item.review_person.user_Fname + " " + item.review_person.user_Lname}</i>}</h4>
+                                <h6>{item.review_date}</h6>
+                                <h6>{item.review_text}</h6>
+      
+                                </div>
+                              </Row>
+                              <Divider/>
+                              </> 
+                              )
+                            })
+                          )
+
+                        }
+   
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }
 
 export default ProductDetails;
 
-/* 
-
-                        {products.product_Stock[itemID].s_qty  > 0 ? (<h5 className="col_item">S</h5>) : ("")}
-                        {products.product_Stock[itemID].m_qty > 0 ? (<h5 className="col_item">M</h5>) : ("")}
-                        {products.product_Stock[itemID].l_qty > 0 ? (<h5 className="col_item">L</h5>) : ("")}
-                        {products.product_Stock[itemID].xl_qty > 0 ? (<h5 className="col_item">XL</h5>) : ("")}
-                        {products.product_Stock[itemID].xxl_qty > 0 ? (<h5 className="col_item">XXL</h5>) : ("")}  
-
-*/
