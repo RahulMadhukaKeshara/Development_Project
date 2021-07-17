@@ -20,12 +20,12 @@ function AddProduct() {
         product_Category : "",
         product_Description : "",
         product_Stock : [
-            {color:"#fff" , xs_qty :"", s_qty :"", m_qty :"",  l_qty :"", xl_qty :"",  xxl_qty :""},
+            {color:"#fff" , xs_qty :"0", s_qty :"0", m_qty :"0",  l_qty :"0", xl_qty :"0",  xxl_qty :"0"},
         ],
         product_Price : "",
         product_Discount : "",
-        product_Re_Quantity : "",
-        product_Re_Level : "",
+        product_Re_Quantity : "0",
+        product_Re_Level : "0",
         product_Published : "",
         product_Featured : "",
         product_New : "",
@@ -80,7 +80,7 @@ function AddProduct() {
         
         const newData = {...data};
         const count = newData.product_Stock.length;
-        newData.product_Stock[count] = {color:"#f95957" , xs_qty :"", s_qty :"", m_qty :"",  l_qty :"", xl_qty :"",  xxl_qty :""};
+        newData.product_Stock[count] = {color:"#f95957" , xs_qty :"0", s_qty :"0", m_qty :"0",  l_qty :"0", xl_qty :"0",  xxl_qty :"0"};
        // console.log(newData)
         setData(newData);
 

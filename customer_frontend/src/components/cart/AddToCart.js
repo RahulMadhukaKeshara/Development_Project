@@ -84,7 +84,31 @@ function handleQuantity(e){
 
 function handleSubmit(e){
   e.preventDefault();
-  Axios.post(url,{
+  if ((cartData.cart_Items.color==="")||(cartData.cart_Items.size==="")) {
+    if((cartData.cart_Items.color==="")&&(cartData.cart_Items.size !=="")){
+      Swal.fire({
+        icon: 'error',
+        title: 'Select Item Color',
+        // text: 'Something went wrong!',
+      })
+    }
+    else if((cartData.cart_Items.color!=="")&&(cartData.cart_Items.size ==="")){
+      Swal.fire({
+        icon: 'error',
+        title: 'Select Item Size',
+        // text: 'Something went wrong!',
+      })
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Select Item Size and Color',
+        // text: 'Something went wrong!',
+      })
+    }
+  } 
+  else {
+    Axios.post(url,{
       
       cart_User : cartData.cart_User,
       cart_Items : cartData.cart_Items,
@@ -109,6 +133,8 @@ function handleSubmit(e){
           })
     }
 })
+  }
+
 
 }
 
@@ -148,7 +174,7 @@ function handleSubmit(e){
                         {
                             products.product_Stock && products.product_Stock.map((item , x) =>
                               <>
-                               <Form.Check onChange={(e) => handleRadioCol(e)}  className="mr-0" inline name="group1" type="radio" id={x+1} value={item.color}  />
+                               <Form.Check onChange={(e) => handleRadioCol(e)}  className="mr-0" inline name="group1" type="radio" id={x+1} value={item.color} />
                                <div className="col_item_addToCart" style={{width:"40px" , height:"15px" , backgroundColor:`${item.color}`, borderRadius:"40px"}}></div>
                               </>  
                             )

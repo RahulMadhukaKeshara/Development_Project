@@ -25,26 +25,29 @@ router.route('/add').post(async(req,res) => {
 
 });
 
-// //get specific cart item details
-// router.route('/getcartitem').post(async(req,res)=> {
+//get specific cart item details
+router.route('/getcartitem').post(async(req,res)=> {
 
-//   try {
-//     let userOb = await User.findById(req.body.userID)
-//     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'})
-//     let cartItem =  cartOb.cart_Items.filter(c => {
-//       if(c._id = req.body.itemID){
-//         console.log(c)
-//       } 
-//    })
-//     // res.json(cartItem)  
-//     // console.log(cartItem)
+  try {
+    let userOb = await User.findById(req.body.userID)
+    let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'})
+    let cartItem;
+    cartOb.cart_Items.forEach(element => {
+
+      if(element._id == req.body.itemID){
+        cartItem = element
+      }
+      
+    });
+
+    res.json(cartItem);
     
-//   } catch (error) {
-    
-//   }
+  } catch (error) {
+    res.status(400).json('Error: '+ error)
+  }
 
 
-// });
+});
 
 //get all carts
 router.route('/').get((req,res) => {
@@ -86,6 +89,42 @@ router.route('/remove').post(async (req,res) => {
      res.status(400).json('Error: '+ error)
    }
 });
+
+
+//update cart items
+router.route('/update').post(async(req,res)=>{
+
+  try {
+    
+    let userOb = await User.findById(req.body.cart_User);
+    let productOb = await Product.findById(req.body.cart_Items.product);
+    let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
+
+    let newCart = cartOb.cart_Items.filter(c => {
+      if(c._id != req.body.itemID) return true
+   });
+
+   cartOb.cart_Items = newCart;
+
+   cartOb.cart_Items.push({
+    product :  productOb,
+    color :  req.body.cart_Items.color,
+    quantity : req.body.cart_Items.quantity,
+    size : req.body.cart_Items.size,
+    unit_Price : req.body.cart_Items.unit_Price,
+})
+
+cartOb.save()
+res.json('Item Updated!')
+
+
+  } catch (error) {
+    
+    res.status(400).json('Error: '+ error)
+
+  }
+
+})
 
 
 

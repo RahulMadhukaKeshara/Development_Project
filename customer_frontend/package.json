@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^3.4.1",
+    "formik": "^2.2.9",
     "install": "^0.13.0",
     "jwt-decode": "^3.1.2",
     "mdb-ui-kit": "^3.6.0",
@@ -30,7 +31,8 @@
     "react-scripts": "^4.0.3",
     "sweetalert2": "^11.0.16",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

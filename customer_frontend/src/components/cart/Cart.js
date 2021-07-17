@@ -15,14 +15,16 @@ import UpdateCartItem from './UpdateCartItem';
 import jwtDecode from "jwt-decode";
 
 
-function Cart(props) {
+function Cart() {
 
 
     const [cartItems , setCartItems] = useState({});
     const [subTotal , setSubTotal] = useState(0);
     const [totalDiscount , setTotalDiscount] = useState(0);
     const [modalShow, setModalShow] = React.useState(false);
-    const [numOfItems , setNumOfItems] = useState("")
+    const [numOfItems , setNumOfItems] = useState("");
+    const [selectedItem , setSelectedItem] = useState({});
+    const [selectedProduct , setSelectedProduct] = useState({});
 
     let params = useParams();
     
@@ -136,15 +138,48 @@ function Cart(props) {
         })
       }
 
+      const getItemData = async (itemID) => {
+
+        try {
+          const data = await Axios.post(
+            `http://localhost:5000/cart/getcartitem` , 
+            {
+              itemID : itemID,
+              userID : params.id
+            }
+          );
+          console.log("+++++",data.data);
+          getProductData(data.data.product._id);
+          setSelectedItem(data.data);
+    
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      const getProductData = async (productID) => {
+
+        try {
+          const data = await Axios.get(
+            `http://localhost:5000/products/${productID}`
+          );
+          console.log("////////",data.data);
+          setSelectedProduct(data.data);
+    
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
       function handleModel(itemID){
+        getItemData(itemID)
         setModalShow(true);
-        
       }
 
       
     return (
         <>
-        <UpdateCartItem show={modalShow} onHide={() => setModalShow(false)}/>
+        <UpdateCartItem show={modalShow} onHide={() => setModalShow(false)} item = {selectedItem} selectedProduct={selectedProduct} />
         <Breadcrumbs separator="›" aria-label="breadcrumb" className="breadcrumb">
             <Link color="inherit" href="/owner-main-page" >Home</Link>
             <Typography color="textPrimary">My Cart</Typography>
@@ -163,6 +198,7 @@ function Cart(props) {
                   cartItems.cart_Items && cartItems.cart_Items.map(item =>
 
                   <>
+                 
                   <Row className="individual_item_div">
                   <div  className='order_item_col1'>
                             <Media >
@@ -186,6 +222,7 @@ function Cart(props) {
                             </div>                 
                         </div>
                   <div  className='item_col3'>
+
                   <IconButton aria-label="Edit" onClick={()=> handleModel(item._id)}>
                           <EditIcon/>
                   </IconButton>

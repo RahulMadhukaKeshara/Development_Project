@@ -75,7 +75,7 @@ function AddSuppliers() {
                         <Col sm={12}>
                         <Form.Group  controlId="supplier_Name">
                             <Form.Label>Supplier Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Name} type="text" placeholder="Supplier Name" />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.supplier_Name} type="text" placeholder="Supplier Name" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -84,14 +84,14 @@ function AddSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Email} type="email" placeholder="Email Address"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.supplier_Email} type="email" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Contact} type="text" placeholder="Contact Number" />
+                            <Form.Control className='add_product_category_form_input' minLength="5" maxLength="10" required onChange={(e) => handleChange(e)}  value={data.supplier_Contact} type="text" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -100,14 +100,14 @@ function AddSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Address">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Address} type="text" placeholder="Address..."  />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.supplier_Address} type="text" placeholder="Address..."  />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.supplier_Description} type="text" placeholder="Description..." />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.supplier_Description} type="text" placeholder="Description..." />
                         </Form.Group>
                         </Col>
                     </Form.Row>

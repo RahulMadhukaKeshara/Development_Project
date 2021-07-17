@@ -14,7 +14,7 @@ function AddDeliveryCharge() {
     const [data , setData] = useState({
 
         district : "",
-        delivery_charge : ""
+        delivery_charge : "0"
 
     })
 
