@@ -93,7 +93,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'left' : 'center'}
+            align={headCell.numeric ? 'center' : 'center'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -252,18 +252,20 @@ const useStyles = makeStyles((theme) => ({
   },
 
   col_tab_div:{
-    display:'flex',
-    justifyContent:'center'
+    // display:'flex',
+    // justifyContent:'center'
     
   },
 
   col_tab_item:{
-    marginRight:'10px',
-    marginLeft:'0px'
+
+    margin:'auto'
+
   },
 
   tab_cell:{
-    minWidth : '250px'
+    minWidth : '350px',
+    
   }
 
 
@@ -443,14 +445,17 @@ useEffect(() => {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.product_Name}</TableCell>
-                      <TableCell align="center">{row.product_Category}</TableCell>
-                      <TableCell align="center">{row.product_Description}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Name}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Category}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Description}</TableCell>
                       <TableCell align="center" className={classes.tab_cell}>
                       <div className={classes.col_tab_div}>
                       {
-                            row.product_Stock && row.product_Stock.map((item ) =>                     
-                             <div className={classes.col_tab_item} style={{width:"15px" , height:"15px" , backgroundColor:`${item.color}`, borderRadius:"40px"}}></div> 
+                            row.product_Stock && row.product_Stock.map((item ) =>   
+                             <div >                  
+                             <div className={classes.col_tab_item} style={{width:"15px" , height:"15px" , backgroundColor:`${item.color}`, borderRadius:"40px"}}></div>
+                             <div>{`XS:${item.xs_qty ?(item.xs_qty):("0")}`}&nbsp;&nbsp;&nbsp;{`S:${item.s_qty ?(item.s_qty):("0")}`}&nbsp;&nbsp;&nbsp;{`M:${item.m_qty ?(item.m_qty):("0")}`}&nbsp;&nbsp;&nbsp;{`L:${item.l_qty ?(item.l_qty):("0")}`}&nbsp;&nbsp;&nbsp;{`XL:${item.xl_qty ?(item.xl_qty):("0")}`}&nbsp;&nbsp;&nbsp;{`XXL:${item.xxl_qty ?(item.xxl_qty):("0")}`}</div>
+                             </div> 
                             )
                       }                        
                       </div>

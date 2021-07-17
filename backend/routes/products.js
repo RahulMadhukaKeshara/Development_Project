@@ -91,10 +91,11 @@ router.route('/:id').delete((req,res) => {
 });
 
 router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
+
     Product.findById(req.params.id)
     .then(products => {
 
-        //products.product_Img = req.body.product_Img;
+        products.product_Img = req.file.buffer;
         products.product_Name = req.body.product_Name;
         products.product_Category = req.body.product_Category;
         products.product_Description = req.body.product_Description;
@@ -109,7 +110,7 @@ router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
 
         // const file = req.file.buffer;
         // products.product_Img = file;
-
+        // console.log("++++++++++++++",products)
         products.save()
         .then(() => res.json('Product Updated!'))
         .catch(err => res.status(400).json('Error: ' + err));

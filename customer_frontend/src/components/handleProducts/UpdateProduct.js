@@ -18,6 +18,7 @@ function UpdateProduct() {
     const history = useHistory();
     const [product , setProduct] = useState({});
     const [productCategories, setProductCategories] = useState([]);
+    const [updatingImg , setUpdatingImg] = useState(null);
 
     const url = 'http://localhost:5000/products/update/' + params.id;
 
@@ -28,6 +29,7 @@ function UpdateProduct() {
           );
           console.log(data.data);
           setProduct(data.data);
+          setUpdatingImg(data.data.product_Img);
         } catch (e) {
           console.log(e);
         }
@@ -74,11 +76,11 @@ function UpdateProduct() {
 
    function handleUpload(e) {
 
-    //  console.log(e.target.files[0])
-    //  const newProduct = {...product}
-    //  newProduct.product_Img = e.target.files[0];
-    //  setProduct(newProduct)
-    //  console.log(newProduct)
+     //console.log(e.target.files[0])
+     const newProduct = {...product}
+     newProduct.product_Img = e.target.files[0];
+     setProduct(newProduct)
+     console.log(newProduct)
 
  }
 
@@ -115,7 +117,7 @@ function handleRemoveFields(index){
          formData.append("product_Published", product.product_Published);
          formData.append("product_Featured", product.product_Featured);
          formData.append("product_New", product.product_New);
-        //  formData.append("product_Img", product.product_Img);
+         formData.append("product_Img", product.product_Img);
         Axios.post(url,formData)
         .then(res => {
             console.log(res.data)
@@ -124,7 +126,8 @@ function handleRemoveFields(index){
                     icon: 'success',
                     title: 'Product Updated!',
                   })
-                  history.push('/products');
+                //   history.push('/products');
+                window.location = '/products';
 
             } else {
                 Swal.fire({
@@ -153,7 +156,7 @@ function handleRemoveFields(index){
     <Col sm={12} lg={3} md={6}>
     <Form.Group  controlId="product_Img">
         <Form.Label>Product Image</Form.Label>
-        <Form.File className='add_product_category_form_input'  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
+        <Form.File className='add_product_category_form_input' required  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
     </Form.Group>
 
     </Col>
