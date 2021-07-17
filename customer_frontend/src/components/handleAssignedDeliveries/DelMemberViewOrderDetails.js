@@ -168,10 +168,10 @@ function DelMemberViewOrderDetails() {
                 <h3 className='order_col2_title'>Delivery Details</h3>
                 <div>
                 <div className='owner_order_col2_div_2'>
-                    <h6>Expected Delivery Date : {order.expected_Delivery_Date === "TBA" ? ("Not Set"):(order.expected_Delivery_Date)}</h6>
+                    <h6>Expected Delivery Date : {order.expected_Delivery_Date === "" ? ("Not Set"):(order.expected_Delivery_Date)}</h6>
                 </div>
                 <div className='order_col2_div'>
-                    <h6>Actual Delivery Date : {order.actual_Delivery_Date === "TBA" ? ("Not Set"):(order.actual_Delivery_Date)}</h6>
+                    <h6>Actual Delivery Date : {order.actual_Delivery_Date === "" ? ("Not Set"):(order.actual_Delivery_Date)}</h6>
                 </div>
                 <div className='owner_order_col2_div_2'>
                     <h5>Delivery Member : {order.delivery_Member ? (`${order.delivery_Member.user_Fname} ${order.delivery_Member.user_Lname}`):("Not Assigned")}</h5>

@@ -84,7 +84,7 @@ function UpdateSuppliers() {
                         <Col sm={12} >
                         <Form.Group  controlId="supplier_Name" >
                             <Form.Label>Supplier Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={supplier.supplier_Name} type="text"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Name} type="text"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -93,14 +93,14 @@ function UpdateSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={supplier.supplier_Email} type="text"   />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Email} type="text"   />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={supplier.supplier_Contact} type="text"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Contact} type="tel" pattern="[0-9]{10}" maxLength="10"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -109,14 +109,14 @@ function UpdateSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Address">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={supplier.supplier_Address} type="text"  />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Address} type="text"  />
                         </Form.Group>
 
                         </Col>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input'  onChange={(e) => handleChange(e)}  value={supplier.supplier_Description} type="text"  />
+                            <Form.Control as="textarea" rows={3} className='add_product_category_form_input'  required onChange={(e) => handleChange(e)}  value={supplier.supplier_Description} type="text"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>

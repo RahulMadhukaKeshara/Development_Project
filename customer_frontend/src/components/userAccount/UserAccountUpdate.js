@@ -109,7 +109,7 @@ function UserAccountUpdate() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Fname">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Fname} />
+                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  required value={user.user_Fname}  />
                         </Form.Group>
 
                         </Col>
@@ -117,7 +117,7 @@ function UserAccountUpdate() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Lname">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Lname}  />
+                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  required value={user.user_Lname}  />
                         </Form.Group>
                         </Col>
 
@@ -131,7 +131,7 @@ function UserAccountUpdate() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)}  value={user.user_Contact}  />
+                            <Form.Control className='add_product_category_form_input' type="tel" onChange={(e) => handleChange(e)}  pattern="[0-9]{10}" required value={user.user_Contact}  />
                         </Form.Group>
 
                         </Col>

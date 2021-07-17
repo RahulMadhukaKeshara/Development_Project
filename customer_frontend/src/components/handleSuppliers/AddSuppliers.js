@@ -91,7 +91,7 @@ function AddSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' minLength="5" maxLength="10" required onChange={(e) => handleChange(e)}  value={data.supplier_Contact} type="text" placeholder="Contact Number" />
+                            <Form.Control className='add_product_category_form_input' maxLength="10" required onChange={(e) => handleChange(e)}  value={data.supplier_Contact} type="tel" pattern="[0-9]{10}" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
                     </Form.Row>

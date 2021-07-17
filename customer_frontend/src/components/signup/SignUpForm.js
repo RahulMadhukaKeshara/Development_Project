@@ -22,7 +22,9 @@ function SignUpForm() {
         user_Address_3 : "",
         user_District : "",
         user_Postal : "",
-        user_Password : ""
+        user_Password : "",
+        signUpConfirmPass : ""
+
 
     })
 
@@ -34,50 +36,64 @@ function SignUpForm() {
     }
 
     function handleSubmit(e){
+
         e.preventDefault();
-        Axios.post(url,{
+        if (userData.user_Password === userData.signUpConfirmPass) {
+            Axios.post(url,{
+                
+                user_Type : userData.user_Type,
+                user_Status : userData.user_Status,
+                user_Fname : userData.user_Fname,
+                user_Lname : userData.user_Lname,
+                user_Contact : userData.user_Contact, 
+                user_Email : userData.user_Email,
+                user_Address_1 : userData.user_Address_1,
+                user_Address_2 : userData.user_Address_2,
+                user_Address_3 : userData.user_Address_3,
+                user_District : userData.user_District,
+                user_Postal : userData.user_Postal,
+                user_Password : userData.user_Password
+    
+            })
+            .then((res)=>{
+                console.log(res.data)
+                if(res.data === "User Added!"){
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Registered In Successfully!',
+                    })
+                    history.push('/login');       
             
-            user_Type : userData.user_Type,
-            user_Status : userData.user_Status,
-            user_Fname : userData.user_Fname,
-            user_Lname : userData.user_Lname,
-            user_Contact : userData.user_Contact, 
-            user_Email : userData.user_Email,
-            user_Address_1 : userData.user_Address_1,
-            user_Address_2 : userData.user_Address_2,
-            user_Address_3 : userData.user_Address_3,
-            user_District : userData.user_District,
-            user_Postal : userData.user_Postal,
-            user_Password : userData.user_Password
-
-        })
-        .then((res)=>{
-            console.log(res.data)
-            if(res.data === "User Added!"){
+                }
+    
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                      })
+                }
+    
+            })
+            .catch((e) => {
                 Swal.fire({
-                  icon: 'success',
-                  title: 'Registered In Successfully!',
-                })
-                history.push('/login');       
-        
-            }
-
-            else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
+                    icon: 'info',
+                    title: 'Already Registered',
+                    text: 'Use different email for create new account',
                   })
-            }
+              });
 
-        })
-        .catch((e) => {
+            
+        } else {
+
             Swal.fire({
-                icon: 'info',
-                title: 'Already Registered',
-                text: 'Use different email for create new account',
+                icon: 'error',
+                title: 'Password is not confirmed!',
+                text: 'please enter same password in confirm password field to confirm the new password',
               })
-          });
+            
+        }
+
 
     }
 
@@ -92,7 +108,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Fname">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={userData.user_Fname} type="text" placeholder="First Name"  />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Fname} type="text" placeholder="First Name"  />
                         </Form.Group>
 
                         </Col>
@@ -100,7 +116,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Lname">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={userData.user_Lname} type="text" placeholder="Last Name" />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Lname} type="text" placeholder="Last Name" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -109,7 +125,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={userData.user_Email} type="Email" placeholder="Email Address"  />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Email} type="Email" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
@@ -117,7 +133,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Contact">
                             <Form.Label>Mobile Number</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={userData.user_Contact} type="text" placeholder="Mobile Number" />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Contact} type="tel" pattern="[0-9]{10}" placeholder="Mobile Number" />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -126,7 +142,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={userData.user_Password} type="password" placeholder="Password"  />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Password} type="password" placeholder="Password"  />
                         </Form.Group>
 
                         </Col>
@@ -134,7 +150,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="signUpConfirmPass">
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control  type="password" placeholder="Confirm Password" />
+                            <Form.Control required  onChange={(e) => handleChange(e)}  type="password" placeholder="Confirm Password" />
                         </Form.Group>
                         </Col>
                     </Form.Row>

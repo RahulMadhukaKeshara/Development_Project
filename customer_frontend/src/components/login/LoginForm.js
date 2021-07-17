@@ -141,7 +141,7 @@ function LoginForm() {
                 <Col sm={12}>
                 <Form.Group  controlId="user_Email">
                     <Form.Label>Email Address</Form.Label>
-                    <Form.Control  onChange={(e) => handleChange(e)}  value={loginData.user_Email} type="Email" placeholder="Email Address"  />
+                    <Form.Control  onChange={(e) => handleChange(e)}  required value={loginData.user_Email} type="Email" placeholder="Email Address"  />
                 </Form.Group>
 
                 </Col>
@@ -151,7 +151,7 @@ function LoginForm() {
                 <Col sm={12}>
                 <Form.Group  controlId="user_Password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control  onChange={(e) => handleChange(e)}  value={loginData.user_Password} type="password" placeholder="Password"  />
+                    <Form.Control  onChange={(e) => handleChange(e)}  required value={loginData.user_Password} type="password" placeholder="Password"  />
                 </Form.Group>
 
                 </Col>

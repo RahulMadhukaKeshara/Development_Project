@@ -8,6 +8,7 @@ import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import {useHistory} from 'react-router-dom';
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import imgeka from '../../images/logo.jpg';
 
 function NavigationBar() {
 
@@ -84,9 +85,9 @@ function NavigationBar() {
     return (
         <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
 
-            <Navbar.Brand className="navbar-logo" href="/">Peacot</Navbar.Brand>
+            <Navbar.Brand className="navbar-logo" href="/"><img alt="" src={`${imgeka}`}/></Navbar.Brand>
 
-            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" className="ham_icon"/>
 
             <Navbar.Collapse id="responsive-navbar-nav">
 

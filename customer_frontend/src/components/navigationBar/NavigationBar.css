@@ -5,10 +5,10 @@
 }
 
 .navbar-logo{
-    font-size: 2rem;
+    /* font-size: 1rem; */
     margin-left: 20px;
     margin-right: 50px;
-    color: black !important;
+    /* color: black !important; */
 }
 
 .navbar-links{
@@ -131,13 +131,18 @@
 
 @media only screen and (max-width:992px) {
 
+    .ham_icon{
+      color: black;
+    }
+
     .nav-link{
         text-align: center;
     }
 
     .searchInputs {
+        margin-top: 20px;
         justify-content: center;
-        border: none;
+        border: 2px solid black;
       }
 
       .search input {

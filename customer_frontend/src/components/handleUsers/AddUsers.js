@@ -91,7 +91,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Fname">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Fname} type="text" placeholder="First Name"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.user_Fname} type="text" placeholder="First Name"  />
                         </Form.Group>
 
                         </Col>
@@ -99,7 +99,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Lname">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Lname} type="text" placeholder="Last Name" />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.user_Lname} type="text" placeholder="Last Name" />
                         </Form.Group>
                         </Col>
 
@@ -113,7 +113,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Contact} type="text" placeholder="Contact Number" />
+                            <Form.Control className='add_product_category_form_input' pattern="[0-9]{10}" maxLength="10" required onChange={(e) => handleChange(e)}  value={data.user_Contact} type="tel" placeholder="Contact Number" />
                         </Form.Group>
                         </Col>
 
@@ -127,8 +127,8 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Type">
                             <Form.Label>User Type</Form.Label>
-                            <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.user_Type} >
-                                    <option disabled>Select...</option>
+                            <Form.Control as="select" required onChange={(e) => handleChange(e)}  value={data.user_Type} >
+                                    <option selected>Select...</option>
                                     <option>Delivery Staff</option>
                                     <option>Admin</option>
                             </Form.Control>
@@ -138,7 +138,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Email">
                             <Form.Label>Email Address</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.user_Email} type="text" placeholder="Email Address"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.user_Email} type="text" placeholder="Email Address"  />
                         </Form.Group>
 
                         </Col>
@@ -151,7 +151,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control  type="password" onChange={(e) => handleChange(e)}  value={data.user_Password} placeholder="Password" />
+                            <Form.Control  type="password" required onChange={(e) => handleChange(e)}  value={data.user_Password} placeholder="Password" />
                         </Form.Group>
 
                         </Col>

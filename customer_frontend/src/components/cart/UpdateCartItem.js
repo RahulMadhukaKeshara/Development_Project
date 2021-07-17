@@ -135,7 +135,7 @@ function handleSubmit(e){
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Add To Cart
+            Update Cart Item
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
