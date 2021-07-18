@@ -1,22 +1,22 @@
 import React from 'react';
 import {Pie} from 'react-chartjs-2';
 
-const PieChart = ({details}) => {
+const FinishedOrderCharts = ({details}) => {
 
-    let numCustomer = [];
-    let numDelivery = [];
-    let numAdmins = [];
+    let delivered = [];
+    let returned = [];
+    let cancelled = [];
 
     details.forEach(element => {
         
-        if(element.user_Type === "Customer"){
-            numCustomer.push(element)
+        if(element.order_Status === "Delivered"){
+            delivered.push(element)
         }
-        else if(element.user_Type === "Admin"){
-            numAdmins.push(element)
+        else if(element.order_Status === "Returned"){
+            returned.push(element)
         }
-        else if(element.user_Type === "Delivery Staff"){
-            numDelivery.push(element)
+        else if(element.order_Status === "Cancelled"){
+            cancelled.push(element)
         }
 
     });
@@ -25,10 +25,10 @@ const PieChart = ({details}) => {
         <div>
             <Pie
             data={{
-                labels: ['Customers', 'Delivery Staff', 'Admins'],
+                labels: ['Delivered', 'Returned', 'Cancelled'],
                 datasets: [{
-                    label: '# of Users',
-                    data: [numCustomer.length, numDelivery.length, numAdmins.length],
+                    label: '# of Finished Orders',
+                    data: [delivered.length, returned.length, cancelled.length],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -60,4 +60,4 @@ const PieChart = ({details}) => {
     )
 }
 
-export default PieChart;
+export default FinishedOrderCharts;

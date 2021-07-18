@@ -10,6 +10,10 @@ import DashboardCards from './DashboardCards';
 import UsersChart from './UsersChart';
 import { Card } from '@material-ui/core';
 import PieChart from './PieChart';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import InventoryChart from './InventoryChart';
+import FinishedOrderCharts from './FinishedOrderCharts';
 
 function Dashboard() {
 
@@ -23,6 +27,8 @@ function Dashboard() {
     const [users , setUsers] = useState([]);
     const [numCustomer , setNumCustomer] = useState("0");
     let customers = [];
+
+    const [products , setProducts] = useState([]);
 
     const getSupplierData = async () => {
         try {
@@ -78,11 +84,38 @@ function Dashboard() {
         }
       };
 
+      const getProductData = async () => {
+        try {
+          const data = await Axios.get(
+            "http://localhost:5000/products/"
+          );
+          //console.log(data.data);
+          setProducts(data.data);
+          //console.log("Customers",customers.length)
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
       useEffect(() => {
         getUserData();
         getOrderData();
+        getProductData();
         getSupplierData();
        }, []);
+
+      //  function   printDocument() {
+      //   const input = document.getElementById('divToPrint');
+      //   html2canvas(input)
+      //     .then((canvas) => {
+      //       const imgData = canvas.toDataURL('image/png');
+      //       const pdf = new jsPDF();
+      //       pdf.addImage(imgData, 'JPEG', 0, 0);
+      //       // pdf.output('dataurlnewwindow');
+      //       pdf.save("download.pdf");
+      //     })
+      //   ;
+      // }
 
     return (
         <>
@@ -92,7 +125,7 @@ function Dashboard() {
         </Breadcrumbs>
         <Divider />
         <h1 className="dash_title" >Dashboard</h1>
-        <div className='dash_container'>
+        <div className='dash_container' id="divToPrint" >
             <Row>
                 <Col sm={6} md={6} lg={4} className="dash_Col" >
                     <DashboardCards title="No of Customers" text= {numCustomer} />
@@ -116,7 +149,23 @@ function Dashboard() {
                     </Card>
                 </Col>
             </Row>
+            <Row style={{justifyContent:'space-between' , margin:'5px'}}>
+              <Col sm={12} md={5} lg={4} className="dash_card2" >
+                    <Card className="dash_col2_card" >
+                        <FinishedOrderCharts details = {orders}/>
+                    </Card>
+                </Col>  
+                <Col sm={12} md={6} lg={7} className="dash_card2" >
+                    <Card className="dash_col2_card" >
+                        <InventoryChart details = {products}/>
+                    </Card>
+                </Col>
+
+            </Row>
         </div>
+        {/* <div className="mb5">
+        <button onClick={printDocument}>Print</button>
+      </div> */}
         </>
     )
 }
