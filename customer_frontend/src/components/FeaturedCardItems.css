@@ -1,10 +1,20 @@
 .featured_col {
     text-align: center;
-    text-align: -webkit-center;
+
     height: 450px !important;
 }
 
+.featured_col_special{
+    text-align: center;
+    text-align: -webkit-center;
+    align-items: center !important;
+    
+}
 
+.react-multi-carousel-item{
+    height: 475px;
+    padding: 10px;
+}
 
 .featured_card{
     cursor: pointer;
@@ -36,6 +46,11 @@
 .featured_card_title{
     font-size: 1.15rem;
     align-items: center;
+}
+
+.feature_title_new{
+    text-align: center;
+    margin-bottom: 75px;
 }
 /* .h5, h5 {
 

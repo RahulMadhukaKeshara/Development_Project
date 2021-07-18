@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react';
-import { Col , Row , Container} from 'react-bootstrap';
-import '../components/FeaturedCardItems.css';
+import {Container} from 'react-bootstrap';
 import FeaturedCardItems from './FeaturedCardItems';
+import '../components/FeaturedCardItems.css';
 import Axios from 'axios';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 function NewArrivals() {
 
@@ -34,32 +36,54 @@ function NewArrivals() {
         getProductData();
       }, []);
 
+      const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3,
+          slidesToSlide: 2 // optional, default to 1.
+        },
+        tablet: {
+          breakpoint: { max: 1023, min: 600 },
+          items: 2,
+          slidesToSlide: 2 // optional, default to 1.
+        },
+        mobile: {
+          breakpoint: { max: 599, min: 0 },
+          items: 1,
+          slidesToSlide: 1 // optional, default to 1.
+        }
+      };
+
   return (
     <>
+    <Container fluid className='container-lg'>
+    <h1 className='feature_title'>New Arrivals</h1>
+    <Carousel
+    responsive={responsive}
+    infinite={true}
+    containerClass="carousel-container featured_col_special"
+    itemClass="carousel-item-padding-40-px"
+    >
+        { 
+            
+            newProducts.map(  products =>   {
+              
+              return (
 
-        <Container className='container-md'>
-            <h1 className='feature_title'>New Arrivals</h1>
-            <Row className="justify-content-md-center">
-            { 
-                
-                newProducts.slice(0,4).map( products =>   {
-                  
-                  return (
-                    <Col lg={3} md={6} className="featured_col">
-                    <FeaturedCardItems
-                    src= {"http://localhost:5000/products/photo/" + products._id }
-                    title={products.product_Name}
-                    price={products.product_Price}
-                    id= {'/product-details/' + products._id}/>
-                    </Col>   
-                  )
+                  <FeaturedCardItems
+                  src= {"http://localhost:5000/products/photo/" + products._id }
+                  title={products.product_Name}
+                  price={products.product_Price}
+                  discount={products.product_Discount}
+                  id= {'/product-details/' + products._id}/>
 
-                }              
-                )
+                ) 
+               }              
+            )
 
-              }
-            </Row>
-        </Container>
+            }
+    </Carousel>
+    </Container>
     </>
   )
 }

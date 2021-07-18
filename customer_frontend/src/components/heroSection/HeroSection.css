@@ -7,7 +7,7 @@
 .caption{
   text-align: left;
   position: absolute !important;
-  top: 40%;
+  top: 35%;
 }
 
 .caption > h1 {
@@ -23,7 +23,7 @@
 .heroImg{
   height: 647px !important;
   width: 100% !important;
-  opacity: 0.3;
+  opacity: 0.5;
   text-align: center;
 }
 
