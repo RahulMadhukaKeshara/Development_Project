@@ -166,6 +166,7 @@ function NavigationBar() {
                         <Nav.Link className="delNavLinks" href="/suppliers">Suppliers</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/generate-reports">Reports</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/dashboard">Dashboard</Nav.Link>
+                        <Nav.Link className="delNavLinks" href="/warnings">Inventory Warnings</Nav.Link>
                      </Nav>
                       <Nav className="">
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   

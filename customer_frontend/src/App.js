@@ -40,6 +40,7 @@ import DeliveryHistoryPage from './components/pages/DeliveryHistoryPage';
 import ChangePasswordPage from './components/pages/ChangePasswordPage';
 import GenerateReportsPage from './components/pages/GenerateReportsPage';
 import DashboardPage from './components/pages/DashboardPage';
+import WarningsPage from './components/pages/WarningsPage';
 
 
 
@@ -89,6 +90,7 @@ function App() {
                     <Route path='/passwordReset/:id' exact component={ChangePasswordPage}/>
                     <Route path='/generate-reports' exact component={GenerateReportsPage}/>
                     <Route path='/dashboard' exact component={DashboardPage}/>
+                    <Route path='/warnings' exact component={WarningsPage}/>
 
                     
                     
