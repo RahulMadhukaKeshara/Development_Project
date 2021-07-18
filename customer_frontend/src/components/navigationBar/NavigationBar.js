@@ -115,7 +115,7 @@ function NavigationBar() {
                           {
                           filteredData.slice(0,10).map((value,key)=>{
                              return (
-                             <a className="dataItem" href="/">
+                             <a className="dataItem" href={"/product-details/"+value._id}>
                                 <p>{value.product_Name}</p>
                               </a>
                               )
@@ -215,7 +215,7 @@ function NavigationBar() {
                           {
                           filteredData.slice(0,10).map((value,key)=>{
                              return (
-                             <a className="dataItem" href="/">
+                             <a className="dataItem" href={"/product-details/"+value._id}>
                                 <p>{value.product_Name}</p>
                               </a>
                               )
