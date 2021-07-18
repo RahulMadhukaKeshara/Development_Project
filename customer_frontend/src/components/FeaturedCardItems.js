@@ -15,7 +15,18 @@ function FeaturedCardItems(props) {
         <Card.Body className='featured_card_body'>
 
           <Card.Title className='featured_card_title'>{props.title}</Card.Title>
-          <Card.Text className='featured_card_price'>LKR : {props.price}</Card.Text>
+          {
+            props.discount > 0 ?
+            (
+              <>
+              <Card.Text className='featured_card_oldprice'>LKR : {props.price}</Card.Text>
+              <Card.Text className='featured_card_price'>LKR : {(props.price)-(props.price*props.discount*(1/100))}</Card.Text>
+              </>
+            ):
+            (
+              <Card.Text className='featured_card_price'>LKR : {props.price}</Card.Text>
+            )
+          }
 
           <Link to={props.id}>
             <Button className='featured_card_btn' variant="primary">VIEW</Button>

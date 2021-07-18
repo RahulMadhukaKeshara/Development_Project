@@ -11,11 +11,20 @@ function FeaturedProducts() {
 
      const getProductData = async () => {
        try {
+
+        let newArrivals = [];
          const data = await Axios.get(
            "http://localhost:5000/products/"
          );
          console.log(data.data);
-         setProducts(data.data);
+
+         data.data.forEach(element => {
+          if(element.product_Featured === "Yes"){
+            newArrivals.push(element);
+          }
+        });
+
+         setProducts(newArrivals);
 
        } catch (e) {
          console.log(e);
@@ -34,19 +43,18 @@ function FeaturedProducts() {
             <Row  className="justify-content-md-center">
             { 
                 
-                products.map(  products =>   {
+                products.slice(0,4).map(  products =>   {
                   
-                  return products.product_Featured === "Yes" ? 
-                    (
+                  return (
                       <Col lg={3} md={6} className="featured_col">
                       <FeaturedCardItems
                       src= {"http://localhost:5000/products/photo/" + products._id }
                       title={products.product_Name}
                       price={products.product_Price}
+                      discount={products.product_Discount}
                       id= {'/product-details/' + products._id}/>
-                      </Col>                    
-                    ) : 
-                    ("") 
+                      </Col>    
+                    ) 
                    }              
                 )
 

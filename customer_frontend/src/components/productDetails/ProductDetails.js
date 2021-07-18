@@ -53,7 +53,7 @@ function ProductDetails(props) {
       Swal.fire({
         icon: 'info',
         title: 'Please Login to Your Account!',
-        text: 'You have to login to the account , to add reviews to the items'
+        text: 'You have to login to the account , to use add to cart option'
       })
     }
 
@@ -61,7 +61,7 @@ function ProductDetails(props) {
       Swal.fire({
         icon: 'info',
         title: 'Please Login to Your Account!',
-        text: 'You have to login to the account , to use add to cart option'
+        text: 'You have to login to the account , to add reviews to the items'
       })
     }
 

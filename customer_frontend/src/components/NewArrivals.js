@@ -6,15 +6,24 @@ import Axios from 'axios';
 
 function NewArrivals() {
 
-    const [products, setProducts] = useState([]);
+    const [newProducts , setNewProducts] = useState([]);
 
      const getProductData = async () => {
        try {
+
+        let newArrivals = [];
          const data = await Axios.get(
            "http://localhost:5000/products/"
          );
          console.log(data.data);
-         setProducts(data.data);
+
+         data.data.forEach(element => {
+          if(element.product_New === "Yes"){
+            newArrivals.push(element);
+          }
+        });
+
+        setNewProducts(newArrivals);
 
        } catch (e) {
          console.log(e);
@@ -33,20 +42,19 @@ function NewArrivals() {
             <Row className="justify-content-md-center">
             { 
                 
-                products.map(  products =>   {
+                newProducts.slice(0,4).map( products =>   {
                   
-                  return products.product_New === "Yes" ? 
-                    (
-                      <Col lg={3} md={6} className="featured_col">
-                      <FeaturedCardItems
-                      src= {"http://localhost:5000/products/photo/" + products._id }
-                      title={products.product_Name}
-                      price={products.product_Price}
-                      id= {'/product-details/' + products._id}/>
-                      </Col>                    
-                    ) : 
-                    ("") 
-                   }              
+                  return (
+                    <Col lg={3} md={6} className="featured_col">
+                    <FeaturedCardItems
+                    src= {"http://localhost:5000/products/photo/" + products._id }
+                    title={products.product_Name}
+                    price={products.product_Price}
+                    id= {'/product-details/' + products._id}/>
+                    </Col>   
+                  )
+
+                }              
                 )
 
               }

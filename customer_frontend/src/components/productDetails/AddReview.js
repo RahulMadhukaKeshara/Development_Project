@@ -10,8 +10,10 @@ function AddReview(props) {
     const url = 'http://localhost:5000/products/addReview/' + props.productID;
     const [review , setReview ] = useState("");
     const jwt = localStorage.getItem("token");
-
-    let userID = jwtDecode(jwt)._id;
+    let userID;
+    if (jwt) {
+      userID = jwtDecode(jwt)._id;
+    }
 
     function handleChange(e){
 
