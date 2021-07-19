@@ -4,6 +4,7 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import {Container} from 'react-bootstrap';
 
 function Reports() {
 
@@ -47,10 +48,12 @@ function Reports() {
         <Typography color="textPrimary">Reports</Typography>
         </Breadcrumbs>
         <Divider />
-        <div id = "cv" style={{width:'100%'}}>
-        <iframe title="reports" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=2f7622d2-fa7e-4934-9550-d2985a516f9f&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        <Container fluid id = "cv" >
+        <iframe title="reports" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=33ed62f6-4ea0-4f9c-a6d8-f63df2468607&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        </Container>
+        <div className="mb5 btn_div">
+        <button className="pdf_btn2" onClick={createPDF}>Download PDF</button>
         </div>
-        <Button onClick={createPDF}>PDF</Button>
         </>
     )
 }

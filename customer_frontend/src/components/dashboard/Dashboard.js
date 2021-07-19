@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import './Dashboard.css';
 import Axios from 'axios';
-import { Row , Col} from 'react-bootstrap';
+import { Row , Col, Container} from 'react-bootstrap';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -104,18 +104,36 @@ function Dashboard() {
         getSupplierData();
        }, []);
 
-      //  function   printDocument() {
-      //   const input = document.getElementById('divToPrint');
-      //   html2canvas(input)
-      //     .then((canvas) => {
-      //       const imgData = canvas.toDataURL('image/png');
-      //       const pdf = new jsPDF();
-      //       pdf.addImage(imgData, 'JPEG', 0, 0);
-      //       // pdf.output('dataurlnewwindow');
-      //       pdf.save("download.pdf");
-      //     })
-      //   ;
-      // }
+       function createPDF() {
+        // get elements of report data
+        var cv = document.getElementById("cv").innerHTML;
+      
+        var style = "<style>";
+        style =
+          style + "table {width: 100%;font: 17px Calibri;} body{font-size:12px}";
+        style =
+          style +
+          "table, th, td {border: solid 1px #DDD;color: black ;border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+      
+        // CREATE A WINDOW OBJECT.
+        var win = window.open("", "", "height=700,width=700");
+      
+        win.document.write(
+          '<html><head><link rel="stylesheet" href="./css/manager-add-style.css" />'
+        );
+        win.document.write("<title>Report</title>"); // <title> FOR PDF HEADER.
+        win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write("</head>");
+        win.document.write(cv);
+        // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write("</body></html>");
+      
+        win.document.close(); // CLOSE THE CURRENT WINDOW.
+      
+        win.print(); // PRINT THE CONTENTS.
+      }
 
     return (
         <>
@@ -124,7 +142,10 @@ function Dashboard() {
             <Typography color="textPrimary">Dashboard</Typography>
         </Breadcrumbs>
         <Divider />
-        <h1 className="dash_title" >Dashboard</h1>
+        <Container fluid id="cv">
+        <iframe title="dashboards" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=b9d704d4-456b-420a-8795-42e3e48b55d2&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        </Container>
+        {/* <h1 className="dash_title" >Dashboard</h1>
         <div className='dash_container' id="divToPrint" >
             <Row>
                 <Col sm={6} md={6} lg={4} className="dash_Col" >
@@ -162,10 +183,10 @@ function Dashboard() {
                 </Col>
 
             </Row>
+        </div> */}
+        <div className="mb5 btn_div">
+        <button className="pdf_btn2" onClick={createPDF}>Download PDF</button>
         </div>
-        {/* <div className="mb5">
-        <button onClick={printDocument}>Print</button>
-      </div> */}
         </>
     )
 }
