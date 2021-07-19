@@ -51,6 +51,7 @@ function Checkout() {
 
     const [selectedDistrict , setSelectedDistrict] = useState("");
     const [delCharge , setDelCharge] = useState(0);
+    const [plusDate , setPlusDate] = useState(0);
 
     // const [isChecked , setIsChecked] = useState(false)
 
@@ -123,7 +124,8 @@ function Checkout() {
               "http://localhost:5000/deliveryCharges/charges", {district : District}
             );
             //console.log(data.data.delivery_charge)
-            setDelCharge(parseInt(data.data.delivery_charge))
+            setDelCharge(parseInt(data.data.delivery_charge));
+            setPlusDate(parseInt(data.data.expected_range));
             
           } catch (e) {
             console.log(e);
@@ -192,7 +194,10 @@ function Checkout() {
     function handleSubmit(e) {
       e.preventDefault();
       const d = new Date();
-      const date = d.toLocaleDateString()
+      const date = d.toLocaleDateString();
+
+      const s = new Date();
+      s.setDate(s.getDate()+ plusDate);
 
        let dataSet = {
          order_User : userID,
@@ -201,7 +206,7 @@ function Checkout() {
          order_Status: order.order_Status,
          order_Total : subTotal - totalDiscount + delCharge,
          order_Placed_Date : date, 
-         expected_Delivery_Date : order.expected_Delivery_Date,
+         expected_Delivery_Date : s.toLocaleDateString(),
          actual_Delivery_Date : order.actual_Delivery_Date,
          delivery_Fname : userData.user_Fname,
          delivery_Lname: userData.user_Lname,

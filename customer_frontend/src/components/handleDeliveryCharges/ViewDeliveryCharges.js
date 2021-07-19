@@ -61,6 +61,7 @@ const headCells = [
   { id: '_id', numeric: true, disablePadding: true, label: 'ID' },
   { id: 'district', numeric: false, disablePadding: false, label: 'District' },
   { id: 'delivery_charge', numeric: false, disablePadding: false, label: 'Delivery Charge'},
+  { id: 'expected_range', numeric: false, disablePadding: false, label: 'Expected Date Gap'},
 ];
 
 function EnhancedTableHead(props) {
@@ -421,6 +422,8 @@ export default function ViewDeliveryCharges() {
                       </TableCell>
                       <TableCell align="center">{row.district}</TableCell>
                       <TableCell align="center">{row.delivery_charge}</TableCell>
+                      <TableCell align="center">{row.expected_range}</TableCell>
+                      
                     </TableRow>
                   );
                 })}

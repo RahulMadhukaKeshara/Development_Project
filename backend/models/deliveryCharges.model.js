@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const deliveryChargeSchema = new Schema({
 
     district : {type : String},
-    delivery_charge : {type : String}
+    delivery_charge : {type : String},
+    expected_range : {type : String}
 
 },{
     timestamps: true,

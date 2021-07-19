@@ -18,11 +18,13 @@ router.route('/add').post(async(req,res) => {
 
     const district = req.body.district;
     const delivery_charge = req.body.delivery_charge;
+    const expected_range = req.body.expected_range;
 
     const newDeliveryCharge = new DeliveryCharge({
 
         district,
         delivery_charge,
+        expected_range
 
     });
 

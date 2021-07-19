@@ -1,9 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import {Modal , Button , Col , Row , Media , Container , Form} from 'react-bootstrap';
+import {Modal , Button , Col  , Form} from 'react-bootstrap';
 import '../cart/AddToCart.css';
 import { useParams } from 'react-router';
 import Axios from 'axios';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
@@ -11,10 +10,9 @@ import {useHistory} from 'react-router-dom';
 function DelMemberUpdateExpectedDelDate(props) {
 
   let params = useParams();
-  const [startDate, setStartDate] = useState(new Date());
   const history = useHistory();
   const [order , setOrder] = useState({});
-  const [delMembers , setDelMembers] = useState([]);
+  const [delAvailable , setDelAvailable] = useState([]);
 
   const url = 'http://localhost:5000/orders/assignMember/update/' + params.id;
 
@@ -32,11 +30,35 @@ function DelMemberUpdateExpectedDelDate(props) {
 
     const getDelMemberData = async () => {
       try {
+        let assign = [];
+        let dels = [];
         const data = await Axios.get(
           "http://localhost:5000/users/"
         );
-        console.log(data.data);
-        setDelMembers(data.data);
+        //console.log(data.data);
+        //******************** */
+        data.data.forEach(element => {
+          if(element.user_Type === "Delivery Staff"){
+            dels.push(element);
+          }
+        });
+        //********************* */
+        //console.log("dels",dels);
+        dels.forEach(async(element) => {
+          const available = await Axios.get(
+            "http://localhost:5000/orders/assignedOrders/" + element._id
+          );
+          //console.log("available",available.data.length);
+          assign.push({
+            ID: element._id,
+            member1: element.user_Fname,
+            member2: element.user_Lname,
+            assigned: available.data.length
+          })
+        });
+        //console.log(assign);
+        setDelAvailable(assign);
+
       } catch (e) {
         console.log(e);
       }
@@ -69,7 +91,6 @@ function DelMemberUpdateExpectedDelDate(props) {
               Axios.post(url,{
 
                   delivery_Member : order.delivery_Member,
-                  expected_Delivery_Date : startDate.toLocaleDateString(),
                   order_Status: "Delivery Assigned"
 
               })
@@ -127,15 +148,13 @@ function DelMemberUpdateExpectedDelDate(props) {
     <Form.Group  controlId="delivery_Member">
         <Form.Label>Delivery Member</Form.Label>
         <Form.Control as="select" onChange={(e) => handleChange(e)} >
-                <option disabled value="Select a Staff Member">Select a Staff Member</option>
+                <option selected value="Select a Staff Member">Select a Staff Member</option>
                 {
-                    delMembers.map(delMembers =>{
+                    delAvailable.map(item =>{
 
-                        return delMembers.user_Type === "Delivery Staff" ? 
-                        (
-                            <option key={delMembers._id} value={delMembers._id}>{delMembers.user_Fname} {delMembers.user_Lname}</option>  
-                        ):
-                        ("")
+                        return (
+                            <option key={item.ID} value={item.ID}>{item.member1} {item.member2} {item.assigned === 0 ? ("(No deliveries assigned)"):(`(${item.assigned} delivery assigned)`)}</option>  
+                        )
 
                     }    
                         )
@@ -143,16 +162,6 @@ function DelMemberUpdateExpectedDelDate(props) {
         </Form.Control>
     </Form.Group>
     </Col>
-</Form.Row>
-<Form.Row>
-
-      <Col sm={12} >
-      <Form.Group  controlId="expected_Delivery_Date" >
-          <Form.Label style={{marginRight:'20px'}} >Expected Delivery Date : </Form.Label>
-          <DatePicker  selected={startDate} onChange={(date) => {setStartDate(date)}}/>
-      </Form.Group>
-      </Col>
-
 </Form.Row>
 
 <div className='add_product_category_form_btns'>             

@@ -14,7 +14,8 @@ function AddDeliveryCharge() {
     const [data , setData] = useState({
 
         district : "",
-        delivery_charge : "0"
+        delivery_charge : "0",
+        expected_range : "1",
 
     })
 
@@ -29,7 +30,8 @@ function AddDeliveryCharge() {
         e.preventDefault();
         Axios.post(url,{
             district : data.district,
-            delivery_charge : data.delivery_charge
+            delivery_charge : data.delivery_charge,
+            expected_range : data.expected_range
         })
         .then(res => {
             console.log(res.data)
@@ -73,6 +75,16 @@ function AddDeliveryCharge() {
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.delivery_charge} type="text" placeholder="Delivery Charge..." />
                         </Form.Group>
                         </Col>
+
+                    </Form.Row>
+                    <Form.Row>
+
+                    <Col sm={12} lg={6}>
+                    <Form.Group  controlId="expected_range">
+                        <Form.Label>Expected Date Gap</Form.Label>
+                        <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.expected_range} type="text" placeholder="Expected Date Gap..." />
+                    </Form.Group>
+                    </Col>
 
                     </Form.Row>
 
