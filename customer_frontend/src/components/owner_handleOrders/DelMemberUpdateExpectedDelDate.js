@@ -46,7 +46,7 @@ function DelMemberUpdateExpectedDelDate(props) {
         //console.log("dels",dels);
         dels.forEach(async(element) => {
           const available = await Axios.get(
-            "http://localhost:5000/orders/assignedOrders/" + element._id
+            "http://localhost:5000/orders/ongoingOrders/" + element._id
           );
           //console.log("available",available.data.length);
           assign.push({

@@ -1,108 +1,13 @@
 import React,{useState,useEffect} from 'react';
 import './Dashboard.css';
 import Axios from 'axios';
-import { Row , Col, Container} from 'react-bootstrap';
+import {Container , Button} from 'react-bootstrap';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
-import DashboardCards from './DashboardCards';
-import UsersChart from './UsersChart';
-import { Card } from '@material-ui/core';
-import PieChart from './PieChart';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import InventoryChart from './InventoryChart';
-import FinishedOrderCharts from './FinishedOrderCharts';
 
 function Dashboard() {
-
-    const [orders , setOrders] = useState([]);
-    const [numOrders , setNumOrders] = useState("0");
-    let onGoingOrders = [];
-    
-    const [suppliers , setSuppliers] = useState([]);
-    const [numSuppliers , setNumSuppliers] = useState("0");
-
-    const [users , setUsers] = useState([]);
-    const [numCustomer , setNumCustomer] = useState("0");
-    let customers = [];
-
-    const [products , setProducts] = useState([]);
-
-    const getSupplierData = async () => {
-        try {
-          const data = await Axios.get(
-            "http://localhost:5000/suppliers/"
-          );
-          console.log(data.data);
-          setSuppliers(data.data);
-          setNumSuppliers(data.data.length);
-          //console.log("Customers",customers.length)
-        } catch (e) {
-          console.log(e);
-        }
-      };
-
-    const getOrderData = async () => {
-        try {
-          const data = await Axios.get(
-            "http://localhost:5000/orders/"
-          );
-          console.log(data.data);
-          setOrders(data.data);
-
-          data.data.forEach(element => {
-              if((element.order_Status !== "Delivered")&&(element.order_Status !== "Returned")&&(element.order_Status !== "Cancelled")){
-                onGoingOrders.push(element)
-              }
-          });
-          setNumOrders(onGoingOrders.length);
-          //console.log("Customers",customers.length)
-        } catch (e) {
-          console.log(e);
-        }
-      };
-
-      const getUserData = async () => {
-        try {
-          const data = await Axios.get(
-            "http://localhost:5000/users/"
-          );
-          //console.log(data.data);
-          setUsers(data.data);
-
-          data.data.forEach(element => {
-              if(element.user_Type === "Customer"){
-                customers.push(element)
-              }
-          });
-          setNumCustomer(customers.length);
-          //console.log("Customers",customers.length)
-        } catch (e) {
-          console.log(e);
-        }
-      };
-
-      const getProductData = async () => {
-        try {
-          const data = await Axios.get(
-            "http://localhost:5000/products/"
-          );
-          //console.log(data.data);
-          setProducts(data.data);
-          //console.log("Customers",customers.length)
-        } catch (e) {
-          console.log(e);
-        }
-      };
-
-      useEffect(() => {
-        getUserData();
-        getOrderData();
-        getProductData();
-        getSupplierData();
-       }, []);
 
        function createPDF() {
         // get elements of report data
@@ -142,10 +47,26 @@ function Dashboard() {
             <Typography color="textPrimary">Dashboard</Typography>
         </Breadcrumbs>
         <Divider />
-        <Container fluid id="cv">
-        <iframe title="dashboards" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=b9d704d4-456b-420a-8795-42e3e48b55d2&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        <div>
+          
+          <Button className="rep_btn" href='/salesDash'>Sales Analytics Dashboard</Button>
+          <Button className="rep_btn" href='/inventoryDash'>Inventory Analytics Dashboard</Button>
+          <Button className="rep_btn" href='/dashboard'>Main Dashboard</Button>
+        </div>
+        <Container fluid id="cv" >
+        <iframe  title="dashboards" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=b9d704d4-456b-420a-8795-42e3e48b55d2&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </Container>
-        {/* <h1 className="dash_title" >Dashboard</h1>
+
+        <div className="mb5 btn_div">
+        <button className="pdf_btn2" onClick={createPDF}>Download PDF</button>
+        </div>
+        </>
+    )
+}
+
+export default Dashboard;
+
+        /* <h1 className="dash_title" >Dashboard</h1>
         <div className='dash_container' id="divToPrint" >
             <Row>
                 <Col sm={6} md={6} lg={4} className="dash_Col" >
@@ -183,12 +104,4 @@ function Dashboard() {
                 </Col>
 
             </Row>
-        </div> */}
-        <div className="mb5 btn_div">
-        <button className="pdf_btn2" onClick={createPDF}>Download PDF</button>
-        </div>
-        </>
-    )
-}
-
-export default Dashboard;
+        </div> */

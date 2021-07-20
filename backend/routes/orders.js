@@ -163,6 +163,53 @@ router.route('/orderStatus/update/:id').post(async(req,res) => {
       let date = new Date();
       order.actual_Delivery_Date = date.toLocaleDateString();
     }
+    if((req.body.order_Status === "Returned")||(req.body.order_Status === "Cancelled")){
+
+      order.order_Items.forEach(async element => {
+        //console.log(element.product._id)
+        let productOb =  await Product.findById(element.product._id)
+        productOb.product_Stock.forEach(item => {
+          if(element.color === item.color){
+  
+              switch (element.size) {
+                case "S":
+                  item.s_qty = parseInt(item.s_qty) + parseInt(element.quantity);
+                  break;
+  
+                  case "XS":
+                    item.xs_qty = parseInt(item.xs_qty) + parseInt(element.quantity);
+                    break;
+                    
+                    case "M":
+                      item.m_qty = parseInt(item.m_qty) + parseInt(element.quantity);
+                      break;
+  
+                      case "L":
+                        item.l_qty = parseInt(item.l_qty) + parseInt(element.quantity);
+                        break;
+  
+                        case "XL":
+                          item.xl_qty = parseInt(item.xl_qty) + parseInt(element.quantity);
+                          break;
+  
+                          case "XXL":
+                            item.xxl_qty = parseInt(item.xxl_qty) + parseInt(element.quantity);
+                            break;
+              
+                default:
+                  break;
+  
+  
+              }
+  
+          }
+        });
+  
+        productOb.save()
+  
+       }); 
+
+    }
     order.order_Status = req.body.order_Status;
     order.save();
     OrderStatusChangeEmail(order);
@@ -184,7 +231,6 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
     let delMemberOb = await User.findById(req.body.delivery_Member);
  
     orderOb.delivery_Member = delMemberOb;
-    orderOb.expected_Delivery_Date = req.body.expected_Delivery_Date;
     orderOb.order_Status = req.body.order_Status;
     await  orderOb.save();
 
@@ -206,6 +252,25 @@ router.route('/assignedOrders/:id').get(async(req,res) => {
     let userOb = await User.findById(req.params.id)
     let orders = await Order.find({delivery_Member : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
     res.json(orders)
+  } catch (error) {
+    res.status(400).json('Error: '+ error)
+  }
+
+});
+
+ //get ongoing deliveries related to a delivery member
+ router.route('/ongoingOrders/:id').get(async(req,res) => {
+
+  try {
+    let userOb = await User.findById(req.params.id)
+    let orders = await Order.find({delivery_Member : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
+    let ongoing = [];
+    orders.forEach(element => {
+      if((element.order_Status != "Delivered")&&(element.order_Status != "Cancelled")&&(element.order_Status != "Returned")){
+        ongoing.push(element);
+      }
+    });
+    res.json(ongoing)
   } catch (error) {
     res.status(400).json('Error: '+ error)
   }
