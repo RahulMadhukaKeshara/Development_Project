@@ -41,7 +41,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
         const date = d.toLocaleDateString();
 
         const exDate = new Date();
-        exDate.setDate(exDate.getDate() - dateGap)
+        exDate.setDate(exDate.getDate() + dateGap)
 
   
          let dataSet = {
@@ -51,7 +51,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
            order_Status: orderDetails.order_Status,
            order_Total : orderTotal,
            order_Placed_Date : date, 
-           expected_Delivery_Date : date,
+           expected_Delivery_Date : exDate.toLocaleDateString(),
            actual_Delivery_Date : orderDetails.actual_Delivery_Date,
            delivery_Fname : orderDetails.delivery_Fname,
            delivery_Lname: orderDetails.delivery_Lname,
@@ -63,9 +63,11 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
            delivery_Postal: orderDetails.delivery_Postal,
            delivery_Instructions: orderDetails.delivery_Instructions,
          }
+         console.log("dataaaaaaaaaa",dateGap)
+         console.log("dataaaaaaaaaa",exDate)
          console.log("dataaaaaaaaaa",dataSet)
          try {
-             console.log(dataSet)
+            //  console.log(dataSet)
                 Axios.post(
                     url,
                     dataSet,
