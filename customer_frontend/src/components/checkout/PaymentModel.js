@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 
-function PaymentModel({orderDetails , orderTotal , orderItems}) {
+function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
 
     const history = useHistory();
     const url = "http://localhost:5000/orders/add";
@@ -38,7 +38,11 @@ function PaymentModel({orderDetails , orderTotal , orderItems}) {
         console.log("Payment completed. OrderID:" + orderId);
         //Note: validate the payment and show success or failure page to the customer
         const d = new Date();
-        const date = d.toLocaleDateString()
+        const date = d.toLocaleDateString();
+
+        const exDate = new Date();
+        exDate.setDate(exDate.getDate() - dateGap)
+
   
          let dataSet = {
            order_User : userID,
@@ -47,7 +51,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems}) {
            order_Status: orderDetails.order_Status,
            order_Total : orderTotal,
            order_Placed_Date : date, 
-           expected_Delivery_Date : orderDetails.expected_Delivery_Date,
+           expected_Delivery_Date : date,
            actual_Delivery_Date : orderDetails.actual_Delivery_Date,
            delivery_Fname : orderDetails.delivery_Fname,
            delivery_Lname: orderDetails.delivery_Lname,
@@ -58,8 +62,8 @@ function PaymentModel({orderDetails , orderTotal , orderItems}) {
            delivery_District: orderDetails.delivery_District,
            delivery_Postal: orderDetails.delivery_Postal,
            delivery_Instructions: orderDetails.delivery_Instructions,
-           delivery_Member: orderDetails.delivery_Member
          }
+         console.log("dataaaaaaaaaa",dataSet)
          try {
              console.log(dataSet)
                 Axios.post(

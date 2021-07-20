@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import PaymentModal from '../checkout/PaymentModel';
+// import PayModal from '../checkout/PayModel';
 
 
 function Checkout() {
@@ -53,7 +54,7 @@ function Checkout() {
     const [delCharge , setDelCharge] = useState(0);
     const [plusDate , setPlusDate] = useState(0);
 
-    // const [isChecked , setIsChecked] = useState(false)
+    const [isChecked , setIsChecked] = useState(false)
 
     
     const getUserData = async () => {
@@ -63,8 +64,8 @@ function Checkout() {
           );
           //console.log(data.data.user_District);
           setUserData(data.data);
-          setSelectedDistrict(data.data.user_District);
-          handleDelCharges(data.data.user_District);
+          // setSelectedDistrict(data.data.user_District);
+          // handleDelCharges(data.data.user_District);
 
         } catch (e) {
           console.log(e);
@@ -156,37 +157,34 @@ function Checkout() {
 
       }
     function handleChange(e) {
-      const shippingDetails = {...userData};
       const newOrder = {...order};
-      shippingDetails[e.target.id] = e.target.value;
       newOrder[e.target.id] = e.target.value;
-      setUserData(shippingDetails)
       setOrder(newOrder)
-      //console.log(shippingDetails)
       console.log(newOrder)
     }
 
-    // function handleCheck(e){
-    //     let check = isChecked;
-    //     //console.log(check)
-    //     check = !check;
-    //     //console.log(check)
-    //     setIsChecked(check)
-    //     if (check === true) {
-    //       const newOrder = {...order};
-    //       let newData = {...selectedDistrict};
-    //       newData = userData.user_District;
-    //       setSelectedDistrict(newData);
-    //       handleDelCharges(newData)
+    function handleCheck(e){
+        let check = isChecked;
+        console.log(check)
+        check = !check;
+        console.log(check)
+        setIsChecked(check)
+        if (check === true) {
+          const newOrder = {...order};
+          let newData = {...selectedDistrict};
+          newData = userData.user_District;
+          setSelectedDistrict(newData);
+          handleDelCharges(newData)
 
-    //       newOrder.delivery_Address_1 = userData.user_Address_1;
-    //       newOrder.delivery_Address_2 = userData.user_Address_2;
-    //       newOrder.delivery_Address_3 = userData.user_Address_3;
-    //       newOrder.delivery_Postal = userData.user_Postal;
-    //       newOrder.delivery_District = newData;
-    //       setOrder(newOrder)
-    //     }
-    // }
+          newOrder.delivery_Address_1 = userData.user_Address_1;
+          newOrder.delivery_Address_2 = userData.user_Address_2;
+          newOrder.delivery_Address_3 = userData.user_Address_3;
+          newOrder.delivery_Postal = userData.user_Postal;
+          newOrder.delivery_District = newData;
+          setOrder(newOrder);
+          console.log("changes",newOrder)
+        }
+    }
 
     const jwt = localStorage.getItem("token");
     let userID = jwtDecode(jwt)._id;
@@ -208,16 +206,17 @@ function Checkout() {
          order_Placed_Date : date, 
          expected_Delivery_Date : s.toLocaleDateString(),
          actual_Delivery_Date : order.actual_Delivery_Date,
-         delivery_Fname : userData.user_Fname,
-         delivery_Lname: userData.user_Lname,
-         delivery_Contact: userData.user_Contact,
-         delivery_Address_1: userData.user_Address_1,
-         delivery_Address_2: userData.user_Address_2,
-         delivery_Address_3: userData.user_Address_3,
-         delivery_District: userData.user_District,
-         delivery_Postal: userData.user_Postal,
+         delivery_Fname : order.delivery_Fname,
+         delivery_Lname: order.delivery_Lname,
+         delivery_Contact: order.delivery_Contact,
+         delivery_Address_1: order.delivery_Address_1,
+         delivery_Address_2: order.delivery_Address_2,
+         delivery_Address_3: order.delivery_Address_3,
+         delivery_District: order.delivery_District,
+         delivery_Postal: order.delivery_Postal,
          delivery_Instructions: order.delivery_Instructions,
        }
+      //  console.log(dataSet);
        try {
         Axios.post(
           url,
@@ -268,54 +267,54 @@ function Checkout() {
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Fname">
+                    <Form.Group  controlId="delivery_Fname">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" value={userData.user_Fname} onChange={(e) => handleChange(e)} placeholder="First Name"/>
+                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Fname} onChange={(e) => handleChange(e)} placeholder="First Name"/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Lname">
+                    <Form.Group  controlId="delivery_Lname">
                         <Form.Label>Last Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" value={userData.user_Lname} onChange={(e) => handleChange(e)} placeholder="Last Name"/>
+                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Lname} onChange={(e) => handleChange(e)} placeholder="Last Name"/>
                     </Form.Group>
                     </Col>
                 </Form.Row>
 
                 <Form.Row>
                 <Col sm={12} lg={6} md={6}>
-                <Form.Group  controlId="user_Contact">
+                <Form.Group  controlId="delivery_Contact">
                     <Form.Label>Contact Number</Form.Label>
-                    <Form.Control className='add_product_category_form_input' type="text" value={userData.user_Contact} onChange={(e) => handleChange(e)} placeholder="Contact Number" />
+                    <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Contact} onChange={(e) => handleChange(e)} placeholder="Contact Number" />
                 </Form.Group>
                 </Col>
                 </Form.Row>
-                {/* <Form.Group controlId="checkout_check">
+                <Form.Group controlId="checkout_check">
                     <Form.Check type="checkbox" label="Use Billing Address as the Shipping Address" onClick={(e) => handleCheck(e)}/>
-                </Form.Group> */}
+                </Form.Group>
                
                 <Form.Row>
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_1">
+                    <Form.Group  controlId="delivery_Address_1">
                         <Form.Label>Address Line 1</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={userData.user_Address_1}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={order.delivery_Address_1}/>
                     </Form.Group>
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_2">
+                    <Form.Group  controlId="delivery_Address_2">
                         <Form.Label>Address Line 2</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 2" value={userData.user_Address_2}/>
+                        <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 2" value={order.delivery_Address_2}/>
                     </Form.Group>
                     </Col>
                 </Form.Row>   
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Address_3">
+                    <Form.Group  controlId="delivery_Address_3">
                         <Form.Label>Address Line 3</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 3" value={userData.user_Address_3}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 3" value={order.delivery_Address_3}/>
                     </Form.Group>
 
                     </Col>
@@ -337,9 +336,9 @@ function Checkout() {
                 <Form.Row>
 
                     <Col sm={12} lg={6} md={6}>
-                    <Form.Group  controlId="user_Postal">
+                    <Form.Group  controlId="delivery_Postal">
                         <Form.Label>Postal Code</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Postal Code" value={userData.user_Postal}/>
+                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Postal Code" value={order.delivery_Postal}/>
                     </Form.Group>
 
                     </Col>
@@ -368,7 +367,14 @@ function Checkout() {
                     (<Button className='add_product_category_form_btn1' type="submit">Place Order</Button>):
 
                     (order.payment_Method === "Online Payment" ? 
-                    (<PaymentModal orderDetails={order} orderTotal={subTotal - totalDiscount + delCharge} orderItems={cartItems.cart_Items} />):
+                    (<PaymentModal orderDetails={order} orderTotal={subTotal - totalDiscount + delCharge} orderItems={cartItems.cart_Items} dateGap={plusDate} />):
+                //     (   
+                //     <PayModal 
+                // // Use a unique value for the orderId
+                // orderId={45896588}
+                // name="Just For You Mom Ribbon Cake"
+                // amount="4500"
+                //     />):
                     (
                       ""
                     ))

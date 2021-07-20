@@ -128,6 +128,7 @@ router.route('/add').post(async(req,res) => {
    cartOb.cart_Items = newCart
    cartOb.save()
     //newOrder.save()
+    // response.set('Access-Control-Allow-Origin', '*');
     res.json('Order Placed!')
   } catch (error) {
     res.status(400).json('Error: ' + error)
