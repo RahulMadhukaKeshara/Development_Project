@@ -4,9 +4,11 @@ import jwtDecode from "jwt-decode";
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
+import { useParams } from 'react-router';
 
 function AddReview(props) {
 
+    let params = useParams();
     const url = 'http://localhost:5000/products/addReview/' + props.productID;
     const [review , setReview ] = useState("");
     const jwt = localStorage.getItem("token");
@@ -32,7 +34,8 @@ function AddReview(props) {
 
             review_person : userID,
             review_date : d.toLocaleDateString(),
-            review_text : review
+            review_text : review,
+            revie_order : params.id
 
         })
         .then(res => {

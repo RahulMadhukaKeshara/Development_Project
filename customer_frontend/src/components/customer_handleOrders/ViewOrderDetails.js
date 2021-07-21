@@ -10,6 +10,7 @@ import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import Swal from 'sweetalert2';
+import AddReview from '../productDetails/AddReview';
 
 function ViewOrderDetails() {
 
@@ -26,6 +27,7 @@ function ViewOrderDetails() {
     const [totalDiscount , setTotalDiscount] = useState(0);
     const [numOfItems , setNumOfItems] = useState("");
     const [delCharge , setDelCharge] = useState(0);
+    const [modalShow, setModalShow] = React.useState(false);
 
     const getOrderData = async () => {
         try {
@@ -177,35 +179,75 @@ function ViewOrderDetails() {
         <Col sm={12} lg={6} md={6} xs={12} className='cart_col1'>
             <Col  fluid className='order_item_container'>
              {
-                order.order_Items && order.order_Items.map(item => 
-                <>
-                    <Row className="order_individual_item_div">
-                        <div  className='order_item_col1'>
-                            <Media >
-                                <img 
-                                        className="mr-3 order_item_image"
-                                        src={"http://localhost:5000/products/photo/" + item.product._id }
-                                        alt="Generic placeholder"
-                                    />                      
-                            </Media>
-                        </div>
-                        <div  className='order_item_col2'>
-                            <div><h5>{item.product.product_Name}</h5></div>
-                            <div><h6>Price : LKR {item.unit_Price}</h6></div>
-                            <div style={{display:'flex'}}>
-                            <div style={{display:'flex' , alignItems:'center'}}>
-                                <div><h6 className='gg'>color : </h6></div>
-                                <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
-                            </div>
-                            <div><h6 className='gg'>Size : {item.size}</h6></div>    
-                            <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
-                            </div>                 
-                        </div>
-                    </Row>
-                    <Divider/>                    
-                </>
-                )
-            } 
+                 (order.order_Status === "Delivered")||(order.order_Status === "Returned")||(order.order_Status === "Cancelled") ?
+                 (
+                    
+                        order.order_Items && order.order_Items.map(item => 
+                        <>
+                            <Row className="order_individual_item_div">
+                                <div  className='order_item_col1'>
+                                    <Media >
+                                        <img 
+                                                className="mr-3 order_item_image"
+                                                src={"http://localhost:5000/products/photo/" + item.product._id }
+                                                alt="Generic placeholder"
+                                            />                      
+                                    </Media>
+                                </div>
+                                <div  className='order_item_col2'>
+                                    <div><h5>{item.product.product_Name}</h5></div>
+                                    <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                                    <div style={{display:'flex'}}>
+                                    <div style={{display:'flex' , alignItems:'center'}}>
+                                        <div><h6 className='gg'>color : </h6></div>
+                                        <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                                    </div>
+                                    <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                                    <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                                    </div>                 
+                                </div>
+                            </Row>
+                            <Divider/>                    
+                        </>
+                        )
+                    
+                 ):
+                 (
+                    order.order_Items && order.order_Items.map(item => 
+                        <>
+                            <Row className="order_individual_item_div">
+                                <div  className='order_item_col1'>
+                                    <Media >
+                                        <img    
+                                                className="mr-3 order_item_image"
+                                                src={"http://localhost:5000/products/photo/" + item.product._id }
+                                                alt="Generic placeholder"
+                                            />                      
+                                    </Media>
+                                </div>
+                                <div  className='order_item_col2'>
+                                    <div><h5>{item.product.product_Name}</h5></div>
+                                    <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                                    <div style={{display:'flex'}}>
+                                    <div style={{display:'flex' , alignItems:'center'}}>
+                                        <div><h6 className='gg'>color : </h6></div>
+                                        <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                                    </div>
+                                    <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                                    <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                                    </div>                 
+                                </div>
+                                <div  className='item_col3'>
+                                <Button className='add_Review_btn' onClick={() => setModalShow(true)} >Add Review</Button>                           
+                                <AddReview productID={item.product._id} show={modalShow} onHide={() => setModalShow(false)}/>
+                                </div>
+                            </Row>
+                            <Divider/>                    
+                        </>
+                        )
+                 )
+             }
+
             </Col>
             </Col>
             <Col sm={12} lg={6} md={6} xs={12} className='cart_col1'>

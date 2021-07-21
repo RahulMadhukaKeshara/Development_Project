@@ -158,8 +158,6 @@ function ProductDetails(props) {
                     <Col sm={12}  className='detail_col'>
                         <div style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
                         <h3 className="product_det_desctitle">Reviews ({products.product_reviews && products.product_reviews.length })</h3>
-                        <Button className='review_btn' onClick={jwt? (() => setReviewModalShow(true)):(()=>handleAddReview())}>Add Review</Button>
-                        <AddReview show={reviweModalShow} onHide={() => setReviewModalShow(false)} productID={productID}/> 
                         </div>
                         {
                           products.product_reviews && products.product_reviews.length === 0 ?

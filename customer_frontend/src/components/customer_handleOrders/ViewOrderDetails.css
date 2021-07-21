@@ -12,11 +12,11 @@
     margin: 0px auto;
 
 }
-
 .order_item_image{
     width: 75px !important;
     height: 85px !important;
 }
+
 
 .order_individual_item_div{
     justify-content: space-around;
@@ -28,8 +28,17 @@
     display: inline-flex;
 }
 
-.order_item_col2{
-    
+.add_Review_btn{
+    background-color: #f95757;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 0px;
+    min-width: 100px;
+    border-radius: 40px;
+    height: 35px;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 .order_summury_container{

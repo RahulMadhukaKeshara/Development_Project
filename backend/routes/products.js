@@ -3,6 +3,7 @@ const multer = require("multer");
 let Product = require('../models/products.model');
 let User = require('../models/users.model');
 let Supplier = require('../models/suppliers.model');
+let Order = require('../models/orders.model');
 
 
 const upload = multer({
@@ -128,14 +129,17 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
 router.route('/addReview/:id').post(async(req,res)=>{
 
   try {
-
+    // console.log(req.params.id)
+    // console.log(req.body)
      let productOb =  await Product.findOne({ _id: req.params.id });
      let reviewUserOb = await User.findOne({ _id: req.body.review_person });
+     let orderOb = await Order.findOne({_id:req.body.revie_order});
 
      productOb.product_reviews.push({
       review_person : reviewUserOb,
       review_date : req.body.review_date,
-      review_text : req.body.review_text
+      review_text : req.body.review_text,
+      revie_order : orderOb
      })
     
      productOb.save();
