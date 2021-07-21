@@ -47,14 +47,23 @@ function Dashboard() {
             <Typography color="textPrimary">Dashboard</Typography>
         </Breadcrumbs>
         <Divider />
-        <div>
-          
+
+        {/* <Container>
           <Button className="rep_btn" href='/salesDash'>Sales Analytics Dashboard</Button>
-          <Button className="rep_btn" href='/inventoryDash'>Inventory Analytics Dashboard</Button>
+          <Link href='/inventoryDash'>
+          <Button className="rep_btn" >Inventory Analytics Dashboard</Button>
+          </Link>
           <Button className="rep_btn" href='/dashboard'>Main Dashboard</Button>
-        </div>
+        </Container> */}
+
+        <Container fluid>
+            <Button href='/dashboard' className="rep_btn">Overall Dashboard</Button>
+            <Button href='/salesDash' className="rep_btn">Sales Analytics Dashboard</Button>
+            <Button href='/inventoryDash' className="rep_btn">Inventory Analytics Dashboard</Button>
+        </Container>
+
         <Container fluid id="cv" >
-        <iframe  title="dashboards" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=b9d704d4-456b-420a-8795-42e3e48b55d2&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="maindash" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=0da7b273-ca57-485a-aaab-b624d5d9d737&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </Container>
 
         <div className="mb5 btn_div">

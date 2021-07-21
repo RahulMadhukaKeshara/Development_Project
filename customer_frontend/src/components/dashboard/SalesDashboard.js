@@ -44,11 +44,18 @@ function SalesDashboard() {
         <Typography color="textPrimary">Reports</Typography>
         </Breadcrumbs>
         <Divider />
-        <div className="btn_div_rep">
+        {/* <div className="btn_div_rep">
           <Button className="rep_btn" href='/salesDash'>Sales Analytics Dashboard</Button>
           <Button className="rep_btn" href='/'>Inventory Analytics Dashboard</Button>
           <Button className="rep_btn" href='/'>Main Dashboard</Button>
-        </div>
+        </div> */}
+
+        <Container fluid>
+            <Button href='/dashboard' className="rep_btn">Overall Dashboard</Button>
+            <Button href='/salesDash' className="rep_btn">Sales Analytics Dashboard</Button>
+            <Button href='/inventoryDash' className="rep_btn">Inventory Analytics Dashboard</Button>
+        </Container>
+
         <Container fluid id = "cv"  >
         <iframe title='salesdash' width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=b9d704d4-456b-420a-8795-42e3e48b55d2&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </Container>
