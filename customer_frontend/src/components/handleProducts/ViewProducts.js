@@ -61,6 +61,7 @@ const headCells = [
   { id: 'product_Name', numeric: false, disablePadding: false, label: 'Product Name' },
   { id: 'product_Category', numeric: false, disablePadding: false, label: 'Product Category' },
   { id: 'product_Description', numeric: false, disablePadding: false, label: 'Product Description' },
+  { id: 'product_Supplier', numeric: false, disablePadding: false, label: 'Product Supplier' },
   { id: 'product_Colors', numeric: false, disablePadding: false, label: 'Colors , Sizes & Quantity' },
   //{ id: 'product_Sizes', numeric: false, disablePadding: false, label: 'Sizes' },
   { id: 'product_Img', numeric: false, disablePadding: false, label: 'Images' },
@@ -280,7 +281,7 @@ export default function ViewProducts() {
     const data = await axios.get(
       "http://localhost:5000/products/"
     );
-    console.log(data.data);
+    console.log("++++++++++++++++++++",data.data);
     setProducts(data.data);
   } catch (e) {
     console.log(e);
@@ -448,6 +449,8 @@ useEffect(() => {
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Name}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Category}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Description}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.product_Supplier.supplier_Name}</TableCell>
+                      
                       <TableCell align="center" className={classes.tab_cell}>
                       <div className={classes.col_tab_div}>
                       {

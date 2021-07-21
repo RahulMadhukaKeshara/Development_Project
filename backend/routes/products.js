@@ -2,6 +2,7 @@ const router = require('express').Router();
 const multer = require("multer");
 let Product = require('../models/products.model');
 let User = require('../models/users.model');
+let Supplier = require('../models/suppliers.model');
 
 
 const upload = multer({
@@ -18,15 +19,16 @@ const upload = multer({
   });
 
 
-router.route('/').get((req,res) => {
-    Product.find()
+router.route('/').get(async(req,res) => {
+    Product.find().populate([{path : 'product_reviews.review_person' , model : 'User'},{path : 'product_Supplier' , model : 'Supplier'}])
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
 
-router.route('/add').post(upload.single("product_Img"),(req,res) => {
+router.route('/add').post(upload.single("product_Img"),async(req,res) => {
     
+  let supplierOb = await Supplier.findById(req.body.product_Supplier);
 
   //  const product_Img = req.body.product_Img;
     const product_Name = req.body.product_Name;
@@ -40,6 +42,7 @@ router.route('/add').post(upload.single("product_Img"),(req,res) => {
     const product_Published = req.body.product_Published;
     const product_Featured = req.body.product_Featured;
     const product_New = req.body.product_New;
+    const product_Supplier = supplierOb;
 
 
     const newProduct = new Product({
@@ -56,6 +59,7 @@ router.route('/add').post(upload.single("product_Img"),(req,res) => {
         product_Published,
         product_Featured,
         product_New,
+        product_Supplier,
 
     });
 
@@ -79,7 +83,7 @@ router.get("/photo/:id", async (req, res) => {
 });
 
 router.route('/:id').get((req,res) => {
-    Product.findById(req.params.id).populate({path : 'product_reviews.review_person' , model : 'User'})
+    Product.findById(req.params.id).populate([{path : 'product_reviews.review_person' , model : 'User'},{path : 'product_Supplier' , model : 'Supplier'}])
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: '+ err));
 });
@@ -90,8 +94,9 @@ router.route('/:id').delete((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
-router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
+router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => {
 
+    let supplierOb = await Supplier.findById(req.body.product_Supplier);
     Product.findById(req.params.id)
     .then(products => {
 
@@ -107,6 +112,7 @@ router.route('/update/:id').post(upload.single("product_Img"),(req,res) => {
         products.product_Published = req.body.product_Published;
         products.product_Featured = req.body.product_Featured;
         products.product_New = req.body.product_New;
+        products.product_Supplier = supplierOb;
 
         // const file = req.file.buffer;
         // products.product_Img = file;

@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 let corsOptions = {
     origin: 'http://localhost:3000',
-    methods: "GET, PUT , POST"
+    methods: "GET, PUT , POST , DELETE"
 }
 
 app.use(cors(corsOptions));

@@ -62,8 +62,7 @@ function Warnings() {
                         
                                 <h4>Product ID : {item._id}</h4>
                                 <h5>Product Name : {item.product_Name}</h5>
-                                {/* <h6>Product : {item.color} </h6>
-                                <h6>Available Quantity : {parseInt(item.xs_qty) + parseInt(item.s_qty) + parseInt(item.m_qty) + parseInt(item.l_qty) + parseInt(item.xl_qty) +parseInt(item.xxl_qty)}</h6> */}
+                                <h6>Supplier : {item.product_Supplier.supplier_Name} </h6>
                         
                                 </div>
                             </Row>

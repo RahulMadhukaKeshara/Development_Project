@@ -19,6 +19,7 @@ function UpdateProduct() {
     const [product , setProduct] = useState({});
     const [productCategories, setProductCategories] = useState([]);
     const [updatingImg , setUpdatingImg] = useState(null);
+    const [suppliers, setSuppliers] = useState([]);
 
     const url = 'http://localhost:5000/products/update/' + params.id;
 
@@ -34,9 +35,23 @@ function UpdateProduct() {
           console.log(e);
         }
       };
+
+      const getSupplierData = async () => {
+        try {
+          const data = await Axios.get(
+            "http://localhost:5000/suppliers/"
+          );
+          console.log(data.data);
+          setSuppliers(data.data);
+  
+        } catch (e) {
+          console.log(e);
+        }
+      };
     
       useEffect(() => {
         getProductData();
+        getSupplierData();
       }, []);
 
 
@@ -117,6 +132,7 @@ function handleRemoveFields(index){
          formData.append("product_Published", product.product_Published);
          formData.append("product_Featured", product.product_Featured);
          formData.append("product_New", product.product_New);
+         formData.append("product_Supplier", product.product_Supplier);
          formData.append("product_Img", product.product_Img);
         Axios.post(url,formData)
         .then(res => {
@@ -193,12 +209,27 @@ function handleRemoveFields(index){
 <Form.Row>
 
 
-    <Col sm={12} >
+    <Col sm={12} lg={6} md={6} >
     <Form.Group  controlId="product_Description">
         <Form.Label>Description</Form.Label>
         <Form.Control as="textarea" rows={3} required className='add_product_category_form_input' name="product_Description" onChange={(e) => handleChange(e)}  value={product.product_Description} type="text" placeholder="Description..." />
     </Form.Group>
     </Col>
+
+                    <Col sm={12} lg={6} md={6} >
+                        <Form.Group  controlId="product_Supplier">
+                            <Form.Label>Supplier</Form.Label>
+                            <Form.Control as="select" name="product_Category" onChange={(e) => handleChange(e)} required >
+                                    <option  selected>Select ...</option>
+                            {
+                            suppliers.map(supplier =>
+                                
+                                <option key={supplier._id} value={supplier._id}>{supplier.supplier_Name}</option>
+                                )
+                            }
+                            </Form.Control>
+                        </Form.Group>
+                        </Col>
 
 </Form.Row>
 

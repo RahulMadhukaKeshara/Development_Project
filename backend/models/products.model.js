@@ -27,7 +27,8 @@ const productsSchema = new Schema({
         review_person : {type:Schema.Types.ObjectId , ref: 'User'},
         review_date : {type:String},
         review_text : {type:String}
-    }]
+    }],
+    product_Supplier : {type:Schema.Types.ObjectId , ref: 'Supplier'}
     
 
 },  {
