@@ -75,42 +75,4 @@ function Dashboard() {
 
 export default Dashboard;
 
-        /* <h1 className="dash_title" >Dashboard</h1>
-        <div className='dash_container' id="divToPrint" >
-            <Row>
-                <Col sm={6} md={6} lg={4} className="dash_Col" >
-                    <DashboardCards title="No of Customers" text= {numCustomer} />
-                </Col>
-                <Col sm={6} md={6} lg={4} className="dash_Col" >
-                    <DashboardCards title="Ongoing Orders" text={numOrders}/>
-                </Col>
-                <Col sm={6} md={6} lg={4} className="dash_Col" >
-                    <DashboardCards title="No of Suppliers" text={numSuppliers} />
-                </Col>
-            </Row>
-            <Row style={{justifyContent:'space-between' , margin:'5px'}}>
-                <Col sm={12} md={6} lg={7} className="dash_card2" >
-                    <Card className="dash_col2_card" >
-                        <UsersChart details = {orders}/>
-                    </Card>
-                </Col>
-                <Col sm={12} md={5} lg={4} className="dash_card2" >
-                    <Card className="dash_col2_card" >
-                        <PieChart details = {users}/>
-                    </Card>
-                </Col>
-            </Row>
-            <Row style={{justifyContent:'space-between' , margin:'5px'}}>
-              <Col sm={12} md={5} lg={4} className="dash_card2" >
-                    <Card className="dash_col2_card" >
-                        <FinishedOrderCharts details = {orders}/>
-                    </Card>
-                </Col>  
-                <Col sm={12} md={6} lg={7} className="dash_card2" >
-                    <Card className="dash_col2_card" >
-                        <InventoryChart details = {products}/>
-                    </Card>
-                </Col>
-
-            </Row>
-        </div> */
+ 

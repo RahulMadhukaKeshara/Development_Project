@@ -1,10 +1,13 @@
 import React , {useState , useEffect} from 'react';
-import {Modal , Button , Col , Form} from 'react-bootstrap';
+import {Modal , Button , Col , Form, Row} from 'react-bootstrap';
 import jwtDecode from "jwt-decode";
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 import { useParams } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 function AddReview(props) {
 
@@ -16,6 +19,33 @@ function AddReview(props) {
     if (jwt) {
       userID = jwtDecode(jwt)._id;
     }
+
+    const [value, setValue] = React.useState(2);
+    const [hover, setHover] = React.useState(-1);
+
+
+    const labels = {
+        0.5: 'Useless',
+        1: 'Useless+',
+        1.5: 'Poor',
+        2: 'Poor+',
+        2.5: 'Ok',
+        3: 'Ok+',
+        3.5: 'Good',
+        4: 'Good+',
+        4.5: 'Excellent',
+        5: 'Excellent+',
+      };
+
+      const useStyles = makeStyles({
+        root: {
+            display:'flex',
+          width: 200,
+          alignItems: 'center',
+        },
+      });
+
+      const classes = useStyles();
 
     function handleChange(e){
 
@@ -35,7 +65,8 @@ function AddReview(props) {
             review_person : userID,
             review_date : d.toLocaleDateString(),
             review_text : review,
-            revie_order : params.id
+            review_order : params.id,
+            review_rating : value
 
         })
         .then(res => {
@@ -90,6 +121,24 @@ function AddReview(props) {
             <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type="submit">
             <Form.Row>
 
+            <Col sm={12}>
+            <div>
+            <Form.Label>Rating</Form.Label>
+            </div>
+            <div controlId="rating" className={classes.root}>
+            <Rating
+                name="hover-feedback"
+                value={value}
+                precision={0.5}
+                size= 'medium'
+                onChange={(event, newValue) => {setValue(newValue);}}
+                onChangeActive={(event, newHover) => { setHover(newHover); }}
+                
+            />
+            {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+   
+            </div>
+            </Col>
             <Col sm={12} >
             <Form.Group  controlId="review">
                 <Form.Label>Review (100 characters)</Form.Label>

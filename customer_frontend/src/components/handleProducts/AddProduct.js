@@ -130,6 +130,7 @@ function AddProduct() {
          formData.append("product_Img", data.product_Img);
 
         try {
+        
           Axios.post(
             url,
             formData,

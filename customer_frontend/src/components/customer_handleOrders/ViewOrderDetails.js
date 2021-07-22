@@ -181,38 +181,6 @@ function ViewOrderDetails() {
              {
                  (order.order_Status === "Delivered")||(order.order_Status === "Returned")||(order.order_Status === "Cancelled") ?
                  (
-                    
-                        order.order_Items && order.order_Items.map(item => 
-                        <>
-                            <Row className="order_individual_item_div">
-                                <div  className='order_item_col1'>
-                                    <Media >
-                                        <img 
-                                                className="mr-3 order_item_image"
-                                                src={"http://localhost:5000/products/photo/" + item.product._id }
-                                                alt="Generic placeholder"
-                                            />                      
-                                    </Media>
-                                </div>
-                                <div  className='order_item_col2'>
-                                    <div><h5>{item.product.product_Name}</h5></div>
-                                    <div><h6>Price : LKR {item.unit_Price}</h6></div>
-                                    <div style={{display:'flex'}}>
-                                    <div style={{display:'flex' , alignItems:'center'}}>
-                                        <div><h6 className='gg'>color : </h6></div>
-                                        <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
-                                    </div>
-                                    <div><h6 className='gg'>Size : {item.size}</h6></div>    
-                                    <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
-                                    </div>                 
-                                </div>
-                            </Row>
-                            <Divider/>                    
-                        </>
-                        )
-                    
-                 ):
-                 (
                     order.order_Items && order.order_Items.map(item => 
                         <>
                             <Row className="order_individual_item_div">
@@ -240,6 +208,37 @@ function ViewOrderDetails() {
                                 <div  className='item_col3'>
                                 <Button className='add_Review_btn' onClick={() => setModalShow(true)} >Add Review</Button>                           
                                 <AddReview productID={item.product._id} show={modalShow} onHide={() => setModalShow(false)}/>
+                                </div>
+                            </Row>
+                            <Divider/>                    
+                        </>
+                        )      
+                    
+                 ):
+                 (
+                        order.order_Items && order.order_Items.map(item => 
+                        <>
+                            <Row className="order_individual_item_div">
+                                <div  className='order_item_col1'>
+                                    <Media >
+                                        <img 
+                                                className="mr-3 order_item_image"
+                                                src={"http://localhost:5000/products/photo/" + item.product._id }
+                                                alt="Generic placeholder"
+                                            />                      
+                                    </Media>
+                                </div>
+                                <div  className='order_item_col2'>
+                                    <div><h5>{item.product.product_Name}</h5></div>
+                                    <div><h6>Price : LKR {item.unit_Price}</h6></div>
+                                    <div style={{display:'flex'}}>
+                                    <div style={{display:'flex' , alignItems:'center'}}>
+                                        <div><h6 className='gg'>color : </h6></div>
+                                        <div style={{width:"14px" , height:"14px" , backgroundColor:`${item.color}`, borderRadius:"40px" ,  marginRight:'10px'}}></div> 
+                                    </div>
+                                    <div><h6 className='gg'>Size : {item.size}</h6></div>    
+                                    <div><h6 className='gg'>Qty : {item.quantity}</h6> </div>
+                                    </div>                 
                                 </div>
                             </Row>
                             <Divider/>                    

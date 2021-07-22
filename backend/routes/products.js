@@ -133,13 +133,14 @@ router.route('/addReview/:id').post(async(req,res)=>{
     // console.log(req.body)
      let productOb =  await Product.findOne({ _id: req.params.id });
      let reviewUserOb = await User.findOne({ _id: req.body.review_person });
-     let orderOb = await Order.findOne({_id:req.body.revie_order});
+     let orderOb = await Order.findOne({_id:req.body.review_order});
 
      productOb.product_reviews.push({
       review_person : reviewUserOb,
       review_date : req.body.review_date,
       review_text : req.body.review_text,
-      revie_order : orderOb
+      review_order : orderOb,
+      review_rating : req.body.review_rating
      })
     
      productOb.save();

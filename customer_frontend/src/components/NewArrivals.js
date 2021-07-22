@@ -21,11 +21,16 @@ function NewArrivals() {
 
          data.data.forEach(element => {
           if(element.product_New === "Yes"){
-            newArrivals.push(element);
+            let rat = 0;
+            element.product_reviews.forEach((item)=>{
+              rat = rat + item.review_rating;
+            })
+            newArrivals.push({product:element , rating : rat });
           }
         });
 
         setNewProducts(newArrivals);
+        console.log(newArrivals)
 
        } catch (e) {
          console.log(e);
@@ -71,11 +76,13 @@ function NewArrivals() {
               return (
 
                   <FeaturedCardItems
-                  src= {"http://localhost:5000/products/photo/" + products._id }
-                  title={products.product_Name}
-                  price={products.product_Price}
-                  discount={products.product_Discount}
-                  id= {'/product-details/' + products._id}/>
+                  src= {"http://localhost:5000/products/photo/" + products.product._id }
+                  title={products.product.product_Name}
+                  price={products.product.product_Price}
+                  discount={products.product.product_Discount}
+                  id= {'/product-details/' + products.product._id}
+                  rating={products.product.product_reviews.length > 0 ? (products.rating/products.product.product_reviews.length):(0)}
+                  />
 
                 ) 
                }              

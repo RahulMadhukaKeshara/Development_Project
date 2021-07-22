@@ -24,6 +24,7 @@ const productsSchema = new Schema({
     product_Featured: {type:String , required: true},
     product_New: {type:String , required: true},
     product_reviews : [{
+        review_rating : {type:String},
         review_person : {type:Schema.Types.ObjectId , ref: 'User'},
         review_date : {type:String},
         review_text : {type:String},

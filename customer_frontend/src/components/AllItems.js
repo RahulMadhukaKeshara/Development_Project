@@ -10,11 +10,26 @@ function DisplayItems(props) {
 
      const getProductData = async () => {
        try {
+
+        let newArrivals = [];
          const data = await Axios.get(
            "http://localhost:5000/products/"
          );
          console.log(data.data);
-         setProducts(data.data);
+
+         data.data.forEach(element => {
+         
+            let rat = 0;
+            element.product_reviews.forEach((item)=>{
+              rat = rat + parseFloat(item.review_rating);
+            })
+            newArrivals.push({product:element , rating : rat });
+          
+        });
+
+         setProducts(newArrivals);
+         console.log(newArrivals)
+
 
        } catch (e) {
          console.log(e);
@@ -38,11 +53,12 @@ function DisplayItems(props) {
                   
                       <Col lg={3} md={6} className="featured_col">
                       <FeaturedCardItems
-                      src= {"http://localhost:5000/products/photo/" + products._id }
-                      title={products.product_Name}
-                      price={products.product_Price}
-                      id= {'/product-details/' + products._id}
-                      discount = {products.product_Discount}
+                      src= {"http://localhost:5000/products/photo/" + products.product._id }
+                      title={products.product.product_Name}
+                      price={products.product.product_Price}
+                      id= {'/product-details/' + products.product._id}
+                      discount = {products.product.product_Discount}
+                      rating={products.product.product_reviews.length > 0 ? (products.rating/products.product.product_reviews.length):(0)}
                       />
                       </Col>                    
                                  

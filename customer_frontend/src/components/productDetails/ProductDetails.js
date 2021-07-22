@@ -7,7 +7,9 @@ import { useParams } from 'react-router';
 import AddToCart from '../cart/AddToCart';
 import { Fragment } from 'react';
 import Divider from '@material-ui/core/Divider';
-import AddReview from './AddReview';
+import Rating from '@material-ui/lab/Rating';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 function ProductDetails(props) {
 
@@ -18,6 +20,18 @@ function ProductDetails(props) {
     const [reviweModalShow, setReviewModalShow] = React.useState(false);
     const [products, setProducts] = useState([]);
     const [itemID , setItemID] = useState(0);
+
+    const useStyles = makeStyles((theme) => ({
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        '& > * + *': {
+          marginTop: theme.spacing(1),
+        },
+      },
+    }));
+
+    const classes = useStyles();
 
     const getProductData = async () => {
       try {
@@ -168,9 +182,13 @@ function ProductDetails(props) {
                                 <>
                                 <Row className="individual_review">
                                 <div className="review_itemPart1">
-      
                                 <h4>{<i class="fas fa-user-circle" >{"  " + item.review_person.user_Fname + " " + item.review_person.user_Lname}</i>}</h4>
-                                <h6>{item.review_date}</h6>
+                                <div style={{display:'flex'}}>
+                                <h6 style={{marginRight:'10px'}}>{item.review_date}</h6>
+                                <div className={classes.root}> 
+                                <Rating name="half-rating-read" defaultValue={item.review_rating} precision={0.5} readOnly size='small'/>
+                                </div>
+                                </div>
                                 <h6>{item.review_text}</h6>
       
                                 </div>

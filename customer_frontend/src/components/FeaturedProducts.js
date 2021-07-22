@@ -19,13 +19,18 @@ function Checking() {
         );
         console.log(data.data);
 
-        data.data.forEach(element => {
-         if(element.product_Featured === "Yes"){
-           newArrivals.push(element);
-         }
-       });
+       data.data.forEach(element => {
+        if(element.product_Featured === "Yes"){
+          let rat = 0;
+          element.product_reviews.forEach((item)=>{
+            rat = rat + parseFloat(item.review_rating);
+          })
+          newArrivals.push({product:element , rating : rat });
+        }
+      });
 
         setProducts(newArrivals);
+        console.log(newArrivals)
 
       } catch (e) {
         console.log(e);
@@ -72,11 +77,12 @@ function Checking() {
                   return (
 
                       <FeaturedCardItems
-                      src= {"http://localhost:5000/products/photo/" + products._id }
-                      title={products.product_Name}
-                      price={products.product_Price}
-                      discount={products.product_Discount}
-                      id= {'/product-details/' + products._id}/>
+                      src= {"http://localhost:5000/products/photo/" + products.product._id }
+                      title={products.product.product_Name}
+                      price={products.product.product_Price}
+                      discount={products.product.product_Discount}
+                      id= {'/product-details/' + products.product._id}
+                      rating={products.product.product_reviews.length > 0 ? (products.rating/products.product.product_reviews.length):(0)}/>
 
                     ) 
                    }              

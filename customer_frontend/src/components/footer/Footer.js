@@ -1,38 +1,24 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import '../footer/Footer.css'
-
+import footLogo from '../../images/logoFooter.png';
+import {Container, Row , Col} from 'react-bootstrap';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import { Link } from "@material-ui/core";
 
 const Footer = () => {
   return (
 
-    <MDBFooter  className="font-small pt-4 mt-4 footer_container">
-      <MDBContainer fluid className="text-center text-md-left ">
-        <MDBRow>
-          <MDBCol md="4" className='footer_col_1'>
-            <h5 className="title footer_title">Peacot</h5>
-            <p>
-              Peace & Cotton
-            </p>
-          </MDBCol>
-          <MDBCol md="4" className='footer_col_2'>
-            <h5 className="title">What's In Store ?</h5>
-            <ul>
-              <li className="list-unstyled">
-                <a className="footer_lists" href="#!">Men's Collection</a>
-              </li>
-              <li className="list-unstyled">
-                <a className="footer_lists" href="#!">Women's Collection</a>
-              </li>
-              <li className="list-unstyled">
-                <a className="footer_lists" href="#!">Couple Collection</a>
-              </li>
-
-            </ul>
-          </MDBCol>
-          <MDBCol md="4" className='footer_col_3'>
-            <h5 className="title"> </h5>
-            <ul>
+    <Container  fluid className="font-small pt-4 mt-4 footer_container">
+      <Row fluid className="text-center text-md-left footer_inside_container">
+      
+          <Col sm={4} md={4} lg={4} className='footer_col_1'>
+            <Link href='/'>
+            <img className="img_logo_footer" alt="logo" src={footLogo} />
+            </Link>
+          </Col>
+          <Col sm={4} md={4} lg={4} className='footer_col_2'>
+          <ul>
               <li className="list-unstyled">
                 <a className="footer_lists" href="#!">Contact Us</a>
               </li>
@@ -45,16 +31,21 @@ const Footer = () => {
               <li className="list-unstyled">
                 <a className="footer_lists" href="#!">Terms and Conditions</a>
               </li>
-            </ul>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className="footer-copyright text-center py-3 ">
-        <MDBContainer fluid>
+            </ul> 
+          </Col>
+          <Col sm={4} md={4} lg={4} className='footer_col_3'>
+            <Link  href="https://www.facebook.com/peacotwear/">
+              <FacebookIcon href="https://www.facebook.com/peacotwear/" className='icon_footer'/>
+            </Link >
+            <Link href="https://www.instagram.com/peacot_online/">
+              <InstagramIcon className='icon_footer'/>
+            </Link >
+          </Col>
+      </Row>
+      <div className="footerdate">
           &copy; {new Date().getFullYear()} Copyright: Peacot
-        </MDBContainer>
       </div>
-    </MDBFooter>
+    </Container>
   );
 }
 
