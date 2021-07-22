@@ -5,6 +5,7 @@ let Product = require('../models/products.model');
 let Cart = require('../models/carts.model');
 let sendOrderPlacedEmail = require('../middlewares/orderPlacedEmail');
 let OrderStatusChangeEmail = require('../middlewares/orderStatusChangeEmail');
+let invoiceGenerate = require('../middlewares/invoice');
 
 
 
@@ -127,8 +128,8 @@ router.route('/add').post(async(req,res) => {
    let newCart = []
    cartOb.cart_Items = newCart
    cartOb.save()
-    //newOrder.save()
-    // response.set('Access-Control-Allow-Origin', '*');
+
+   invoiceGenerate();
     res.json('Order Placed!')
   } catch (error) {
     res.status(400).json('Error: ' + error)
