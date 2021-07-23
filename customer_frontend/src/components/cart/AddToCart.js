@@ -122,7 +122,8 @@ function handleSubmit(e){
             title: 'Item Added!',
 
           })
-          history.push('/cart/' + userID);
+          window.location = `/cart/${userID}`
+          // history.push('/cart/' + userID);
 
     } else {
         Swal.fire({

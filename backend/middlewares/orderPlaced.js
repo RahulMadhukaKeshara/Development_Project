@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const orderPlacedEmail = (emailDetails) => {
+const orderPlaced = (emailDetails) => {
 
 let transporter = nodemailer.createTransport({
 
@@ -25,7 +25,7 @@ let mailOptions = {
     from:'peacotclothing@gmail.com',
     to:`${emailDetails.order_User.user_Email}`,
     subject:'Order Placed!',
-    html: body1+ body3 +"</table><br/>"+ body2
+    html: body1+ body3 +"</table><br/>"+"Notes: "+ body2
 }
 
 transporter.sendMail(mailOptions,function(err,  info){
@@ -38,7 +38,7 @@ transporter.sendMail(mailOptions,function(err,  info){
 
 }
 
-module.exports = orderPlacedEmail; 
+module.exports = orderPlaced; 
     
     
 

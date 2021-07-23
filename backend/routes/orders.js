@@ -34,7 +34,7 @@ router.route('/:id').get(async (req,res) => {
 router.route('/add').post(async(req,res) => {
 
   try {
-    let userOb = await User.findById(req.body.order_User)
+    let userOb = await User.findOne({ _id : req.body.order_User})
 
     const order_User  = userOb;
     const order_Items = req.body.order_Items;
@@ -77,7 +77,7 @@ router.route('/add').post(async(req,res) => {
     });
  
     await newOrder.save();
-    sendOrderPlacedEmail(newOrder);
+    // sendOrderPlacedEmail(newOrder);
     
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
     //console.log(cartOb)
@@ -126,10 +126,9 @@ router.route('/add').post(async(req,res) => {
      });
 
    let newCart = []
-   cartOb.cart_Items = newCart
+   cartOb.cart_Items = newCart;
    cartOb.save()
 
-   invoiceGenerate();
     res.json('Order Placed!')
   } catch (error) {
     res.status(400).json('Error: ' + error)

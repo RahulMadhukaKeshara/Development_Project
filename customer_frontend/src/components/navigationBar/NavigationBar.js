@@ -9,6 +9,8 @@ import {useHistory} from 'react-router-dom';
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import imgeka from '../../images/logo.jpg';
+import { makeStyles } from '@material-ui/core/styles';
+import Badge from '@material-ui/core/Badge';
 
 function NavigationBar() {
 
@@ -17,7 +19,40 @@ function NavigationBar() {
     const [products, setProducts] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-   
+    const [cart, setCart] = useState(0);
+    const jwt = localStorage.getItem("token");
+    let type;
+    let userID;
+    let userFname;
+    
+    const useStyles = makeStyles((theme) => ({
+      root: {
+        '& > *': {
+          margin: theme.spacing(0),
+        },
+      },
+    }));
+
+    const classes = useStyles();
+
+
+    const getCartData = async () => {
+      if(jwt){
+        let cartUser = jwtDecode(jwt)._id;
+      try {
+        const data = await Axios.get(
+          "http://localhost:5000/cart/" + cartUser
+        );
+        console.log("000000000000000000000000",data.data);
+        setCart(data.data.cart_Items.length);
+
+      } catch (e) {
+        console.log(e);
+      }
+      }
+
+    };
+
      const getProductCategoryData = async () => {
        try {
          const data = await Axios.get(
@@ -47,6 +82,7 @@ function NavigationBar() {
      useEffect(() => {
       getProductCategoryData();
       getProductData();
+      getCartData();
      }, []);
 
 
@@ -56,10 +92,7 @@ function NavigationBar() {
        //history.push('/')
        window.location = '/'
      }
-     const jwt = localStorage.getItem("token");
-     let type;
-     let userID;
-     let userFname;
+
 
      function handleFilter(e){
       const searchWord = e.target.value;
@@ -141,9 +174,12 @@ function NavigationBar() {
                         </NavDropdown>
                      </Nav>
                       <Nav className="">
-                      <IconButton className="icon_btn" aria-label="Go to Cart" href={"/cart/" + userID}>
+                      <Badge color="secondary" badgeContent={cart} showZero className="icon_btn mt-2 mr-3" aria-label="Go to Cart" href={"/cart/" + userID}>
                         <ShoppingCartRoundedIcon />
-                      </IconButton>
+                      </Badge>
+                      {/* <IconButton className="icon_btn" aria-label="Go to Cart" href={"/cart/" + userID}>
+                        <ShoppingCartRoundedIcon />
+                      </IconButton> */}
                       <NavDropdown title={<i class="fas fa-user-circle" >{"  " + userFname}</i>} id="collasible-nav-dropdown">                   
                             <NavDropdown.Item href={"/user-account/" + userID}>Account Details</NavDropdown.Item>
                             <NavDropdown.Item href={"/customer-orders/" + userID}>My Orders</NavDropdown.Item>
