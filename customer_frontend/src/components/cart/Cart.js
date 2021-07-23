@@ -74,9 +74,12 @@ function Cart() {
                Swal.fire({
                  icon: 'success',
                  title: 'Item Deleted!',
-               })
-               getCartItemData()
-               calcSubTot();
+               }).then(function() {
+                window.location = `/cart/${userID}`;
+            });
+              //  getCartItemData()
+              //  calcSubTot();
+            
       
       
              }else {

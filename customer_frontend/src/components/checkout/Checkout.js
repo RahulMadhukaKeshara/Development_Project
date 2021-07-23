@@ -197,8 +197,11 @@ function Checkout() {
       const s = new Date();
       s.setDate(s.getDate()+ plusDate);
 
+      const setOrderID = d.getDate() + order.delivery_Contact + d.getHours() + d.getMinutes();
+
        let dataSet = {
          order_User : userID,
+         order_ID : setOrderID,
          order_Items: cartItems.cart_Items,
          payment_Method: order.payment_Method,
          order_Status: order.order_Status,
@@ -216,7 +219,7 @@ function Checkout() {
          delivery_Postal: order.delivery_Postal,
          delivery_Instructions: order.delivery_Instructions,
        }
-      //  console.log(dataSet);
+       console.log(dataSet);
        try {
         Axios.post(
           url,
@@ -228,8 +231,10 @@ function Checkout() {
               Swal.fire({
                   icon: 'success',
                   title: 'Order Placed!',
-                })
-                history.push('/customer-orders/'+ userID);
+                }).then(function() {
+                  window.location = `/customer-orders/'+ ${userID}`;
+              });
+                // history.push('/customer-orders/'+ userID);
 
           } else {
               Swal.fire({

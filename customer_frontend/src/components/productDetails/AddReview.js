@@ -72,12 +72,15 @@ function AddReview(props) {
         .then(res => {
             console.log(res.data)  
             if (res.data === "Review Added!") {
+                props.onHide();
                 Swal.fire({
                     icon: 'success',
                     title: 'Review Added!',
-                  })
-                  props.onHide();
-                  window.location = `/product-details/${props.productID}`;
+                  }).then(function() {
+                    window.location = `/product-details/${props.productID}`;
+                });
+
+                  
                 //history.push(`/product-details/${params.id}`);
 
             } else {

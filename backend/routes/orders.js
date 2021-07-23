@@ -37,6 +37,7 @@ router.route('/add').post(async(req,res) => {
     let userOb = await User.findOne({ _id : req.body.order_User})
 
     const order_User  = userOb;
+    const order_ID = req.body.order_ID;
     const order_Items = req.body.order_Items;
     const payment_Method = req.body.payment_Method;
     const order_Status = req.body.order_Status;
@@ -57,6 +58,7 @@ router.route('/add').post(async(req,res) => {
     const newOrder = new Order({
  
       order_User,
+      order_ID,
       order_Items,
       payment_Method,
       order_Status,
@@ -77,7 +79,10 @@ router.route('/add').post(async(req,res) => {
     });
  
     await newOrder.save();
-    // sendOrderPlacedEmail(newOrder);
+    //sending email
+    let orderOb = await Order.findOne({ order_ID : req.body.order_ID}).populate([{path : 'order_Items.product' , model : 'Product'},{path : 'order_User' , model : 'User'}]);
+    console.log(orderOb)
+    sendOrderPlacedEmail(orderOb);
     
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
     //console.log(cartOb)

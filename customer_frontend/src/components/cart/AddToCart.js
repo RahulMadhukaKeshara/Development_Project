@@ -117,14 +117,14 @@ function handleSubmit(e){
   .then(res => {
     console.log(res.data)
     if (res.data === "Item Added!") {
-        Swal.fire({
+          props.onHide();
+          // history.push('/cart/' + userID);
+          Swal.fire({
             icon: 'success',
             title: 'Item Added!',
-
-          })
-          window.location = `/cart/${userID}`
-          // history.push('/cart/' + userID);
-
+          }).then(function() {
+           window.location = `/cart/${userID}`;
+       });
     } else {
         Swal.fire({
             icon: 'error',

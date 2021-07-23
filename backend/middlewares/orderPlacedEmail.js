@@ -11,6 +11,7 @@ let transporter = nodemailer.createTransport({
     },
   })
 
+  const body = `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><br/>`
   const body1='<h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>'; 
   const body2='<br/><br/>Thank You!';
 
@@ -25,7 +26,7 @@ let mailOptions = {
     from:'peacotclothing@gmail.com',
     to:`${emailDetails.order_User.user_Email}`,
     subject:'Order Placed!',
-    html: body1+ body3 +"</table><br/>"+ body2
+    html: body + body1+ body3 +"</table><br/>"+ body2
 }
 
 transporter.sendMail(mailOptions,function(err,  info){

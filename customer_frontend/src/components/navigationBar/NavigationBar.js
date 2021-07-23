@@ -5,7 +5,7 @@ import Axios from 'axios';
 import jwtDecode from "jwt-decode";
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import imgeka from '../../images/logo.jpg';
@@ -174,9 +174,12 @@ function NavigationBar() {
                         </NavDropdown>
                      </Nav>
                       <Nav className="">
-                      <Badge color="secondary" badgeContent={cart} showZero className="icon_btn mt-2 mr-3" aria-label="Go to Cart" href={"/cart/" + userID}>
+                      <Link to={"/cart/" + userID}>
+                      <Badge color="secondary" badgeContent={cart} showZero className="icon_btn mt-2 mr-3" aria-label="Go to Cart" >
                         <ShoppingCartRoundedIcon />
                       </Badge>
+                      </Link>
+
                       {/* <IconButton className="icon_btn" aria-label="Go to Cart" href={"/cart/" + userID}>
                         <ShoppingCartRoundedIcon />
                       </IconButton> */}
