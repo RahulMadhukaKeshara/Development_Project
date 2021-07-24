@@ -39,6 +39,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
         //Note: validate the payment and show success or failure page to the customer
         const d = new Date();
         const date = d.toLocaleDateString();
+        const setOrderID = d.getDate() + orderDetails.delivery_Contact + d.getHours() + d.getMinutes();
 
         const exDate = new Date();
         exDate.setDate(exDate.getDate() + dateGap)
@@ -47,6 +48,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
          let dataSet = {
            order_User : userID,
            order_Items: orderItems,
+           order_ID : setOrderID,
            payment_Method: orderDetails.payment_Method,
            order_Status: orderDetails.order_Status,
            order_Total : orderTotal,

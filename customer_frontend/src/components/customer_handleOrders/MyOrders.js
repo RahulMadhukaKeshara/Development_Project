@@ -396,7 +396,7 @@ const handleUpdate = (_id) => {
                           />
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" padding="none">
-                          {row._id}
+                          {row.order_ID}
                         </TableCell>
                         <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
                         <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>

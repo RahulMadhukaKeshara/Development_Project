@@ -7,7 +7,7 @@ import {Container , Button} from 'react-bootstrap';
 import './Reports.css'
 
 
-function SalesReport() {
+function Invoice() {
 
     function createPDF() {
         // get elements of report data
@@ -42,16 +42,17 @@ function SalesReport() {
             Home
           </Link>
         <Typography color="textPrimary">Reports</Typography>
+        <Typography color="textPrimary">Generate Reports</Typography>
         </Breadcrumbs>
         <Divider />
         <div>
-          <Button className="rep_btn" href='/salesReport'>Sales Report</Button>
+        <Button className="rep_btn" href='/salesReport'>Sales Report</Button>
           <Button className="rep_btn" href='/inventoryReport'>Inventory Report</Button>
           <Button className="rep_btn" href='/generate-reports'>To be Processed Report</Button>
           <Button className="rep_btn" href='/invoice'>Generate Invoices</Button>
         </div>
         <Container fluid id = "cv" >
-        <iframe title="salesreport" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d3ae4ac6-aa1e-485d-9eb8-29d33f70d775&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title='invoice' width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d89ff160-268e-4d16-b3a8-4a675226b8b9&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
         </Container>
         <div className="mb5 btn_div">
         <button className="pdf_btn2" onClick={createPDF}>Download PDF</button>
@@ -60,4 +61,4 @@ function SalesReport() {
     )
 }
 
-export default SalesReport;
+export default Invoice;

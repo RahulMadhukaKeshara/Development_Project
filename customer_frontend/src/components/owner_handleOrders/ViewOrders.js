@@ -387,7 +387,7 @@ const handleUpdate = (_id) => {
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row._id}
+                        {row.order_ID}
                       </TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_User.user_Fname} {row.order_User.user_Lname}</TableCell>
                       <TableCell align="center" style={{minWidth:'175px'}}>{row.payment_Method}</TableCell>

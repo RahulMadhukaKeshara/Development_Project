@@ -53,6 +53,7 @@ function Reports() {
           <Button className="rep_btn" href='/salesReport'>Sales Report</Button>
           <Button className="rep_btn" href='/inventoryReport'>Inventory Report</Button>
           <Button className="rep_btn" href='/generate-reports'>To be Processed Report</Button>
+          <Button className="rep_btn" href='/invoice'>Generate Invoices</Button>
         </div>
         <Container fluid id = "cv" >
         <iframe title="reports" width="100%" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=33ed62f6-4ea0-4f9c-a6d8-f63df2468607&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXNvdXRoLWVhc3QtYXNpYS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>

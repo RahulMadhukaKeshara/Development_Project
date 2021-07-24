@@ -126,7 +126,7 @@ function ViewOrderDetails() {
                 
                 <h3 className='order_col2_title'>Summary</h3>
                 <div className='order_col2_div'>
-                    <h5>Order ID : {orderID}</h5>
+                    <h5>Order ID : {order.order_ID}</h5>
                 </div>
                 <div className='order_col2_div'  >
                     <h6>Ordered Date : {order.order_Placed_Date}</h6>
