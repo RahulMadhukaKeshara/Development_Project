@@ -1,0 +1,24 @@
+.inventory_item_div{
+    justify-content: space-around;
+    padding: 5px;
+}
+
+@media only screen and (max-width:1150px) {
+
+
+    .warn_container{
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width:576px) {
+
+    .h4_title{
+        margin-top: 10px;
+        font-size: 15px;
+    }
+
+    .h5_title{
+        font-size: 15px;
+    }
+}

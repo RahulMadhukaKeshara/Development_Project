@@ -212,7 +212,7 @@ function Cart() {
                                     />                      
                             </Media>
                         </div>
-                        <div  className='order_item_col2'>
+                        <div  className='order_item_col2 warn_item_div'>
                             <div><h5>{item.product.product_Name}</h5></div>
                             <div><h6>Price : LKR {item.unit_Price}</h6></div>
                             <div style={{display:'flex'}}>

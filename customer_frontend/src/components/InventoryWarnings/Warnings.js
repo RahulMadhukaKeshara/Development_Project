@@ -4,7 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
-import {Container , Col , Row ,Button} from 'react-bootstrap';
+import {Container , Col , Row ,Media} from 'react-bootstrap';
+import '../InventoryWarnings/Warnings.css';
 
 function Warnings() {
 
@@ -49,7 +50,7 @@ function Warnings() {
         </Breadcrumbs>
         <Divider />
         <h1 className="dash_title" style={{margin:'50px 0px'}} >Inventory Warnings</h1>        
-        <Container className="order_container">
+        <Container className="order_container warn_container">
             <Col >
             {
                 warnings && warnings.length > 0 ?
@@ -57,12 +58,20 @@ function Warnings() {
                     warnings.map(item=>{
                         return(
                             <>
-                            <Row className="individual_order">
+                            <Row className="inventory_item_div">
+                            <div  className='order_item_col1'>
+                            <Media >
+                                <img 
+                                        className="mr-3 order_item_image"
+                                        src={"http://localhost:5000/products/photo/" + item._id }
+                                        alt="Generic placeholder"
+                                    />                      
+                            </Media>
+                            </div>
                                 <div className="order_itemPart1">
-                        
-                                <h4>Product ID : {item._id}</h4>
-                                <h5>Product Name : {item.product_Name}</h5>
-                                <h6>Supplier : {item.product_Supplier.supplier_Name} </h6>
+                                <h4 className="h4_title">Product ID : {item._id}</h4>
+                                <h5 className="h5_title">Product Name : {item.product_Name}</h5>
+                                <h5 className="h5_title">Supplier : {item.product_Supplier.supplier_Name} </h5>
                         
                                 </div>
                             </Row>
