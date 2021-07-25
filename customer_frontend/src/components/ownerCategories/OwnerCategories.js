@@ -14,7 +14,7 @@ function OwnerCategories() {
     
             <Container className='container-md  owner_category_container'>
 
-                <h1 className='owner_category_title'>CAREGORIES</h1>
+                {/* <h1 className='owner_category_title'>CATREGORIES</h1> */}
 
                 <Row  className="justify-content-md-center">
 

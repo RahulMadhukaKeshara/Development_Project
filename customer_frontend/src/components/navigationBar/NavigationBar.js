@@ -200,7 +200,7 @@ function NavigationBar() {
                         <Nav.Link className="delNavLinks" href="/owner-main-page">Home</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/users">User</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/products">Products</Nav.Link>
-                        <Nav.Link className="delNavLinks" href="/product-categories">Product Categories</Nav.Link>
+                        <Nav.Link className="delNavLinks" href="/product-categories">Categories</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/owner-view-orders">Orders</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/suppliers">Suppliers</Nav.Link>
                         <Nav.Link className="delNavLinks" href="/generate-reports">Reports</Nav.Link>

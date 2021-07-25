@@ -28,6 +28,10 @@ function ViewOrderDetails() {
     const [numOfItems , setNumOfItems] = useState("");
     const [delCharge , setDelCharge] = useState(0);
     const [modalShow, setModalShow] = React.useState(false);
+    const [returnGap , setReturnGap] = useState(0);
+
+    let today = new Date();
+    let date;
 
     const getOrderData = async () => {
         try {
@@ -35,6 +39,15 @@ function ViewOrderDetails() {
             "http://localhost:5000/orders/orderDetails/" + orderID
           );
           setOrder(data.data);
+          if(data.data.actual_Delivery_Date !== ""){
+              const delDate = new Date(`${data.data.actual_Delivery_Date}`);
+              date = delDate;
+              let Difference_In_Time = today.getTime() - date.getTime();
+              let dateGap = Difference_In_Time / (1000 * 3600 * 24);
+              setReturnGap(parseInt(dateGap));
+          }
+
+          //console.log("dws gaaana" , parseInt(returnCheckDate))
 
         } catch (e) {
           console.log(e);
@@ -286,7 +299,7 @@ function ViewOrderDetails() {
                         <Button className='order_summury_btn' onClick={confirmCancelClick}>Request to Cancel Order</Button>
                     </div>
                     ):
-                    (order.order_Status === "Delivered" ? 
+                    ((order.order_Status === "Delivered") && (returnGap <= 7) ? 
                     (
                     <div className='order_col2_div' style={{textAlign :'center'}}>             
                         <Button className='order_summury_btn' onClick={confirmReturnClick}>Request to Return</Button>

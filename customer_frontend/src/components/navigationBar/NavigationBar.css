@@ -7,7 +7,7 @@
 .navbar-logo{
     /* font-size: 1rem; */
     margin-left: 20px;
-    margin-right: 50px;
+    margin-right: 25px;
     /* color: black !important; */
 }
 
@@ -45,10 +45,11 @@
 
 .icon_btn:hover{
     color: #f95757 !important;
-}
+} 
 
 .delNavLinks{
     margin-right: 10px;
+    /* font-size: 20px; */
 }
 
 .search{
@@ -133,6 +134,19 @@
     background-color: black;
   }
 
+  @media only screen and (max-width:1300px) {
+
+.delNavLinks{
+  font-size: 15px;
+}
+
+.navbar-logo{
+  /* font-size: 1rem; */
+  margin-right: 5px;
+  /* color: black !important; */
+}
+
+  }
 
 @media only screen and (max-width:992px) {
 
