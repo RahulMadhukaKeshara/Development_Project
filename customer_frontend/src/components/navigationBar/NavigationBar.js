@@ -21,6 +21,23 @@ function NavigationBar() {
     const [wordEntered, setWordEntered] = useState("");
     const [cart, setCart] = useState(0);
     const jwt = localStorage.getItem("token");
+    let homeUser;
+    let homeSrc = "/";
+    if(jwt){
+      homeUser = jwtDecode(jwt).user_Type;
+
+      if(homeUser === "Customer"){
+        homeSrc = "/"
+      }
+
+      else if(homeUser === "Delivery Staff"){
+        homeSrc = "/deliveryStaff-main-page"
+      }
+
+      else if(homeUser === "Admin"){
+        homeSrc = "/owner-main-page"
+      }
+    }
     let type;
     let userID;
     let userFname;
@@ -118,7 +135,7 @@ function NavigationBar() {
     return (
         <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" className="navbar">
 
-            <Navbar.Brand className="navbar-logo" href="/"><img alt="" src={`${imgeka}`}/></Navbar.Brand>
+            <Navbar.Brand className="navbar-logo" href={`${homeSrc}`}><img alt="" src={`${imgeka}`}/></Navbar.Brand>
 
             <Navbar.Toggle aria-controls="responsive-navbar-nav" className="ham_icon"/>
 
