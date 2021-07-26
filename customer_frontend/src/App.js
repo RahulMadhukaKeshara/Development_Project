@@ -46,6 +46,8 @@ import InventoryReportPage from './components/pages/InventoryReportPage';
 import SalesDashboardPage from './components/pages/SalesDashboardPage';
 import InventoryDashPage from './components/pages/InventoryDashPage';
 import GenerateInvoicePage from './components/pages/GenerateInvoicePage';
+import AboutUsPage from './components/pages/AboutUsPage';
+import ContactUsPage from './components/pages/ContactUsPage';
 
 
 
@@ -101,6 +103,8 @@ function App() {
                     <Route path='/salesDash' exact component={SalesDashboardPage}/>
                     <Route path='/inventoryDash' exact component={InventoryDashPage}/>
                     <Route path='/invoice' exact component={GenerateInvoicePage}/>
+                    <Route path='/about-us' exact component={AboutUsPage}/>
+                    <Route path='/contact-us' exact component={ContactUsPage}/>
 
                     
                </Switch>

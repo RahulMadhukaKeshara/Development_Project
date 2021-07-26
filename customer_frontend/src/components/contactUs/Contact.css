@@ -1,0 +1,31 @@
+.contact_cont{
+
+    margin-top: 50px;
+    /* border: 2px solid #f95957; */
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    padding: 50px;
+}
+
+.contact_para{
+    font-size: 25px;
+    color: black;
+}
+
+.contact_title{
+    margin-bottom: 15px;
+    color: #f95957;
+}
+
+.contact_img{
+    width: 100%;
+}
+
+.contact_item_P{
+    color: black;
+    font-size: 25px;
+}
+
+.contact_icon{
+    margin-right: px;
+}

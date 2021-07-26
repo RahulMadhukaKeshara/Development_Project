@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import UpdateCartItem from './UpdateCartItem';
-import jwtDecode from "jwt-decode";
+// import jwtDecode from "jwt-decode";
 
 
 function Cart() {

@@ -20,10 +20,10 @@ const Footer = () => {
           <Col sm={4} md={4} lg={4} className='footer_col_2'>
           <ul>
               <li className="list-unstyled">
-                <a className="footer_lists" href="#!">Contact Us</a>
+                <a className="footer_lists" href="/contact-us">Contact Us</a>
               </li>
               <li className="list-unstyled">
-                <a className="footer_lists" href="#!">About Us</a>
+                <a className="footer_lists" href="/about-us">About Us</a>
               </li>
               <li className="list-unstyled">
                 <a className="footer_lists" href="#!">Return Policy</a>
