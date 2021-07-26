@@ -95,13 +95,23 @@ function UpdateOrderStatus(props) {
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
                             {
                                 orderStatus === "Requested to Cancel" ?
+                                ( order.delivery_Member ? 
                                 (
-                                <>
-                                <option disabled>Requested to Cancel</option>
-                                <option>Cancelled</option> 
-                                <option>New</option>
-                                <option>Delivery Assigned</option>  
-                                </>
+                                    <>
+                                    <option disabled>Requested to Cancel</option>
+                                    <option>Cancelled</option> 
+                                    {/* <option>New</option> */}
+                                    <option>Delivery Assigned</option>  
+                                    </>
+                                ):
+                                (
+                                    <>
+                                    <option disabled>Requested to Cancel</option>
+                                    <option>Cancelled</option> 
+                                    <option>New</option>
+                                    {/* <option>Delivery Assigned</option>   */}
+                                    </>
+                                )
                                 ):
                                 (  orderStatus === "Requested to Return" ?
                                 (
