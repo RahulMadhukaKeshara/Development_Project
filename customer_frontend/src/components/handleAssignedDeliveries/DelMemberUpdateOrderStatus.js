@@ -100,7 +100,7 @@ function DelMemberUpdateOrderStatus(props) {
             <Col sm={12} >
             <Form.Group  controlId="order_Status">
                 <Form.Label>Order Status</Form.Label>
-                <Form.Control as="select" onChange={(e) => handleChange(e)}  value={order.order_Status}>
+                <Form.Control as="select" required onChange={(e) => handleChange(e)}  value={order.order_Status}>
                   {
                     orderStatus === "Delivery Assigned" ?
                     (

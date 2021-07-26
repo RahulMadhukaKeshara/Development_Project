@@ -167,11 +167,11 @@ function handleRemoveFields(index){
             <div className='add_product_category_form_container'>
 
             <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
-
+            <span style={{color:'red'}}> <i class="fas fa-star-of-life" style={{fontSize:'7px' , marginBottom:'20px' }}></i>  <em>required</em></span>
 <Form.Row>
     <Col sm={12} lg={3} md={6}>
     <Form.Group  controlId="product_Img">
-        <Form.Label>Product Image</Form.Label>
+        <Form.Label>Product Image (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.File className='add_product_category_form_input' required  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
     </Form.Group>
 
@@ -182,14 +182,14 @@ function handleRemoveFields(index){
 
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Name">
-        <Form.Label>Product Name</Form.Label>
+        <Form.Label>Product Name (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control  className='add_product_category_form_input' required name="product_Name" onChange={(e) => handleChange(e)}  value={product.product_Name} type="text"  placeholder="Product Name" />
     </Form.Group>
     </Col>
 
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Category">
-        <Form.Label>Product Category</Form.Label>
+        <Form.Label>Product Category (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control as="select" name="product_Category" required onChange={(e) => handleChange(e)}  value={product.product_Category} >
                 <option>Select ...</option>
         {
@@ -211,7 +211,7 @@ function handleRemoveFields(index){
 
     <Col sm={12} lg={6} md={6} >
     <Form.Group  controlId="product_Description">
-        <Form.Label>Description</Form.Label>
+        <Form.Label>Description (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control as="textarea" rows={3} required className='add_product_category_form_input' name="product_Description" onChange={(e) => handleChange(e)}  value={product.product_Description} type="text" placeholder="Description..." />
     </Form.Group>
     </Col>
@@ -236,7 +236,7 @@ function handleRemoveFields(index){
 <Form.Row>
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Price">
-        <Form.Label>Product Price(LKR.)</Form.Label>
+        <Form.Label>Product Price(LKR.) (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control className='add_product_category_form_input' required  name="product_Price" onChange={(e) => handleChange(e)}  value={product.product_Price} type="number" placeholder="Product Price"  />
     </Form.Group>
 
@@ -244,13 +244,13 @@ function handleRemoveFields(index){
 
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Discount">
-        <Form.Label>Product Discount</Form.Label>
+        <Form.Label>Product Discount (%) (<em>optional</em>)</Form.Label>
         <Form.Control className='add_product_category_form_input' required max="99" name="product_Discount" onChange={(e) => handleChange(e)}  value={product.product_Discount} type="number" placeholder="Product Discount" />
     </Form.Group>
     </Col>
 </Form.Row> 
 <Form.Row>
-    <h4>Product Stock Details</h4>
+    <h4>Product Stock Details (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</h4>
 
     <IconButton onClick={()=> handleAddFields()}>
                 <AddIcon />
@@ -323,7 +323,7 @@ function handleRemoveFields(index){
 <Form.Row>
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Re_Quantity">
-        <Form.Label>Reorder Quantity</Form.Label>
+        <Form.Label>Reorder Quantity (<em>optional</em>)</Form.Label>
         <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Quantity} type="number"  placeholder="Reorder Quantity"  />
     </Form.Group>
 
@@ -331,7 +331,7 @@ function handleRemoveFields(index){
 
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Re_Level">
-        <Form.Label>Reorder Level</Form.Label>
+        <Form.Label>Reorder Level (<em>optional</em>)</Form.Label>
         <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={product.product_Re_Level} type="number"   placeholder="Reorder Level" />
     </Form.Group>
     </Col>
@@ -340,7 +340,7 @@ function handleRemoveFields(index){
 <Form.Row>
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Published">
-        <Form.Label>Published</Form.Label>
+        <Form.Label>Published (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control as="select" onChange={(e) => handleChange(e)}  required value={product.product_Published} >
                 <option>Select ...</option>
                 <option>Yes</option>
@@ -352,7 +352,7 @@ function handleRemoveFields(index){
 
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_Featured">
-        <Form.Label>Featured</Form.Label>
+        <Form.Label>Featured (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control as="select" onChange={(e) => handleChange(e)}  required value={product.product_Featured} >
                 <option>Select ...</option>
                 <option>Yes</option>
@@ -365,7 +365,7 @@ function handleRemoveFields(index){
 <Form.Row>
     <Col sm={12} lg={6} md={6}>
     <Form.Group  controlId="product_New">
-        <Form.Label>New</Form.Label>
+        <Form.Label>New (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
         <Form.Control as="select" onChange={(e) => handleChange(e)}  required value={product.product_New} >
                 <option>Select ...</option>
                 <option>Yes</option>

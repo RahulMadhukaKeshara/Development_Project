@@ -64,6 +64,7 @@ router.route('/update/:id').post((req,res) => {
 
         //console.log(req.body)
         charge.delivery_charge = req.body.delivery_charge;
+        charge.expected_range = req.body.expected_range;
 
         charge.save()
         .then(() => res.json('Delivery Charge Updated!'))

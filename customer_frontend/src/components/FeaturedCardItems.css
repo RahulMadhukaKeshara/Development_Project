@@ -1,7 +1,7 @@
 .featured_col {
     text-align: center;
 
-    height: 450px !important;
+    height: 525px !important;
 }
 
 .featured_col_special{
@@ -12,7 +12,7 @@
 }
 
 .react-multi-carousel-item{
-    height: 475px;
+    height: 525px;
     padding: 10px;
 }
 
@@ -23,7 +23,7 @@
     border: 3px solid #f95757;
     min-width: 200px;
     max-width: 250px;
-    height: 425px;
+    height: 475px;
 }
 
 
@@ -34,7 +34,7 @@
 }
 
 .featured_card_img{
-    height: 275px;
+    height: 325px;
     border-radius: 20px 20px 0px 0px;
 }
 

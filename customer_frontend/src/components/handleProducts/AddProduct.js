@@ -23,7 +23,7 @@ function AddProduct() {
             {color:"#fff" , xs_qty :"0", s_qty :"0", m_qty :"0",  l_qty :"0", xl_qty :"0",  xxl_qty :"0"},
         ],
         product_Price : "",
-        product_Discount : "",
+        product_Discount : "0",
         product_Re_Quantity : "0",
         product_Re_Level : "0",
         product_Published : "",
@@ -169,11 +169,11 @@ function AddProduct() {
             <div className='add_product_category_form_container'>
 
                 <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
-
+                <span style={{color:'red'}}> <i class="fas fa-star-of-life" style={{fontSize:'7px' , marginBottom:'20px' }}></i>  <em>required</em></span>
                     <Form.Row>
                         <Col sm={12} lg={3} md={6}>
                         <Form.Group  controlId="product_Img">
-                            <Form.Label>Product Image</Form.Label>
+                            <Form.Label>Product Image (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.File className='add_product_category_form_input'  onChange={(e) => handleUpload(e)}  type="file" name="product_Img"  />
                         </Form.Group>
 
@@ -184,14 +184,14 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Name">
-                            <Form.Label>Product Name</Form.Label>
+                            <Form.Label>Product Name (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control  className='add_product_category_form_input' required name="product_Name" onChange={(e) => handleChange(e)}  value={data.product_Name} type="text"  placeholder="Product Name" />
                         </Form.Group>
                         </Col>
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Category">
-                            <Form.Label>Product Category</Form.Label>
+                            <Form.Label>Product Category (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="select" name="product_Category" onChange={(e) => handleChange(e)} required  value={data.product_Category} >
                                     <option>Select ...</option>
                             {
@@ -213,14 +213,14 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6} >
                         <Form.Group  controlId="product_Description">
-                            <Form.Label>Description</Form.Label>
+                            <Form.Label>Description (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="textarea" rows={3} className='add_product_category_form_input' required name="product_Description" onChange={(e) => handleChange(e)}  value={data.product_Description} type="text" placeholder="Description..." />
                         </Form.Group>
                         </Col>
 
                         <Col sm={12} lg={6} md={6} >
                         <Form.Group  controlId="product_Supplier">
-                            <Form.Label>Supplier</Form.Label>
+                            <Form.Label>Supplier (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="select" name="product_Category" onChange={(e) => handleChange(e)} required  >
                                     <option  selected>Select ...</option>
                             {
@@ -238,7 +238,7 @@ function AddProduct() {
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Price">
-                            <Form.Label>Product Price(LKR.)</Form.Label>
+                            <Form.Label>Product Price(LKR.) (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control className='add_product_category_form_input' required  name="product_Price" onChange={(e) => handleChange(e)}  value={data.product_Price} type="number" placeholder="Product Price"  />
                         </Form.Group>
 
@@ -246,13 +246,13 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Discount">
-                            <Form.Label>Product Discount</Form.Label>
+                            <Form.Label>Product Discount (%) (<em>optinal</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' max="99" name="product_Discount" onChange={(e) => handleChange(e)}  value={data.product_Discount} type="number" placeholder="Product Discount" />
                         </Form.Group>
                         </Col>
                     </Form.Row> 
                     <Form.Row>
-                        <h4>Product Stock Details</h4>
+                        <h4>Product Stock Details (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</h4>
 
                         <IconButton onClick={()=> handleAddFields()}>
                                     <AddIcon />
@@ -325,7 +325,7 @@ function AddProduct() {
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Re_Quantity">
-                            <Form.Label>Reorder Quantity</Form.Label>
+                            <Form.Label>Reorder Quantity (<em>optinal</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_Re_Quantity} type="number" placeholder="Reorder Quantity"  />
                         </Form.Group>
 
@@ -333,7 +333,7 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Re_Level">
-                            <Form.Label>Reorder Level</Form.Label>
+                            <Form.Label>Reorder Level (<em>optinal</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_Re_Level} type="number"  placeholder="Reorder Level" />
                         </Form.Group>
                         </Col>
@@ -342,7 +342,7 @@ function AddProduct() {
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Published">
-                            <Form.Label>Published</Form.Label>
+                            <Form.Label>Published (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.product_Published} >
                                     <option>Select ...</option>
                                     <option>Yes</option>
@@ -354,7 +354,7 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Featured">
-                            <Form.Label>Featured</Form.Label>
+                            <Form.Label>Featured (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.product_Featured} >
                                     <option>Select ...</option>
                                     <option>Yes</option>
@@ -367,7 +367,7 @@ function AddProduct() {
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_New">
-                            <Form.Label>New</Form.Label>
+                            <Form.Label>New (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
                             <Form.Control as="select" onChange={(e) => handleChange(e)}  value={data.product_New} >
                                     <option>Select ...</option>
                                     <option>Yes</option>

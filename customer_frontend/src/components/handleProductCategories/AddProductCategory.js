@@ -55,13 +55,13 @@ function AddProductCategory() {
             <div className='add_product_category_form_container'>
 
                 <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type='submit'>
-
+                <span style={{color:'red'}}> <i class="fas fa-star-of-life" style={{fontSize:'7px' , marginBottom:'20px' }}></i>  <em>required</em></span>
                     <Form.Row>
 
                         <Col sm={12}>
                         <Form.Group  controlId="product_category_Name">
-                            <Form.Label>Product Category Name</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_category_Name} type="text" placeholder="Product Category Name" />
+                            <Form.Label>Product Category Name (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                            <Form.Control required className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_category_Name} type="text" placeholder="Product Category Name" />
                         </Form.Group>
                         </Col>
 

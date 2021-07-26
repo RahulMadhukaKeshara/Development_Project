@@ -42,7 +42,8 @@ function UpdateDeliveryCharges() {
     function handleSubmit(e){
         e.preventDefault();
         Axios.post(url,{
-            delivery_charge : deliveryCharge.delivery_charge
+            delivery_charge : deliveryCharge.delivery_charge,
+            expected_range : deliveryCharge.expected_range
         })
         .then(res => {
             console.log(res.data)
@@ -76,16 +77,27 @@ function UpdateDeliveryCharges() {
                         <Col sm={12} lg={6}>
                         <Form.Group  controlId="district">
                             <Form.Label>District</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={deliveryCharge.district} type="text" disabled />
+                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={deliveryCharge.district} type="text" disabled  />
                         </Form.Group>
                         </Col>
 
                         <Col sm={12} lg={6}>
                         <Form.Group  controlId="delivery_charge">
                             <Form.Label>Delivery Charge (LKR)</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={deliveryCharge.delivery_charge} type="text" />
+                            <Form.Control className='add_product_category_form_input' required  onChange={(e) => handleChange(e)}  value={deliveryCharge.delivery_charge} type="number" placeholder="Delivery Charge..." />
                         </Form.Group>
                         </Col>
+
+                    </Form.Row>
+
+                    <Form.Row>
+
+                    <Col sm={12} lg={6}>
+                    <Form.Group  controlId="expected_range">
+                        <Form.Label>Expected Date Gap (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control className='add_product_category_form_input' required  onChange={(e) => handleChange(e)}  value={deliveryCharge.expected_range} type="number" min="1" placeholder="Expected Date Gap..." />
+                    </Form.Group>
+                    </Col>
 
                     </Form.Row>
 

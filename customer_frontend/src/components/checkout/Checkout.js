@@ -261,28 +261,31 @@ function Checkout() {
         </Breadcrumbs>
         <Divider />
            <h1 className="checkout_title">Checkout </h1>
+
            <Container  fluid className='cart_container'>
             <Row>
             <Col sm={12} lg={6} md={6} xs={12} className='cart_col1'>
             <Container  className='checkout_item_container'>
 
             <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)}>
+            
 
-                <h4 className="add_product_category_sub_title">Shipping Details</h4>
-                <Form.Row>
+                <h4 className="add_product_category_sub_title" style={{marginBottom:'5px'}}>Shipping Details</h4>
+                <span style={{color:'red'}}> <i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>  <em>required</em></span>
+                <Form.Row style={{marginTop:'15px'}}>
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Fname">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Fname} onChange={(e) => handleChange(e)} placeholder="First Name"/>
+                        <Form.Label>First Name (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control required className='add_product_category_form_input' type="text" value={order.delivery_Fname} onChange={(e) => handleChange(e)} placeholder="First Name"/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Lname">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Lname} onChange={(e) => handleChange(e)} placeholder="Last Name"/>
+                        <Form.Label>Last Name (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control required className='add_product_category_form_input' type="text" value={order.delivery_Lname} onChange={(e) => handleChange(e)} placeholder="Last Name"/>
                     </Form.Group>
                     </Col>
                 </Form.Row>
@@ -290,8 +293,8 @@ function Checkout() {
                 <Form.Row>
                 <Col sm={12} lg={6} md={6}>
                 <Form.Group  controlId="delivery_Contact">
-                    <Form.Label>Contact Number</Form.Label>
-                    <Form.Control className='add_product_category_form_input' type="text" value={order.delivery_Contact} onChange={(e) => handleChange(e)} placeholder="Contact Number" />
+                    <Form.Label>Contact Number (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                    <Form.Control required className='add_product_category_form_input' type="text" value={order.delivery_Contact} onChange={(e) => handleChange(e)} placeholder="Contact Number" />
                 </Form.Group>
                 </Col>
                 </Form.Row>
@@ -302,14 +305,14 @@ function Checkout() {
                 <Form.Row>
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Address_1">
-                        <Form.Label>Address Line 1</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={order.delivery_Address_1}/>
+                        <Form.Label>Address Line 1 (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control required className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 1" value={order.delivery_Address_1}/>
                     </Form.Group>
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Address_2">
-                        <Form.Label>Address Line 2</Form.Label>
+                        <Form.Label>Address Line 2 (<em>optional</em>)</Form.Label>
                         <Form.Control className='add_product_category_form_input' type="text" onChange={(e) => handleChange(e)} placeholder="Address Line 2" value={order.delivery_Address_2}/>
                     </Form.Group>
                     </Col>
@@ -318,7 +321,7 @@ function Checkout() {
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Address_3">
-                        <Form.Label>Address Line 3</Form.Label>
+                        <Form.Label>Address Line 3 (<em>optional</em>)</Form.Label>
                         <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Address Line 3" value={order.delivery_Address_3}/>
                     </Form.Group>
 
@@ -326,8 +329,8 @@ function Checkout() {
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_District">
-                        <Form.Label>District</Form.Label>
-                        <Form.Control as="select" onChange={(e) => handleDistrict(e)}  value={selectedDistrict}>
+                        <Form.Label>District (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control required as="select" onChange={(e) => handleDistrict(e)}  value={selectedDistrict}>
                                     <option>Choose...</option>
                         {
                                 deliveryCharges && deliveryCharges.map(item => 
@@ -342,20 +345,20 @@ function Checkout() {
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Postal">
-                        <Form.Label>Postal Code</Form.Label>
-                        <Form.Control className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Postal Code" value={order.delivery_Postal}/>
+                        <Form.Label>Postal Code (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control required className='add_product_category_form_input' type="text"  onChange={(e) => handleChange(e)} placeholder="Postal Code" value={order.delivery_Postal}/>
                     </Form.Group>
 
                     </Col>
 
                     <Col sm={12} lg={6} md={6}>
                     <Form.Group  controlId="delivery_Instructions">
-                        <Form.Label>Delivery Instructions</Form.Label>
+                        <Form.Label>Delivery Instructions (<em>optional</em>)</Form.Label>
                         <Form.Control as="textarea" rows={3} className='add_product_category_form_input' value={order.delivery_Instructions} onChange={(e) => handleChange(e)}  type="text" placeholder="Delivery Instructions..."  />
                     </Form.Group>
                     </Col>
                 </Form.Row>
-                <h4 className="add_product_category_sub_title">Payment Details</h4>
+                <h4 className="add_product_category_sub_title">Payment Details (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</h4>
                 <Col sm={12} lg={12} md={12}>
                         <Form.Group  controlId="payment_Method" style={{display:'flex'}}>
                             <Form.Label>Select a Payment Method :</Form.Label>

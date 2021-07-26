@@ -11,6 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import { useParams } from 'react-router';
 import './ResetPassword.css'
 
+
+
 function ResetPassword() {
 
     const history = useHistory();
@@ -95,7 +97,7 @@ function ResetPassword() {
                         <Col sm={12} lg={12} md={12}>
                         <Form.Group  controlId="newPassword">
                             <Form.Label>New Password</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={password.newPassword} type="password" placeholder="New Password"  />
+                            <Form.Control  onChange={(e) => handleChange(e)}  required value={password.newPassword} type="password" placeholder="New Password"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>
@@ -104,7 +106,7 @@ function ResetPassword() {
                         <Col sm={12} lg={12} md={12}>
                         <Form.Group  controlId="confirmNewPassword">
                             <Form.Label>Confirm New Password</Form.Label>
-                            <Form.Control  onChange={(e) => handleChange(e)}  value={password.confirmNewPassword} type="password" placeholder="Confirm New Password"  />
+                            <Form.Control  onChange={(e) => handleChange(e)}  required value={password.confirmNewPassword} type="password" placeholder="Confirm New Password"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>

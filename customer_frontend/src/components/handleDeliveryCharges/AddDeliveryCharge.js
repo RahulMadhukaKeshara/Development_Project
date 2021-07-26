@@ -14,8 +14,8 @@ function AddDeliveryCharge() {
     const [data , setData] = useState({
 
         district : "",
-        delivery_charge : "0",
-        expected_range : "1",
+        delivery_charge : "",
+        expected_range : "",
 
     })
 
@@ -59,20 +59,20 @@ function AddDeliveryCharge() {
             <div className='add_product_category_form_container'>
 
                 <Form className='add_product_category_form' onSubmit={(e) => handleSubmit(e)} type='submit'>
-
+                <span style={{color:'red'}}> <i class="fas fa-star-of-life" style={{fontSize:'7px' , marginBottom:'15px' }}></i>  <em>required</em></span>
                     <Form.Row>
 
                         <Col sm={12} lg={6}>
                         <Form.Group  controlId="district">
-                            <Form.Label>District</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.district} type="text" placeholder="District..." />
+                            <Form.Label>District (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.district} type="text" placeholder="District..." />
                         </Form.Group>
                         </Col>
 
                         <Col sm={12} lg={6}>
                         <Form.Group  controlId="delivery_charge">
-                            <Form.Label>Delivery Charge (LKR)</Form.Label>
-                            <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.delivery_charge} type="text" placeholder="Delivery Charge..." />
+                            <Form.Label>Delivery Charge (LKR) (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.delivery_charge} type="number" placeholder="Delivery Charge..." />
                         </Form.Group>
                         </Col>
 
@@ -81,8 +81,8 @@ function AddDeliveryCharge() {
 
                     <Col sm={12} lg={6}>
                     <Form.Group  controlId="expected_range">
-                        <Form.Label>Expected Date Gap</Form.Label>
-                        <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.expected_range} type="text" placeholder="Expected Date Gap..." />
+                        <Form.Label>Expected Date Gap (<i class="fas fa-star-of-life" style={{fontSize:'7px' , alignItems:'center' }}></i>)</Form.Label>
+                        <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={data.expected_range} type="number" min="1" placeholder="Expected Date Gap..." />
                     </Form.Group>
                     </Col>
 
