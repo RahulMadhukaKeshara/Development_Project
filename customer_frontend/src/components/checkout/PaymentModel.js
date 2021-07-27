@@ -39,7 +39,7 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
         //Note: validate the payment and show success or failure page to the customer
         const d = new Date();
         const date = d.toLocaleDateString();
-        const setOrderID = d.getDate() + orderDetails.delivery_Contact + d.getHours() + d.getMinutes();
+        const setOrderID = d.getDate() + orderDetails.delivery_Contact.substring(6) + d.getHours() + d.getMilliseconds();
 
         const exDate = new Date();
         exDate.setDate(exDate.getDate() + dateGap)
@@ -65,9 +65,9 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
            delivery_Postal: orderDetails.delivery_Postal,
            delivery_Instructions: orderDetails.delivery_Instructions,
          }
-         console.log("dataaaaaaaaaa",dateGap)
-         console.log("dataaaaaaaaaa",exDate)
-         console.log("dataaaaaaaaaa",dataSet)
+        //  console.log("dataaaaaaaaaa",dateGap)
+        //  console.log("dataaaaaaaaaa",exDate)
+        //  console.log("dataaaaaaaaaa",dataSet)
          try {
             //  console.log(dataSet)
                 Axios.post(

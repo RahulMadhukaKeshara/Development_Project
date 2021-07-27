@@ -101,7 +101,7 @@ function ViewOrderDetails() {
             confirmButtonText: 'Yes, Request!'
           }).then((result) => {
             if (result.isConfirmed) {
-                handleReqtoCancel();
+               handleReqtoCancel();
             }
           })
       }

@@ -5,7 +5,6 @@ let User = require('../models/users.model');
 let Supplier = require('../models/suppliers.model');
 let Order = require('../models/orders.model');
 const invoice = require('../middlewares/invoice');
-const invoiceMail = require('../middlewares/invoiceMail');
 
 
 const upload = multer({

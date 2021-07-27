@@ -189,6 +189,22 @@ function Checkout() {
     const jwt = localStorage.getItem("token");
     let userID = jwtDecode(jwt)._id;
 
+    function handlePlaceOrder(){
+      Swal.fire({
+        title: 'Are you sure ?',
+        text: "Order will be placed if you click yes!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            handleSubmit();
+        }
+      })
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
       const d = new Date();
@@ -197,7 +213,7 @@ function Checkout() {
       const s = new Date();
       s.setDate(s.getDate()+ plusDate);
 
-      const setOrderID = d.getDate() + order.delivery_Contact + d.getHours() + d.getMinutes();
+      const setOrderID = d.getDate() + order.delivery_Contact.substring(6) + d.getHours() + d.getMilliseconds();
 
        let dataSet = {
          order_User : userID,
@@ -372,7 +388,7 @@ function Checkout() {
                 <div className='add_product_category_form_btns'>
                   {
                     order.payment_Method === "Cash On Delivery" ? 
-                    (<Button className='add_product_category_form_btn1' type="submit">Place Order</Button>):
+                    (<Button className='add_product_category_form_btn1' onClick={handlePlaceOrder}>Place Order</Button>):
 
                     (order.payment_Method === "Online Payment" ? 
                     (<PaymentModal orderDetails={order} orderTotal={subTotal - totalDiscount + delCharge} orderItems={cartItems.cart_Items} dateGap={plusDate} />):
