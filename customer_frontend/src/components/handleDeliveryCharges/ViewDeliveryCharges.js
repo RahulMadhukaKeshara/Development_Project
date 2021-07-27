@@ -134,6 +134,7 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    fontFamily:'Arial Black'
   },
 }));
 
@@ -327,32 +328,48 @@ export default function ViewDeliveryCharges() {
 
   const handleDelete = (_id) => {
 
+  // console.log(selected.toString(_id))
+  Swal.fire({
+    title: 'Are you sure ?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes!'
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+      axios.delete(
+        `http://localhost:5000/deliveryCharges/` + selected.toString(_id)
+      )
+      .then(res => {
   
-    console.log(selected.toString(_id))
-    axios.delete(
-      `http://localhost:5000/deliveryCharges/` + selected.toString(_id)
-    )
-    .then(res => {
-
-      console.log(res.data)
-              
-      if(res.data === "Delivery Charge Deleted!"){
-        Swal.fire({
-          icon: 'success',
-          title: 'Delivery Charge Deleted!',
-        })
-        getProductData();
-        setSelected([]);
-
-
-      }else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
+        console.log(res.data)
+                
+        if(res.data === "Delivery Charge Deleted!"){
+          Swal.fire({
+            icon: 'success',
+            title: 'Delivery Charge Deleted!',
           })
+          getProductData();
+          setSelected([]);
+  
+  
+        }else {
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+            })
+      }
+      })
+    }else{
+      //getProductData();
+      setSelected([]);
     }
-    })
+  })
+
   
   }
 

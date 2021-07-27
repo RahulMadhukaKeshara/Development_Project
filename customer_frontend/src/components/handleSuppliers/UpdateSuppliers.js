@@ -100,7 +100,7 @@ function UpdateSuppliers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="supplier_Contact">
                             <Form.Label>Contact Number</Form.Label>
-                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Contact} type="tel" pattern="[0-9]{10}" maxLength="10"  />
+                            <Form.Control className='add_product_category_form_input' required onChange={(e) => handleChange(e)}  value={supplier.supplier_Contact} type="tel" pattern="[0-9]{10}" maxLength="10" placeholder="07********"  />
                         </Form.Group>
                         </Col>
                     </Form.Row>

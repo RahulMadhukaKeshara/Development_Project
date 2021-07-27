@@ -246,7 +246,7 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Discount">
-                            <Form.Label>Product Discount (%) (<em>optinal</em> )</Form.Label>
+                            <Form.Label>Product Discount (%) (<em>optional</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' max="99" name="product_Discount" onChange={(e) => handleChange(e)}  value={data.product_Discount} type="number" placeholder="Product Discount" />
                         </Form.Group>
                         </Col>
@@ -325,7 +325,7 @@ function AddProduct() {
                     <Form.Row>
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Re_Quantity">
-                            <Form.Label>Reorder Quantity (<em>optinal</em> )</Form.Label>
+                            <Form.Label>Reorder Quantity (<em>optional</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_Re_Quantity} type="number" placeholder="Reorder Quantity"  />
                         </Form.Group>
 
@@ -333,7 +333,7 @@ function AddProduct() {
 
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="product_Re_Level">
-                            <Form.Label>Reorder Level (<em>optinal</em> )</Form.Label>
+                            <Form.Label>Reorder Level (<em>optional</em> )</Form.Label>
                             <Form.Control className='add_product_category_form_input' onChange={(e) => handleChange(e)}  value={data.product_Re_Level} type="number"  placeholder="Reorder Level" />
                         </Form.Group>
                         </Col>

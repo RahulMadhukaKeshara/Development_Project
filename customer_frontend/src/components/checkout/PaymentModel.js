@@ -81,8 +81,10 @@ function PaymentModel({orderDetails , orderTotal , orderItems , dateGap}) {
                   Swal.fire({
                       icon: 'success',
                       title: 'Order Placed!',
-                    })
-                    history.push('/customer-orders/'+ userID);
+                    }).then(function() {
+                        window.location = `/customer-orders/'+ ${userID}`;
+                    });
+                    // history.push('/customer-orders/'+ userID);
   
               } else {
                   Swal.fire({

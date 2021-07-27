@@ -337,31 +337,47 @@ export default function ViewSuppliers() {
   const handleDelete = (_id) => {
 
   
-    console.log(selected.toString(_id))
-    Axios.delete(
-      `http://localhost:5000/suppliers/` + selected.toString(_id)
-    )
-    .then(res => {
-
-      console.log(res.data)
-              
-      if(res.data === "Supplier Deleted!"){
-        Swal.fire({
-          icon: 'success',
-          title: 'Supplier Deleted!',
-        })
-        getSupplierData();
-        setSelected([]);
-
-
-      }else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          })
-    }
+    //console.log(selected.toString(_id))
+    Swal.fire({
+      title: 'Are you sure ?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
     })
+    .then((result) => {
+      if (result.isConfirmed) {
+        Axios.delete(
+          `http://localhost:5000/suppliers/` + selected.toString(_id)
+        )
+        .then(res => {
+    
+          console.log(res.data)
+                  
+          if(res.data === "Supplier Deleted!"){
+            Swal.fire({
+              icon: 'success',
+              title: 'Supplier Deleted!',
+            })
+            getSupplierData();
+            setSelected([]);
+    
+    
+          }else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+              })
+        }
+        })
+      }else{
+        setSelected([]);
+      }
+    })
+
   
   }
 

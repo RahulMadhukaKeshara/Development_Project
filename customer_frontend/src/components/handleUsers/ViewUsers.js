@@ -175,6 +175,7 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    fontFamily:'Arial Black'
   },
 }));
 
@@ -378,29 +379,45 @@ export default function ViewUsers() {
         );
        // console.log(user.data.user_Type);
         if (user.data.user_Type !== "Customer") {
-          Axios.delete(
-            `http://localhost:5000/users/` + selected.toString(_id)
-          )
-          .then(res => {
-
-            console.log(res.data)
-            if(res.data === "User Deleted!"){
-              Swal.fire({
-                icon: 'success',
-                title: 'User Deleted!',
-              })
-              getProductData();
-              setSelected([]);
-     
-     
-            }else {
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Something went wrong!',
-                })
-          }
+          Swal.fire({
+            title: 'Are you sure ?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
           })
+          .then((result) => {
+            if (result.isConfirmed) {
+              Axios.delete(
+                `http://localhost:5000/users/` + selected.toString(_id)
+              )
+              .then(res => {
+    
+                console.log(res.data)
+                if(res.data === "User Deleted!"){
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'User Deleted!',
+                  })
+                  getProductData();
+                  setSelected([]);
+         
+         
+                }else {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong!',
+                    })
+              }
+              })
+            }else{
+              setSelected([]);
+            }
+          })
+
         } else {
           Swal.fire({
             icon: 'error',
