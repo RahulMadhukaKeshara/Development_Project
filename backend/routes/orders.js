@@ -5,7 +5,7 @@ let Product = require('../models/products.model');
 let Cart = require('../models/carts.model');
 let sendOrderPlacedEmail = require('../middlewares/orderPlacedEmail');
 let OrderStatusChangeEmail = require('../middlewares/orderStatusChangeEmail');
-let invoiceGenerate = require('../middlewares/invoice');
+const invoice = require('../middlewares/invoice');
 
 
 
@@ -81,8 +81,9 @@ router.route('/add').post(async(req,res) => {
     await newOrder.save();
     //sending email
     let orderOb = await Order.findOne({ order_ID : req.body.order_ID}).populate([{path : 'order_Items.product' , model : 'Product'},{path : 'order_User' , model : 'User'}]);
-    console.log(orderOb)
-    sendOrderPlacedEmail(orderOb);
+    console.log(orderOb);
+    await invoice(orderOb);
+    await sendOrderPlacedEmail(orderOb);
     
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
     //console.log(cartOb)

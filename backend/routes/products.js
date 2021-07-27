@@ -4,6 +4,8 @@ let Product = require('../models/products.model');
 let User = require('../models/users.model');
 let Supplier = require('../models/suppliers.model');
 let Order = require('../models/orders.model');
+const invoice = require('../middlewares/invoice');
+const invoiceMail = require('../middlewares/invoiceMail');
 
 
 const upload = multer({
@@ -127,6 +129,16 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
 
 //add reviews
 router.route('/addReview/:id').post(async(req,res)=>{
+
+  // try{
+  //   // await invoice();rs
+  //   await invoiceMail();
+
+  //   console.log("+++++++++++++++++++++++++++++++");
+  // }
+  // catch(e){
+  //   console.log(e)
+  // }
 
   try {
     // console.log(req.params.id)

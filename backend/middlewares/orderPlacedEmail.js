@@ -11,22 +11,28 @@ let transporter = nodemailer.createTransport({
     },
   })
 
-  const body = `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><br/>`
-  const body1='<h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>'; 
-  const body2='<br/><br/>Thank You!';
+//   const body = `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><br/>`
+//   const body1='<h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>'; 
+//   const body2='<br/><br/>Thank You!';
 
-  var body3='<table border="2"><th>Item</th><th>Units</th>';
-  emailDetails.order_Items.forEach(element => {
+//   var body3='<table border="2"><th>Item</th><th>Units</th>';
+//   emailDetails.order_Items.forEach(element => {
 
-      body3=body3+'<tr><td>'+element.product.product_Name+'</td><td>'+element.unit_Price+'</td></tr>'
-  })
+//       body3=body3+'<tr><td>'+element.product.product_Name+'</td><td>'+element.unit_Price+'</td></tr>'
+//   })
 //   resolved (body3) 
 
 let mailOptions = {
     from:'peacotclothing@gmail.com',
     to:`${emailDetails.order_User.user_Email}`,
     subject:'Order Placed!',
-    html: body + body1+ body3 +"</table><br/>"+ body2
+    // html: body + body1+ body3 +"</table><br/>"+ body2,
+    html: `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><br/><h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>`,
+    attachments: [{
+        filename: 'invoice.pdf',
+        path: './invoice.pdf',
+        // contentType: 'application/pdf'
+      }]
 }
 
 transporter.sendMail(mailOptions,function(err,  info){
