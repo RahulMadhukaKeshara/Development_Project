@@ -4,7 +4,8 @@
     width: 50%;
     margin: 125px auto 50px auto !important;
     background-color: transparent;
-    border: 3px solid #f95757;
+    /* border: 3px solid #f95757; */
+    box-shadow:rgb(249 87 87) 4px 6px 13px !important;
     border-radius: 0px 70px 0px 70px;
     padding: 50px 0px;
 }
