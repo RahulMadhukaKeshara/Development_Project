@@ -136,6 +136,7 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    fontFamily:'Arial Black'
   },
 }));
 
@@ -180,11 +181,12 @@ const EnhancedTableToolbar = (props) => {
         <Typography/>
       ) : (
         <>
-        <Tooltip title="Filter list">
+        {/* <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
+        <Typography/> 
         </>
       )}
 
@@ -206,7 +208,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
-    border:'2px solid #f95757',
+    // border:'2px solid #f95757',
+    padding:'5px',
+    borderRadius:'10px'
+
   },
   table: {
     minWidth: 750,
@@ -360,7 +365,7 @@ const handleUpdate = (_id) => {
     :(
       <>
       <div className={classes.root}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={15}>
           
           <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
           <TableContainer>
