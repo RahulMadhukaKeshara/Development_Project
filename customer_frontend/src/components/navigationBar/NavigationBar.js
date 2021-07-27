@@ -190,7 +190,7 @@ function NavigationBar() {
                             }
                         </NavDropdown>
                      </Nav>
-                      <Nav className="">
+                      <Nav className="cart_btn">
                       <Link to={"/cart/" + userID}>
                       <Badge color="secondary" badgeContent={cart} showZero className="icon_btn mt-2 mr-3" aria-label="Go to Cart" >
                         <ShoppingCartRoundedIcon />

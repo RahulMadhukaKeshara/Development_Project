@@ -244,7 +244,7 @@ function handleSubmit(e){
 
 
                         {
-                          products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{qty*products.product_Price}</h5>) : 
+                          products.product_Discount > 0 ? (<h5 className="product_det_oldprice">LKR :{(qty*products.product_Price)}</h5>) : 
                           ("")
                         }
                         <h4 className="addToCart_newprice">LKR : {

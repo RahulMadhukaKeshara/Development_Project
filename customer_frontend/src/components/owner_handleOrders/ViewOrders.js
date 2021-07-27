@@ -61,6 +61,7 @@ const headCells = [
   { id: 'order_User', numeric: false, disablePadding: false, label: 'Ordered Customer' },
   { id: 'payment_Method', numeric: false, disablePadding: false, label: 'Payment Method' },
   { id: 'order_Status', numeric: false, disablePadding: false, label: 'Order Status' },
+  { id: 'delivery_Member', numeric: false, disablePadding: false, label: 'Assigned Delivery Member' },
   { id: 'order_Items', numeric: false, disablePadding: false, label: 'Order Items' },
   { id: 'order_Total', numeric: false, disablePadding: false, label: 'Order Total' },
   { id: 'order_Placed_Date', numeric: false, disablePadding: false, label: 'Order Placed Date' },
@@ -69,7 +70,7 @@ const headCells = [
   { id: 'delivery_Address_1', numeric: false, disablePadding: false, label: 'Deivery Address' },
   { id: 'delivery_District', numeric: false, disablePadding: false, label: 'Delivery District' },
   { id: 'delivery_Instructions', numeric: false, disablePadding: false, label: 'Delivery Instructions' },
-  { id: 'delivery_Member', numeric: false, disablePadding: false, label: 'Assigned Delivery Member' },
+
 ];
 
 function EnhancedTableHead(props) {
@@ -183,11 +184,12 @@ const EnhancedTableToolbar = (props) => {
         <Typography/>
       ) : (
         <>
-        <Tooltip title="Filter list">
+        {/* <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
+        <Typography/>
         </>
       )}
 
@@ -209,7 +211,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
-    border:'2px solid #f95757',
+    // border:'2px solid #f95757',
+    padding:'5px',
+    borderRadius:'10px'
+
   },
   table: {
     minWidth: 750,
@@ -345,7 +350,7 @@ const handleUpdate = (_id) => {
     
     <h1 className={classes.page_title}>Orders</h1>
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={15}>
         <EnhancedTableToolbar numSelected={selected.length}  onClickUpdate={handleUpdate}/>
         <TableContainer>
           <Table
@@ -392,6 +397,7 @@ const handleUpdate = (_id) => {
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_User.user_Fname} {row.order_User.user_Lname}</TableCell>
                       <TableCell align="center" style={{minWidth:'175px'}}>{row.payment_Method}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Status}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Member ? (`${row.delivery_Member.user_Fname} ${row.delivery_Member.user_Lname}`):("Not Assigned")}</TableCell>
                       <TableCell align="center" style={{minWidth:'250px'}}>
                       {
                             row.order_Items && row.order_Items.map((item ) =>                     
@@ -399,14 +405,14 @@ const handleUpdate = (_id) => {
                             )
                       } 
                       </TableCell>
-                      <TableCell align="center">{row.order_Total}</TableCell>
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.order_Total}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.order_Placed_Date}</TableCell>
                       <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Fname} {row.delivery_Lname}</TableCell>
                       <TableCell align="center" style={{minWidth:'175px'}}>{row.delivery_Contact}</TableCell>
                       <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Address_1},{row.delivery_Address_2},{row.delivery_Address_3}</TableCell>
                       <TableCell align="center">{row.delivery_District}</TableCell>
-                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions}</TableCell>
-                      <TableCell align="center" style={{minWidth:'200px'}}>{row.delivery_Member ? (`${row.delivery_Member.user_Fname} ${row.delivery_Member.user_Lname}`):("Not Assigned")}</TableCell>
+                      <TableCell align="center" style={{minWidth:'300px'}}>{row.delivery_Instructions === "" ? ("-"):(row.delivery_Instructions)}</TableCell>
+
                     </TableRow>
                   );
                 })}

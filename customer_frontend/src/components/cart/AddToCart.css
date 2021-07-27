@@ -15,8 +15,16 @@
 }
 
 .img1{
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 70%;
+    margin: 0px !important;
+    border-radius: 0px 20px;
+}
+
+.addToCart_img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .addToCart_oldprice{
@@ -57,4 +65,13 @@
         justify-content: center;
         padding: 10px;
     }
+
+    .img1{
+        width: 200px;
+        height: 80%;
+        /* 
+        margin: 0px !important;
+        border-radius: 0px 20px; */
+    }
+
 }

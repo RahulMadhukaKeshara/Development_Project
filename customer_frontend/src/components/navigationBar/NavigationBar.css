@@ -175,4 +175,13 @@
     .navbar-links{
         position: static;
     }
+
+    .cart_btn{
+
+      justify-content: center;
+  }
+
+  .navbar a{
+    text-align: center;
+  }
 }

@@ -48,6 +48,7 @@ import InventoryDashPage from './components/pages/InventoryDashPage';
 import GenerateInvoicePage from './components/pages/GenerateInvoicePage';
 import AboutUsPage from './components/pages/AboutUsPage';
 import ContactUsPage from './components/pages/ContactUsPage';
+import Footer from './components/footer/Footer';
 
 
 
@@ -108,7 +109,6 @@ function App() {
 
                     
                </Switch>
-               
            </Router>
         </>
     )

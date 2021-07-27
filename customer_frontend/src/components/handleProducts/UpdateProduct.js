@@ -379,7 +379,7 @@ function handleRemoveFields(index){
 
 
                     <div className='add_product_category_form_btns'>             
-                        <Button className='add_product_category_form_btn1' type="submit">Add</Button>
+                        <Button className='add_product_category_form_btn1' type="submit">Update</Button>
                     </div>
 
                 </Form>

@@ -45,9 +45,9 @@ function SalesReport() {
         </Breadcrumbs>
         <Divider />
         <div>
+        <Button className="rep_btn" href='/generate-reports'>To be Processed Report</Button>
           <Button className="rep_btn" href='/salesReport'>Sales Report</Button>
           <Button className="rep_btn" href='/inventoryReport'>Inventory Report</Button>
-          <Button className="rep_btn" href='/generate-reports'>To be Processed Report</Button>
           <Button className="rep_btn" href='/invoice'>Generate Invoices</Button>
         </div>
         <Container fluid id = "cv" >

@@ -24,7 +24,9 @@ function FeaturedCardItems(props) {
 
   return (
     <>
-      <Card className='featured_card'>
+
+      
+      <Card className='featured_card' >
 
         <Card.Img className='featured_card_img' variant="top" src={props.src} />
 
@@ -37,7 +39,7 @@ function FeaturedCardItems(props) {
               <>
               <div style={{display:'flex' , margin:'0px' , alignItems:'center' , marginBottom:'5px'}}>
               <Card.Text className='featured_card_oldprice'>LKR : {props.price}</Card.Text>
-              <Card.Text className='featured_card_price'>LKR : {(props.price)-(props.price*props.discount*(1/100))}</Card.Text>
+              <Card.Text className='featured_card_price'>LKR : {(props.price)- (props.price*props.discount*(1/100))}</Card.Text>
               </div>
               </>
             ):

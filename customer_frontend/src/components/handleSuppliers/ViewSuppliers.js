@@ -28,6 +28,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router';
 import EditIcon from '@material-ui/icons/Edit';
+import { shadows } from '@material-ui/system';
 
 
 
@@ -190,11 +191,11 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
         </Link>
 
-        <Tooltip title="Filter list">
+        {/* <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         </>
       )}
 
@@ -216,12 +217,21 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
-    border:'2px solid #f95757',
+    borderRadius:'10px',
+    padding:'5px'
+    // border:'2px solid #f95757',
+    // boxShadow: '50px'
 
     
   },
   table: {
     minWidth: 750,
+  },
+  table_title : {
+
+    textAlign:'center',
+    marginBottom:'50px'
+
   },
   visuallyHidden: {
     border: 0,
@@ -378,9 +388,9 @@ const handleUpdate = (_id) => {
 
     <Container className={classes.supplier_container}>
     
-    <h1>Suppliers</h1>
+    <h1 className={classes.table_title}>Suppliers</h1>
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation = {15}>
         <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete} onClickUpdate={handleUpdate}/>
         <TableContainer>
           <Table

@@ -16,7 +16,7 @@ router.route('/add').post(async(req,res) => {
            color :  req.body.cart_Items.color,
            quantity : req.body.cart_Items.quantity,
            size : req.body.cart_Items.size,
-           unit_Price : req.body.cart_Items.unit_Price,
+           unit_Price : parseFloat(req.body.cart_Items.unit_Price),
       })
 
         cartOb.save()
@@ -111,7 +111,7 @@ router.route('/update').post(async(req,res)=>{
     color :  req.body.cart_Items.color,
     quantity : req.body.cart_Items.quantity,
     size : req.body.cart_Items.size,
-    unit_Price : req.body.cart_Items.unit_Price,
+    unit_Price : parseFloat(req.body.cart_Items.unit_Price),
 })
 
 cartOb.save()

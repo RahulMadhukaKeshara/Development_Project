@@ -189,17 +189,17 @@ const EnhancedTableToolbar = (props) => {
         <>
         <Link href='/add-products'>
         <Tooltip title="Add New Product">
-          <IconButton aria-label="AddBoxRounded">
+          <IconButton aria-label="AddBoxRounded" >
             <AddBoxRoundedIcon />
             </IconButton>
         </Tooltip>
         </Link>
 
-        <Tooltip title="Filter list">
+        {/* <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         </>
       )}
 
@@ -221,12 +221,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
-    border:'2px solid #f95757',
+    // border:'2px solid #f95757',
+    padding : '5px',
+    borderRadius:'10px'
 
     
   },
   table: {
     minWidth: 750,
+  },
+  table_title : {
+
+    textAlign:'center',
+    marginBottom:'50px'
+
   },
   visuallyHidden: {
     border: 0,
@@ -400,9 +408,9 @@ useEffect(() => {
 
     <Container className={classes.supplier_container}>
     
-    <h1>Products</h1>
+    <h1 className={classes.table_title}>Products</h1>
     <div className={classes.root} >
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={15}>
         <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}  onClickUpdate={handleUpdate}/>
         <TableContainer id="cv">
           <Table

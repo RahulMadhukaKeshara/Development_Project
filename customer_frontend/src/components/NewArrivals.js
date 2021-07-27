@@ -78,7 +78,7 @@ function NewArrivals() {
                   <FeaturedCardItems
                   src= {"http://localhost:5000/products/photo/" + products.product._id }
                   title={products.product.product_Name}
-                  price={products.product.product_Price}
+                  price={parseFloat(products.product.product_Price)}
                   discount={products.product.product_Discount}
                   id= {'/product-details/' + products.product._id}
                   rating={products.product.product_reviews.length > 0 ? (products.rating/products.product.product_reviews.length):(0)}

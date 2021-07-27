@@ -36,7 +36,7 @@ router.route('/add').post(upload.single("product_Img"),async(req,res) => {
     const product_Name = req.body.product_Name;
     const product_Category = req.body.product_Category;
     const product_Description = req.body.product_Description;
-    const product_Price = req.body.product_Price;
+    const product_Price = parseFloat(req.body.product_Price);
     const product_Discount = req.body.product_Discount;
     const product_Stock = JSON.parse(req.body.product_Stock);
     const product_Re_Quantity = req.body.product_Re_Quantity;
@@ -106,7 +106,7 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
         products.product_Name = req.body.product_Name;
         products.product_Category = req.body.product_Category;
         products.product_Description = req.body.product_Description;
-        products.product_Price = req.body.product_Price;
+        products.product_Price = parseFloat(req.body.product_Price);
         products.product_Discount = req.body.product_Discount;
         products.product_Stock = JSON.parse(req.body.product_Stock);
         products.product_Re_Quantity = req.body.product_Re_Quantity;
@@ -128,16 +128,6 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
 
 //add reviews
 router.route('/addReview/:id').post(async(req,res)=>{
-
-  // try{
-  //   // await invoice();rs
-  //   await invoiceMail();
-
-  //   console.log("+++++++++++++++++++++++++++++++");
-  // }
-  // catch(e){
-  //   console.log(e)
-  // }
 
   try {
     // console.log(req.params.id)

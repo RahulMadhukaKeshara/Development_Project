@@ -94,13 +94,13 @@ const headCells = [
   { id: 'user_Status', numeric: false, disablePadding: false, label: 'Status' },
   { id: 'user_Fname', numeric: false, disablePadding: false, label: 'First Name'},
   { id: 'user_Lname', numeric: false, disablePadding: false, label: 'Last Name' },
-  { id: 'user_Gender', numeric: false, disablePadding: false, label: 'Gender' },
+  // { id: 'user_Gender', numeric: false, disablePadding: false, label: 'Gender' },
   { id: 'user_Contact', numeric: false, disablePadding: false, label: 'Contact Number' },
   { id: 'user_Email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'user_Address', numeric: false, disablePadding: false, label: 'Address' },
   { id: 'user_District', numeric: false, disablePadding: false, label: 'District' },
   { id: 'user_Postal', numeric: false, disablePadding: false, label: 'Postal Code' },
-  { id: 'user_Password', numeric: false, disablePadding: false, label: 'Password' },
+  // { id: 'user_Password', numeric: false, disablePadding: false, label: 'Password' },
 
 
 ];
@@ -226,11 +226,11 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
         </Link>
 
-        <Tooltip title="Filter list">
+        {/* <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         </>
       )}
 
@@ -252,12 +252,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop:theme.spacing(2),
     marginBottom: theme.spacing(2),
-    border:'2px solid #f95757',
+    // border:'2px solid #f95757',
+    borderRadius:'10px',
+    padding:'5px'
 
     
   },
   table: {
     minWidth: 750,
+  },
+  table_title : {
+
+    textAlign:'center',
+    marginBottom:'50px'
+
   },
   visuallyHidden: {
     border: 0,
@@ -458,9 +466,9 @@ export default function ViewUsers() {
 
     <Container className={classes.user_container}>
     
-    <h1>Users</h1>
+    <h1 className={classes.table_title}>Users</h1>
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={15}>
         <EnhancedTableToolbar numSelected={selected.length} onClickDelete={handleDelete}   onClickUpdate={handleUpdate}/>
         <TableContainer id="cv">
           <Table
@@ -504,17 +512,17 @@ export default function ViewUsers() {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row._id}
                       </TableCell>
-                      <TableCell align="center">{row.user_Type}</TableCell>
-                      <TableCell align="center">{row.user_Status}</TableCell>
-                      <TableCell align="center">{row.user_Fname}</TableCell>
-                      <TableCell align="center">{row.user_Lname}</TableCell>
-                      <TableCell align="center">{row.user_Gender}</TableCell>
-                      <TableCell align="center">{row.user_Contact}</TableCell>
-                      <TableCell align="center">{row.user_Email}</TableCell>
-                      <TableCell align="center">{row.user_Address_1 + row.user_Address_2 + row.user_Address_3}</TableCell>
-                      <TableCell align="center">{row.user_District}</TableCell>
-                      <TableCell align="center">{row.user_Postal}</TableCell>
-                      <TableCell align="center">{row.user_Password}</TableCell>
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.user_Type}</TableCell>
+                      <TableCell align="center" >{row.user_Status}</TableCell>
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.user_Fname}</TableCell>
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.user_Lname}</TableCell>
+                      {/* <TableCell align="center">{row.user_Gender}</TableCell> */}
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.user_Contact}</TableCell>
+                      <TableCell align="center" style={{minWidth:'200px'}}>{row.user_Email}</TableCell>
+                      <TableCell align="center">{row.user_Address_1 === "" ? ("-"):(row.user_Address_1 +", "+ row.user_Address_2 + ", " + row.user_Address_3)}</TableCell>
+                      <TableCell align="center">{row.user_District === "" ? ("-"):(row.user_District)}</TableCell>
+                      <TableCell align="center" style={{minWidth:'150px'}}>{row.user_Postal === "" ? ("-"):(row.user_Postal)}</TableCell>
+                      {/* <TableCell align="center">{row.user_Password}</TableCell> */}
 
                     </TableRow>
                   );

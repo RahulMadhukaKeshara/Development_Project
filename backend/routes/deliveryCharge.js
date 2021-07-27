@@ -17,7 +17,7 @@ router.route('/add').post(async(req,res) => {
     if(District) return res.status(400).send('Already Added')
 
     const district = req.body.district;
-    const delivery_charge = req.body.delivery_charge;
+    const delivery_charge = parseFloat(req.body.delivery_charge);
     const expected_range = req.body.expected_range;
 
     const newDeliveryCharge = new DeliveryCharge({
@@ -63,7 +63,7 @@ router.route('/update/:id').post((req,res) => {
     .then(charge => {
 
         //console.log(req.body)
-        charge.delivery_charge = req.body.delivery_charge;
+        charge.delivery_charge = parseFloat(req.body.delivery_charge);
         charge.expected_range = req.body.expected_range;
 
         charge.save()

@@ -45,12 +45,13 @@
 
 
 .pro_det_img{
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .imgset{
     display: flex;
     justify-content: center;
+    align-items: center;
 
 }
 
@@ -67,6 +68,14 @@
 .product_det_discount{
     color: #f95957;
     
+}
+
+.dis_img{
+    width: 200px;
+    height: 75%;
+    margin: 0px !important;
+    border-radius: 0px 20px;
+    /* border: 2px solid black; */
 }
 .product_det_btn{
     background-color: #f95757;
@@ -151,6 +160,10 @@
     .col_size{
         justify-content: center;
     }
+
+    .pro_detail_container3{
+        width: 70%;
+    }
 }
 
 @media only screen and (max-width:576px) {
@@ -161,7 +174,8 @@
     }
 
     .pro_detail_container2{
-    
+        
+        height: 100%;
         width: 95%;
     }
 
@@ -176,6 +190,12 @@
 
     .col_size{
         justify-content: center;
+    }
+    .pro_detail_container3{
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+        width: 95%;
     }
 
 }
