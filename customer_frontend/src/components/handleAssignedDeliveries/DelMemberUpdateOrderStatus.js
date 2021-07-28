@@ -42,39 +42,55 @@ function DelMemberUpdateOrderStatus(props) {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
-
-            order_Status : order.order_Status
-
+        Swal.fire({
+          title: 'Are you sure ?',
+          text: "You want to save the changes!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
         })
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "Order Status Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Order Status Updated!',
-                  })
-                  props.onHide();
-                  if ((order.order_Status === "Returned")||(order.order_Status === "Delivered")) {
+        .then((result) => {
+          if (result.isConfirmed) {
+            Axios.post(url,{
 
-                    history.push('/deliveryHistory/' + params.id);
-
-                  } else {
-                      
-                    history.push('/newly-assigned-deliveries/' + params.id);
-
-                  }
-                  
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }            
+              order_Status : order.order_Status
+  
+          })
+          .then(res => {
+              console.log(res.data)
+              if (res.data === "Order Status Updated!") {
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Order Status Updated!',
+                    })
+                    props.onHide();
+                    if ((order.order_Status === "Returned")||(order.order_Status === "Delivered")) {
+  
+                      history.push('/deliveryHistory/' + params.id);
+  
+                    } else {
+                        
+                      history.push('/newly-assigned-deliveries/' + params.id);
+  
+                    }
+                    
+  
+              } else {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong!',
+  
+                    })
+              }            
+          })
+          }else{
+            
+          }
         })
+
     }
 
 

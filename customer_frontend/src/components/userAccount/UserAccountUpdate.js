@@ -59,36 +59,53 @@ function UserAccountUpdate() {
             district = user.user_District;
         }
 
-        Axios.post(url,{
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
 
-            user_Fname : user.user_Fname,
-            user_Lname : user.user_Lname,
-            user_Contact : user.user_Contact, 
-            user_Address_1 : user.user_Address_1,
-            user_Address_2 : user.user_Address_2,
-            user_Address_3 : user.user_Address_3, 
-            user_District : district, 
-            user_Postal : user.user_Postal,
+                    user_Fname : user.user_Fname,
+                    user_Lname : user.user_Lname,
+                    user_Contact : user.user_Contact, 
+                    user_Address_1 : user.user_Address_1,
+                    user_Address_2 : user.user_Address_2,
+                    user_Address_3 : user.user_Address_3, 
+                    user_District : district, 
+                    user_Postal : user.user_Postal,
+        
+                })
+                .then(res => {
+                    console.log(res.data)  
+                    if (res.data === "Account Details Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Account Details Updated!',
+                          })
+                          history.push(`/user-account/${params.id}`);
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }          
+                })
+            }else{
+              
+            }
+          })
 
-        })
-        .then(res => {
-            console.log(res.data)  
-            if (res.data === "Account Details Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Account Details Updated!',
-                  })
-                  history.push(`/user-account/${params.id}`);
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }          
-        })
     }
 
 

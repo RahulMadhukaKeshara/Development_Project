@@ -88,31 +88,47 @@ function DelMemberUpdateExpectedDelDate(props) {
 
           })     
         } else {
+          Swal.fire({
+            title: 'Are you sure ?',
+            text: "Do you really want to assign this member!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
               Axios.post(url,{
 
-                  delivery_Member : order.delivery_Member,
-                  order_Status: "Delivery Assigned"
+                delivery_Member : order.delivery_Member,
+                order_Status: "Delivery Assigned"
 
-              })
-              .then(res => {
-                  console.log(res.data)
-                  if (res.data === "Member Assigned!") {
-                      Swal.fire({
-                          icon: 'success',
-                          title: 'Member Assigned!',
-                        })
-                        props.onHide();
-                        history.push('/owner-view-orders');
+            })
+            .then(res => {
+                console.log(res.data)
+                if (res.data === "Member Assigned!") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Member Assigned!',
+                      })
+                      props.onHide();
+                      history.push('/owner-view-orders');
 
-                  } else {
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Oops...',
-                          text: 'Something went wrong!',
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
 
-                        })
-                  }            
-              })
+                      })
+                }            
+            })
+            }else{
+              
+            }
+          })
+
         }         
       } else {
         Swal.fire({

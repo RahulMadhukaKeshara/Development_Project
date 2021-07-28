@@ -39,29 +39,45 @@ function UpdateUsers() {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
 
-            user_Type : user.user_Type, 
+                    user_Type : user.user_Type, 
+        
+                })
+                .then(res => {
+                    console.log(res.data)  
+                    if (res.data === "User Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'User Updated!',
+                          })
+                          history.push('/users');
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }          
+                })
+            }else{
+              
+            }
+          })
 
-        })
-        .then(res => {
-            console.log(res.data)  
-            if (res.data === "User Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'User Updated!',
-                  })
-                  history.push('/users');
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }          
-        })
     }
       
       

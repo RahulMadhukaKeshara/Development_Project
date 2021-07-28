@@ -41,28 +41,44 @@ function UpdateDeliveryCharges() {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
-            delivery_charge : deliveryCharge.delivery_charge,
-            expected_range : deliveryCharge.expected_range
-        })
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "Delivery Charge Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Delivery Charge Updated!',
-                  })
-                  history.push('/deliveryCharges');
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
+                    delivery_charge : deliveryCharge.delivery_charge,
+                    expected_range : deliveryCharge.expected_range
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data === "Delivery Charge Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Delivery Charge Updated!',
+                          })
+                          history.push('/deliveryCharges');
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }
+                })
+            }else{
+              
             }
-        })
+          })
+
     }
 
     return (

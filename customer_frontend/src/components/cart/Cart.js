@@ -61,8 +61,20 @@ function Cart() {
       }, []);
 
       function handleDelete(itemID , userID){
-        console.log(itemID)
-        console.log(userID)
+        // console.log(itemID)
+        // console.log(userID)
+
+        Swal.fire({
+          title: 'Are you sure ?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
         Axios.post(
             `http://localhost:5000/cart/remove/`, {itemID , userID}
           )
@@ -90,6 +102,11 @@ function Cart() {
                  })
            }
            })
+          }else{
+            
+          }
+        })
+
       }
 
       // function handleDistrict(e){

@@ -42,34 +42,50 @@ function UpdateSuppliers() {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
 
-            supplier_Name : supplier.supplier_Name,
-            supplier_Description : supplier.supplier_Description,
-            supplier_Contact : supplier.supplier_Contact,
-            supplier_Email : supplier.supplier_Email,
-            supplier_Address : supplier.supplier_Address,
+                    supplier_Name : supplier.supplier_Name,
+                    supplier_Description : supplier.supplier_Description,
+                    supplier_Contact : supplier.supplier_Contact,
+                    supplier_Email : supplier.supplier_Email,
+                    supplier_Address : supplier.supplier_Address,
+        
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data === "Supplier Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Supplier Updated!',
+                          })
+                          history.push('/suppliers');
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }  
+                           
+                })
+            }else{
+              
+            }
+          })
 
-        })
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "Supplier Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Supplier Updated!',
-                  })
-                  history.push('/suppliers');
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }  
-                   
-        })
     }
 
     return (

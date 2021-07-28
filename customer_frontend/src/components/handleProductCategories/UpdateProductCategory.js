@@ -43,29 +43,45 @@ function UpdateProductCategory() {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
 
-            product_category_Name : productCat.product_category_Name
+                    product_category_Name : productCat.product_category_Name
+        
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data === "ProductCategory Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'ProductCategory Updated!',
+                          })
+                          history.push('/product-categories');
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }            
+                })
+            }else{
+              
+            }
+          })
 
-        })
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "ProductCategory Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'ProductCategory Updated!',
-                  })
-                  history.push('/product-categories');
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }            
-        })
     }
 
 

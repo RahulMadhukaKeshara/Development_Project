@@ -119,41 +119,59 @@ function handleRemoveFields(index){
 
     function handleSubmit(e){
         e.preventDefault();
-        const stockData = JSON.stringify(product.product_Stock);
-        const formData = new FormData();
-         formData.append("product_Name", product.product_Name);
-         formData.append("product_Category", product.product_Category);
-         formData.append("product_Description", product.product_Description);
-         formData.append("product_Price", product.product_Price);
-         formData.append("product_Discount", product.product_Discount);
-         formData.append("product_Stock", stockData);
-         formData.append("product_Re_Quantity", product.product_Re_Quantity);
-         formData.append("product_Re_Level", product.product_Re_Level);
-         formData.append("product_Published", product.product_Published);
-         formData.append("product_Featured", product.product_Featured);
-         formData.append("product_New", product.product_New);
-         formData.append("product_Supplier", product.product_Supplier);
-         formData.append("product_Img", product.product_Img);
-        Axios.post(url,formData)
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "Product Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Product Updated!',
-                  })
-                //   history.push('/products');
-                window.location = '/products';
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You want to save the changes!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                const stockData = JSON.stringify(product.product_Stock);
+                const formData = new FormData();
+                 formData.append("product_Name", product.product_Name);
+                 formData.append("product_Category", product.product_Category);
+                 formData.append("product_Description", product.product_Description);
+                 formData.append("product_Price", product.product_Price);
+                 formData.append("product_Discount", product.product_Discount);
+                 formData.append("product_Stock", stockData);
+                 formData.append("product_Re_Quantity", product.product_Re_Quantity);
+                 formData.append("product_Re_Level", product.product_Re_Level);
+                 formData.append("product_Published", product.product_Published);
+                 formData.append("product_Featured", product.product_Featured);
+                 formData.append("product_New", product.product_New);
+                 formData.append("product_Supplier", product.product_Supplier);
+                 formData.append("product_Img", product.product_Img);
+                Axios.post(url,formData)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data === "Product Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Product Updated!',
+                          }).then(function() {
+                            window.location = '/products';
+                        });
+                        //   history.push('/products');
+                        
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }            
+                })
+            }else{
+              
+            }
+          })
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }            
-        })
     }
 
 

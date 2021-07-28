@@ -44,30 +44,46 @@ function UpdateOrderStatus(props) {
 
     function handleSubmit(e){
         e.preventDefault();
-        Axios.post(url,{
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "Do you really want to assign this member!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(url,{
 
-            order_Status : order.order_Status
+                    order_Status : order.order_Status
+        
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data === "Order Status Updated!") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Order Status Updated!',
+                          })
+                          props.onHide();
+                          history.push('/owner-view-orders');
+        
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+        
+                          })
+                    }            
+                })
+            }else{
+              
+            }
+          })
 
-        })
-        .then(res => {
-            console.log(res.data)
-            if (res.data === "Order Status Updated!") {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Order Status Updated!',
-                  })
-                  props.onHide();
-                  history.push('/owner-view-orders');
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-
-                  })
-            }            
-        })
     }
 
         return (
