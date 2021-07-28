@@ -17,8 +17,8 @@ let mailOptions = {
     from:'peacotclothing@gmail.com',
     to:`${details.userEmail}`,
     subject:'Password Reset',
-    text:`Click on this link here to reset the password of your peacot account. 
-    ${url}`
+    html:`<h4>Click on this link here to reset the password of your peacot account<h4/><br/>${url}`
+    
 }
 
 transporter.sendMail(mailOptions,function(err,  info){

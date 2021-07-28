@@ -17,8 +17,7 @@ let mailOptions = {
     from:'peacotclothing@gmail.com',
     to:`${details.userEmail}`,
     subject:'Account Verification',
-    text:`Click on this link here to verify your peacot account. 
-    ${url}`
+    html:`<h4>Click on this link here to verify your peacot account.</h4><br/>${url}`
 }
 
 transporter.sendMail(mailOptions,function(err,  info){

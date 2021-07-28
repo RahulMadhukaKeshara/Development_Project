@@ -26,7 +26,7 @@ const invoice = async(order) => {
           address: order.delivery_Address_1 + ", " + order.delivery_Address_2 + ", " + order.delivery_Address_3,
           city: order.delivery_District,
           state: "Srilanka",
-          country: "SriLanka",
+          country: "",
           postal_code: order.delivery_Postal,
         },
         items: itemArr,
@@ -36,15 +36,16 @@ const invoice = async(order) => {
         header:{
             company_name: "Peacot",
             company_logo: "logo.png",
-            company_address: "Peacot , 147/A , Pliyandala, Horana"
+            company_address: "Peacot , 354/A , Ananda Maithri Mw, Bellapitiya, Horana"
         },
         footer:{
-          text: "Any footer text - you can add any text here"
+          text: `${order.payment_Method === "Online Payment" ? ("Our Delivery Member will deliver the product to your doorstep..."):("Our Delivery Member will collect your payment...")}`,
         },
         currency_symbol:"Rs. ", 
         date: {
           billing_date: order.order_Placed_Date,
-          due_date: order.order_Placed_Date,
+          
+          due_date: `${order.payment_Method === "Online Payment" ? ("Payment Done"):(order.expected_Delivery_Date)}`,
         }
     };
      await niceInvoice(invoiceDetail, 'invoice.pdf');

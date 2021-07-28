@@ -27,7 +27,7 @@ let mailOptions = {
     to:`${emailDetails.order_User.user_Email}`,
     subject:'Order Placed!',
     // html: body + body1+ body3 +"</table><br/>"+ body2,
-    html: `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><br/><h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>`,
+    html: `<h4>Your Order has been placed Succesfully...Your Order ID is ${emailDetails.order_ID}</h4><br/><h4 style="color:black;">Please find the purchase order here,<br/><br/></h4>`,
     attachments: [{
         filename: 'invoice.pdf',
         path: './invoice.pdf',

@@ -189,7 +189,7 @@ function Checkout() {
     const jwt = localStorage.getItem("token");
     let userID = jwtDecode(jwt)._id;
 
-    function handlePlaceOrder(){
+    function handlePlaceOrder(e){
       Swal.fire({
         title: 'Are you sure ?',
         text: "Order will be placed if you click yes!",
@@ -200,7 +200,7 @@ function Checkout() {
         confirmButtonText: 'Yes!'
       }).then((result) => {
         if (result.isConfirmed) {
-            handleSubmit();
+            handleSubmit(e);
         }
       })
     }

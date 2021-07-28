@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Delivery Assigned!',
-        text:`Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} has been assigned to deliver your order.Expected Delivery Date is ${orderOB.expected_Delivery_Date}. Please login to your account for more details!!!`
+        html:`<h4>Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} has been assigned to deliver your order</h4><h4>Expected Delivery Date is ${orderOB.expected_Delivery_Date}</h4><h4>Please login to your peacot account for more details!!!</h4>`
 
     }
       
@@ -32,7 +32,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Delivery is On The Way!',
-        text:`Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} is On the way now. Please login to your account for more details!!!`
+        html:`<h4>Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} is On the way now for the Order under Order ID : ${orderOB.order_ID}</h4><br/><h5>Please login to your account for more details!!!</h5>`
 
     }
       
@@ -45,7 +45,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Order Delivered!',
-        text:`Order has been delivered to ${orderOB.delivery_Fname} ${orderOB.delivery_Lname} on ${orderOB.actual_Delivery_Date}. Thanks for Shopping with Us!!!`
+        html:`<h4>Order (Order ID : ${orderOB.order_ID}) has been delivered to ${orderOB.delivery_Fname} ${orderOB.delivery_Lname} on ${orderOB.actual_Delivery_Date}</h4><h4>Thanks for Shopping with Peacot!!!</h4>`
 
     }
 
@@ -58,7 +58,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Cancel Request Placed!',
-        text:`Cancel request placed on 'Order ID: ${orderOB._id}' as per your request. Our staff member will contact you soon!!! `
+        html:`<h4>Cancel request placed on "Order ID: ${orderOB.order_ID}" as per your request.<h5>Our staff member will contact you soon!!!</h5>`
 
     }
 
@@ -71,7 +71,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Return Request Placed!',
-        text:`Return request placed on 'Order ID: ${orderOB._id}' as per your request. Our staff member will contact you soon!!! `
+        html:`<h4>Return request placed on "Order ID: ${orderOB.order_ID}" as per your request.<h5>Our staff member will contact you soon!!!</h5>`
 
     }
 
@@ -84,7 +84,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Order Cancelled!',
-        text:`Order that placed under 'Order ID: ${orderOB._id}' has been cancelled as per your request.Thanks for shopping with Us!!!`
+        html:`<h4>Order that placed under "Order ID: ${orderOB.order_ID}" has been cancelled as per your request.<h4><h5>Thanks for shopping with Peacot!!!</>`
 
     }
 
@@ -97,7 +97,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Return Request Accepted!',
-        text:`Return request has been accepted on order ID : ${orderOB._id}.Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} will be there soon to return the order!!!`
+        html:`<h4>Return request has been accepted on order ID : ${orderOB.order_ID}.</h4><h4>Our Delivery Member ${orderOB.delivery_Member.user_Fname} ${orderOB.delivery_Member.user_Lname} will be there soon to return the order!!!</h4>`
 
     }
 
@@ -110,7 +110,7 @@ let transporter = nodemailer.createTransport({
         from:'peacotclothing@gmail.com',
         to:`${orderOB.order_User.user_Email}`,
         subject:'Order Returned!',
-        text:`Order that placed under 'Order ID: ${orderOB._id}' has been returned as per your request.Thanks for shopping with Us!!!`
+        html:`<h4>Order that placed under 'Order ID: ${orderOB.order_ID}' has been returned as per your request.</h4><h4>Thanks for shopping with Peacot!!!</h4>`
 
     }
 
