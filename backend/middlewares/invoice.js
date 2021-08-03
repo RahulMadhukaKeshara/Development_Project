@@ -2,8 +2,7 @@ const niceInvoice = require("nice-invoice");
 
 const invoice = async(order) => {
 
-// console.log("Order Object7777777777777777",order);
-//console.log("Order Object7777777777777777",order.delivery_Lname);
+
    let itemArr = [];
    let count = 1;
     order.order_Items.forEach(element => {

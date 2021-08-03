@@ -2,14 +2,15 @@ const nodemailer = require("nodemailer");
 
 const accountVerification = (details) => {
 
-const url = `http://localhost:5000/users/emailVerification/${details.verifyLink}`;
+
+const url = `http://localhost:5000/users/emailVerification/${details.verifyLink}`; //verification link
 
 let transporter = nodemailer.createTransport({
 
     service:'gmail',
     auth: {
-      user: 'peacotclothing@gmail.com', // generated ethereal user
-      pass: 'peacot123+*', // generated ethereal password
+      user: 'peacotclothing@gmail.com', 
+      pass: 'peacot123+*', 
     },
   })
 

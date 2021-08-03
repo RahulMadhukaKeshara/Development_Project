@@ -23,7 +23,6 @@ router.route('/:id').get(async (req,res) => {
     let userOb = await User.findById(req.params.id)
     let orders = await Order.find({order_User : userOb}).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
     
-    //populate({path : 'order_Items.product' , model : 'Product'})
     res.json(orders)
     
   } catch (error) {
@@ -31,6 +30,7 @@ router.route('/:id').get(async (req,res) => {
   }
 });
 
+//Place new order
 router.route('/add').post(async(req,res) => {
 
   try {
@@ -79,16 +79,17 @@ router.route('/add').post(async(req,res) => {
     });
  
     await newOrder.save();
+
     //sending email
     let orderOb = await Order.findOne({ order_ID : req.body.order_ID}).populate([{path : 'order_Items.product' , model : 'Product'},{path : 'order_User' , model : 'User'}]);
     console.log(orderOb);
     await invoice(orderOb);
     await sendOrderPlacedEmail(orderOb);
     
+    //removing order items from inventory
     let cartOb = await Cart.findOne({cart_User : userOb}).populate({path : 'cart_Items.product' , model : 'Product'});
-    //console.log(cartOb)
+
      cartOb.cart_Items.forEach(async element => {
-      //console.log(element.product._id)
       let productOb =  await Product.findById(element.product._id)
       productOb.product_Stock.forEach(item => {
         if(element.color === item.color){
@@ -151,8 +152,6 @@ router.route('/orderDetails/:id').get(async (req,res) => {
 
      let orderOb = await Order.findById(req.params.id).populate([{ path: 'order_Items.product', model: 'Product'}, { path: 'order_User', model: 'User'} ,{ path: 'delivery_Member', model: 'User'}])
      res.json(orderOb)
-    //console.log(orders)
-
     
    } catch (error) {
      res.status(400).json('Error: '+ error)
@@ -251,6 +250,7 @@ router.route('/assignMember/update/:id').post(async(req,res) => {
 
  });
 
+
  //get deliveries related to a delivery member
 router.route('/assignedOrders/:id').get(async(req,res) => {
 
@@ -263,6 +263,7 @@ router.route('/assignedOrders/:id').get(async(req,res) => {
   }
 
 });
+
 
  //get ongoing deliveries related to a delivery member
  router.route('/ongoingOrders/:id').get(async(req,res) => {

@@ -2,7 +2,6 @@ const router = require('express').Router();
 let User = require('../models/users.model');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-//const env = require('../envVariables')
 let Cart = require('../models/carts.model');
 require('dotenv').config();
 let accountVerification = require('../middlewares/accountVerification');
@@ -11,7 +10,7 @@ let jwtDecode = require('jwt-decode');
 const staffAddingEmail = require('../middlewares/staffAddingEmail');
 
 
-
+// get all users
 router.route('/').get((req,res) => {
     User.find()
     .then(users => res.json(users))
@@ -57,6 +56,7 @@ router.route('/add').post(async (req,res) => {
             user_Password 
         });
 
+        //send email
         let details = {
             userEmail : newUser.user_Email,
             password : newUser.user_Password
@@ -127,13 +127,12 @@ router.route('/signup').post(async (req,res) => {
     //Set Token
     const token = jwt.sign({_id : newCustomer._id, user_Email: newCustomer.user_Email , user_Type:newCustomer.user_Type , user_Fname:newCustomer.user_Fname},  process.env.jwtKey);
 
+    //send verification email
     let details = {
         verifyLink : token,
         userEmail : newCustomer.user_Email,
     }
-    console.log(details);
     accountVerification(details);
-    console.log("**+");
 
     res.status(200).json('User Added!'); 
 
@@ -145,8 +144,7 @@ router.route('/signup').post(async (req,res) => {
 });
 
 
-
-
+//get user by id
 router.route('/:id').get((req,res) => {
     User.findById(req.params.id)
     .then(users => res.json(users))
@@ -155,7 +153,7 @@ router.route('/:id').get((req,res) => {
 
 
 
-
+//delete user
 router.route('/:id').delete((req,res) => {
     User.findByIdAndDelete(req.params.id)
     .then(() => res.json('User Deleted!'))
@@ -176,6 +174,7 @@ router.route('/update/:id').post((req,res) => {
     })
     .catch(err => res.status(400).json('Error: '+ err));
 });
+
 
 //User Login
 router.route('/login').post(async (req,res) => {
@@ -208,7 +207,6 @@ router.route('/update/user-account/:id').post((req,res) => {
     User.findById(req.params.id)
     .then(users => {
 
-        console.log(req.body)
         users.user_Fname = req.body.user_Fname;
         users.user_Lname = req.body.user_Lname;
         users.user_Contact = req.body.user_Contact; 
@@ -225,6 +223,7 @@ router.route('/update/user-account/:id').post((req,res) => {
     })
     .catch(err => res.status(400).json('Error: '+ err));
 });
+
 
 //email verification
 router.route('/emailVerification/:token').get(async(req,res) => {
@@ -249,6 +248,7 @@ router.route('/emailVerification/:token').get(async(req,res) => {
 
 });
 
+
 //Change Password
 router.route('/changePassword/:id').post(async(req,res)=>{
 
@@ -269,6 +269,7 @@ router.route('/changePassword/:id').post(async(req,res)=>{
     }
 });
 
+
 //redirect from password reset link
 router.route('/passwordReset/:token').get(async(req,res) => {
 
@@ -287,31 +288,26 @@ router.route('/passwordReset/:token').get(async(req,res) => {
 
 });
 
+
 //send password reset link
 router.route('/sendResetLink').post(async(req,res)=>{
 
-    console.log(req.body)
     try {
 
     //Check User Availability
     let user = await User.findOne({ user_Email: req.body.user_Email});
     if(!user) return res.json({warn:'Invalid email'});
-    console.log(user);
 
     //Set Token
     const token = jwt.sign({_id : user._id, user_Email: user.user_Email , user_Fname:user.user_Fname},  process.env.jwtKey)
-    console.log(token);
 
     let details = {
         resetLink : token,
         userEmail : user.user_Email,
     }
 
-    console.log(details);
-
 
     passwordResetLink(details);
-    console.log("******************");
     
     res.status(200).json({msg:'Reset Link Sent!'}); 
 

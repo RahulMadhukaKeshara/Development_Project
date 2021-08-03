@@ -62,7 +62,6 @@ router.route('/update/:id').post((req,res) => {
     DeliveryCharge.findById(req.params.id)
     .then(charge => {
 
-        //console.log(req.body)
         charge.delivery_charge = parseFloat(req.body.delivery_charge);
         charge.expected_range = req.body.expected_range;
 

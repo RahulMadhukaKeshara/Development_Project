@@ -56,7 +56,7 @@ router.route('/').get((req,res) => {
   .catch(err => res.status(400).json('Error: '+ err));
 });
 
-//get specific cart
+//get specific cart by user
 router.route('/:id').get(async (req,res) => {
   
   try {

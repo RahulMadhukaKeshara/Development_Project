@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import {useHistory} from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import PaymentModal from '../checkout/PaymentModel';
-// import PayModal from '../checkout/PayModel';
 
 
 function Checkout() {
@@ -77,7 +76,6 @@ function Checkout() {
           const data = await Axios.get(
             "http://localhost:5000/cart/"+ params.id
           );
-          // console.log(data.data);
           setCartItems(data.data);
 
         } catch (e) {
@@ -90,7 +88,6 @@ function Checkout() {
           const data = await Axios.get(
             "http://localhost:5000/deliveryCharges/"
           );
-          // console.log(data.data);
           setDeliveryCharges(data.data);
         } catch (e) {
           console.log(e);
@@ -124,7 +121,7 @@ function Checkout() {
             const data = await Axios.post(
               "http://localhost:5000/deliveryCharges/charges", {district : District}
             );
-            //console.log(data.data.delivery_charge)
+            
             setDelCharge(parseInt(data.data.delivery_charge));
             setPlusDate(parseInt(data.data.expected_range));
             
@@ -147,9 +144,7 @@ function Checkout() {
 
         const newOrder = {...order};
          let newData = {...selectedDistrict};
-         //console.log(newData)
          newData = e.target.value;
-         //console.log(newData)
          setSelectedDistrict(newData);
          handleDelCharges(newData);
          newOrder.delivery_District = newData;
@@ -185,6 +180,8 @@ function Checkout() {
           console.log("changes",newOrder)
         }
     }
+
+    
 
     const jwt = localStorage.getItem("token");
     let userID = jwtDecode(jwt)._id;
@@ -392,13 +389,6 @@ function Checkout() {
 
                     (order.payment_Method === "Online Payment" ? 
                     (<PaymentModal orderDetails={order} orderTotal={subTotal - totalDiscount + delCharge} orderItems={cartItems.cart_Items} dateGap={plusDate} />):
-                //     (   
-                //     <PayModal 
-                // // Use a unique value for the orderId
-                // orderId={45896588}
-                // name="Just For You Mom Ribbon Cake"
-                // amount="4500"
-                //     />):
                     (
                       ""
                     ))

@@ -8,8 +8,8 @@ let transporter = nodemailer.createTransport({
 
     service:'gmail',
     auth: {
-      user: 'peacotclothing@gmail.com', // generated ethereal user
-      pass: 'peacot123+*', // generated ethereal password
+      user: 'peacotclothing@gmail.com', 
+      pass: 'peacot123+*', 
     },
   })
 

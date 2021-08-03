@@ -2,12 +2,15 @@ const router = require('express').Router();
 let Supplier = require('../models/suppliers.model');
 const nodemailer = require("nodemailer");
 
+//get all suppliers
 router.route('/').get((req,res) => {
     Supplier.find()
     .then(suppliers => res.json(suppliers))
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+
+// add new suppliers
 router.route('/add').post((req,res) => {
 
     const supplier_Name = req.body.supplier_Name;
@@ -31,18 +34,23 @@ router.route('/add').post((req,res) => {
 
 });
 
+//add suppliers by id 
 router.route('/:id').get((req,res) => {
     Supplier.findById(req.params.id)
     .then(suppliers => res.json(suppliers))
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+
+//delete suppliers
 router.route('/:id').delete((req,res) => {
     Supplier.findByIdAndDelete(req.params.id)
     .then(() => res.json('Supplier Deleted!'))
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+
+//update supplier details
 router.route('/update/:id').post((req,res) => {
     Supplier.findById(req.params.id)
     .then(suppliers => {

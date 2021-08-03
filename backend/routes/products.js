@@ -6,7 +6,7 @@ let Supplier = require('../models/suppliers.model');
 let Order = require('../models/orders.model');
 const invoice = require('../middlewares/invoice');
 
-
+//multer configuration
 const upload = multer({
     limits: {
       fileSize: 1000000, // max file size 1MB = 1000000 bytes
@@ -21,6 +21,7 @@ const upload = multer({
   });
 
 
+// get all products
 router.route('/').get(async(req,res) => {
     Product.find().populate([{path : 'product_reviews.review_person' , model : 'User'},{path : 'product_Supplier' , model : 'Supplier'}])
     .then(products => res.json(products))
@@ -28,11 +29,11 @@ router.route('/').get(async(req,res) => {
 });
 
 
+// add a new product
 router.route('/add').post(upload.single("product_Img"),async(req,res) => {
     
   let supplierOb = await Supplier.findById(req.body.product_Supplier);
 
-  //  const product_Img = req.body.product_Img;
     const product_Name = req.body.product_Name;
     const product_Category = req.body.product_Category;
     const product_Description = req.body.product_Description;
@@ -49,7 +50,6 @@ router.route('/add').post(upload.single("product_Img"),async(req,res) => {
 
     const newProduct = new Product({
 
-      //  product_Img,
         product_Name,
         product_Category,
         product_Description,
@@ -74,6 +74,8 @@ router.route('/add').post(upload.single("product_Img"),async(req,res) => {
 
 });
 
+
+//get product image 
 router.get("/photo/:id", async (req, res) => {
   try {
     const result = await Product.findOne({ _id: req.params.id });
@@ -84,6 +86,8 @@ router.get("/photo/:id", async (req, res) => {
   }
 });
 
+
+//get product by id
 router.route('/:id').get((req,res) => {
     Product.findById(req.params.id).populate([{path : 'product_reviews.review_person' , model : 'User'},{path : 'product_Supplier' , model : 'Supplier'}])
     .then(products => res.json(products))
@@ -96,6 +100,7 @@ router.route('/:id').delete((req,res) => {
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+//update product details
 router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => {
 
     let supplierOb = await Supplier.findById(req.body.product_Supplier);
@@ -116,9 +121,6 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
         products.product_New = req.body.product_New;
         products.product_Supplier = supplierOb;
 
-        // const file = req.file.buffer;
-        // products.product_Img = file;
-        // console.log("++++++++++++++",products)
         products.save()
         .then(() => res.json('Product Updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -126,12 +128,11 @@ router.route('/update/:id').post(upload.single("product_Img"),async(req,res) => 
     .catch(err => res.status(400).json('Error: '+ err));
 });
 
+
 //add reviews
 router.route('/addReview/:id').post(async(req,res)=>{
 
   try {
-    // console.log(req.params.id)
-    // console.log(req.body)
      let productOb =  await Product.findOne({ _id: req.params.id });
      let reviewUserOb = await User.findOne({ _id: req.body.review_person });
      let orderOb = await Order.findOne({_id:req.body.review_order});
