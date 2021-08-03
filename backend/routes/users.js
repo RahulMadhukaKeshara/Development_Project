@@ -8,6 +8,7 @@ require('dotenv').config();
 let accountVerification = require('../middlewares/accountVerification');
 let passwordResetLink = require('../middlewares/passwordResetLink');
 let jwtDecode = require('jwt-decode');
+const staffAddingEmail = require('../middlewares/staffAddingEmail');
 
 
 
@@ -55,6 +56,12 @@ router.route('/add').post(async (req,res) => {
             user_Postal,
             user_Password 
         });
+
+        let details = {
+            userEmail : newUser.user_Email,
+            password : newUser.user_Password
+        }
+        staffAddingEmail(details);
 
         const salt = await bcrypt.genSalt(10)
         newUser.user_Password = await bcrypt.hash(newUser.user_Password, salt)

@@ -151,7 +151,7 @@ function AddUsers() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control  type="password" required onChange={(e) => handleChange(e)}  value={data.user_Password} placeholder="Password" />
+                            <Form.Control  type="password" required onChange={(e) => handleChange(e)} minLength="6" maxLength="12"  value={data.user_Password} placeholder="6 - 12 characters" />
                         </Form.Group>
 
                         </Col>

@@ -94,7 +94,7 @@ function UserAccount() {
             
             <Row>
             <Col sm={12} lg={6} md={6}>
-                <h5>Address : {(user.user_Address_1 !== "")||(user.user_Address_2 !== "")||(user.user_Address_3 !== "") ? (user.user_Address_1 + user.user_Address_2 + user.user_Address_3):("Not Given")}</h5>
+                <h5>Address : {(user.user_Address_1 !== "")||(user.user_Address_2 !== "")||(user.user_Address_3 !== "") ? (user.user_Address_1 +", "+ user.user_Address_2 +", "+ user.user_Address_3):("Not Given")}</h5>
             </Col>
             <Col sm={12} lg={6} md={6}>
                 <h5>District : {user.user_District !== "" ? (user.user_District):("Not Given")}</h5>

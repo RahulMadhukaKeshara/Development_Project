@@ -142,7 +142,7 @@ function SignUpForm() {
                         <Col sm={12} lg={6} md={6}>
                         <Form.Group  controlId="user_Password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Password} type="password" placeholder="Password"  />
+                            <Form.Control  required onChange={(e) => handleChange(e)}  value={userData.user_Password} maxLength="12" minLength="6" type="password" placeholder="6 - 12 characters"  />
                         </Form.Group>
 
                         </Col>
